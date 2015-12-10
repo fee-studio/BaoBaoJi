@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Xcode 7.0">
+    <entity name="LCClientEntity" syncable="YES"/>
+    <entity name="LCTimelineEntity" syncable="YES">
+        <attribute name="happenTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="isDelete" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recordObj" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="shareImages" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="shareMsg" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="author" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LCUserEntity" syncable="YES"/>
+    </entity>
+    <entity name="LCUserEntity" syncable="YES">
+        <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="emailVerified" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isOnline" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="mobilePhoneNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobilePhoneVerified" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sex" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="LCTimelineEntity" positionX="-335" positionY="18" width="128" height="148"/>
+        <element name="LCClientEntity" positionX="-218" positionY="-117" width="128" height="45"/>
+        <element name="LCUserEntity" positionX="-137" positionY="-0" width="128" height="193"/>
+    </elements>
+</model>
