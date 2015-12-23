@@ -7,6 +7,8 @@
 //
 
 #import "YIModuleItemView.h"
+#import "YIConfigAttributedString.h"
+#import "NSString+YIAttributed.h"
 
 @implementation YIModuleItemView
 
@@ -40,11 +42,19 @@
 - (void)loadSubviews {
     UIView *lastView = nil;
 
+	NSString *timeString = @"3012月";
+	// 设置组
+	NSArray *array = @[
+					   // 全局设置
+					   [YIConfigAttributedString font:kAppSmlFont range:[timeString range]],
+					   [YIConfigAttributedString foregroundColor:kAppTextMidColor range:[timeString range]],
+					   // 局部设置
+					   [YIConfigAttributedString foregroundColor:kAppTextDeepColor range:NSMakeRange(0, 2)],
+					   [YIConfigAttributedString font:kAppBigFont range:NSMakeRange(0, 2)]
+					   ];
 	UILabel *timeLbl = [[UILabel alloc] init];
 	timeLbl.numberOfLines = 1;
-	timeLbl.font = kAppBigFont;
-	timeLbl.textColor = kAppDeepColor;
-	[timeLbl setText:@"1209"];
+	timeLbl.attributedText = [timeString createAttributedStringAndConfig:array];
 	[self addSubview:timeLbl];
 	
 	[timeLbl mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -54,13 +64,23 @@
 		make.width.equalTo(@50);
 	}];
 	
-	
+	UIButton *dayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+	[dayBtn setTitle:@"星期日" forState:UIControlStateNormal];
+	[dayBtn setBackgroundImage:[UIImage imageNamed:@"ic_tl_day_sepatate"] forState:UIControlStateNormal];
+	dayBtn.titleLabel.font = kAppMiniFont;
+	[self addSubview:dayBtn];
+	[dayBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+		make.top.equalTo(timeLbl.mas_bottom).with.offset(10);
+		make.left.equalTo(self);
+		make.width.equalTo(@50);
+		make.height.equalTo(@16);
+	}];
 	
     if (self.title) {
         UILabel *titleLbl = [[UILabel alloc] init];
         titleLbl.numberOfLines = 0;
-        titleLbl.font = kAppBoldMid2Font;
-        titleLbl.textColor = kAppDeepColor;
+        titleLbl.font = kAppMidFont;
+        titleLbl.textColor = kAppTextDeepColor;
         [titleLbl setText:_title];
         [self addSubview:titleLbl];
         
@@ -76,7 +96,7 @@
     if (self.subTitle) {
         UILabel *subTitleLbl = [[UILabel alloc] init];
         subTitleLbl.numberOfLines = 0;
-        subTitleLbl.font = kAppMid2Font;
+        subTitleLbl.font = kAppMidFont;
         subTitleLbl.textColor = [UIColor dangerColor];
         [subTitleLbl setText:_subTitle];
         subTitleLbl.font = [UIFont systemFontOfSize:10];
@@ -94,8 +114,8 @@
     if (self.content) {
         UILabel *contentLbl = [[UILabel alloc] init];
         contentLbl.numberOfLines = 0;
-        contentLbl.font = kAppMid2Font;
-        contentLbl.textColor = kAppDeepColor;
+        contentLbl.font = kAppMidFont;
+        contentLbl.textColor = kAppTextDeepColor;
         [contentLbl setText:_content];
         [self addSubview:contentLbl];
         

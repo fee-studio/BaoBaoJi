@@ -10,9 +10,15 @@
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import "YIMyVc.h"
-#import "YIUserModel.h"
+//#import "YIUserModel.h"
 #import "YIBbjVc.h"
-#import "LCTimelineModel.h"
+#import "YILoginViewController.h"
+#import "LCTimelineEntity.h"
+#import "LCBabyEntity.h"
+#import "LCFirstDoEntity.h"
+#import "LCLocationEntity.h"
+#import "LCItemEntity.h"
+#import "LCUserEntity.h"
 
 
 @interface YIAppDelegate () <CLLocationManagerDelegate, UIViewControllerTransitioningDelegate, RDVTabBarControllerDelegate>
@@ -27,7 +33,7 @@
     NSLog(@"=== initialize");
 
 #ifdef DEBUG
-    [[AFNetworkActivityLogger sharedLogger] startLogging];
+//    [[AFNetworkActivityLogger sharedLogger] startLogging];
 #endif
 }
 
@@ -57,7 +63,7 @@
     [self startLocation];
     
     // 获取运营商的信息
-    [self carrierOperator];
+//    [self carrierOperator];
 
     // 加载AVOSCloud
     [self loadAVOSCloud:launchOptions];
@@ -72,10 +78,14 @@
 
 - (void)loadAVOSCloud:(NSDictionary *)launchOptions {
     // 子类化的实现
-    [YIBaseModel registerSubclass];
-    [YIUserModel registerSubclass];
-    [YIFamilyModel registerSubclass];
-    [LCTimelineModel registerSubclass];
+    [LCClientEntity registerSubclass];
+    [LCUserEntity registerSubclass];	
+    [LCTimelineEntity registerSubclass];
+	[LCBabyEntity registerSubclass];
+	[LCFirstDoEntity registerSubclass];
+	[LCLocationEntity registerSubclass];
+	[LCItemEntity registerSubclass];
+	[LCUserEntity registerSubclass];
     
     [AVOSCloud setApplicationId:@"DKsBW5t5SO4AfRh1NUe1MNKz"
                       clientKey:@"nyQX4tuOA9D3SU0z4QRI76me"];
@@ -85,19 +95,19 @@
     [[AVInstallation currentInstallation] saveInBackground];
 
 #ifdef DEBUG
-    [AVAnalytics setAnalyticsEnabled:NO];
-    [AVOSCloud setAllLogsEnabled:YES];
+//    [AVAnalytics setAnalyticsEnabled:NO];
+//    [AVOSCloud setAllLogsEnabled:YES];
 #endif
 
 }
 
 // http://blog.csdn.net/decajes/article/details/41807977
-- (void)carrierOperator {
-    CTTelephonyNetworkInfo *info = [[CTTelephonyNetworkInfo alloc] init];
-    CTCarrier *carrier = [info subscriberCellularProvider];
-    NSString *mCarrier = [NSString stringWithFormat:@"%@", [carrier carrierName]];
-    mGlobalData.carrier = mCarrier;
-}
+//- (void)carrierOperator {
+//    CTTelephonyNetworkInfo *info = [[CTTelephonyNetworkInfo alloc] init];
+//    CTCarrier *carrier = [info subscriberCellularProvider];
+//    NSString *mCarrier = [NSString stringWithFormat:@"%@", [carrier carrierName]];
+//    mGlobalData.carrier = mCarrier;
+//}
 
 #pragma mark 定位
 
@@ -117,6 +127,7 @@
     }
 }
 
+/*
 //定位代理经纬度回调
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     [manager stopUpdatingLocation];
@@ -150,6 +161,7 @@
         // 提示用户出错原因，可按住Option键点击 KCLErrorDenied的查看更多出错信息，可打印error.code值查找原因所在
     }
 }
+ */
 
 #pragma mark 其他
 
@@ -174,15 +186,15 @@
 }
 
 - (void)timerFire {
-    AVQuery *query = [YIBaseModel query];
+    AVQuery *query = [LCClientEntity query];
     [query whereKey:@"idfv" equalTo:[UIDevice vendorId]];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        YIBaseModel *bm = nil;
+        LCClientEntity *bm = nil;
         if (error || objects == nil || objects.count == 0) {
-            bm = [YIBaseModel object];
+            bm = [LCClientEntity object];
         } else {
-            YIBaseModel *object = objects[0];
-            bm = [YIBaseModel objectWithoutDataWithObjectId:object.objectId];
+            LCClientEntity *object = objects[0];
+            bm = [LCClientEntity objectWithoutDataWithObjectId:object.objectId];
         }
         
         bm.appVersion = [YICommonUtil appVersion];
@@ -191,16 +203,16 @@
         bm.osVersion = [UIDevice systemVersion];
         bm.deviceModel = [UIDevice deviceModel];
         bm.idfv = [UIDevice vendorId];
-        bm.deviceToken = [mGlobalData deviceToken];
-        bm.netType = [mGlobalData netType];
-        bm.provider = [mGlobalData carrier];
-        bm.country = [mGlobalData country];
-        bm.province = [mGlobalData province];
-        bm.city = [mGlobalData city];
-        bm.district = [mGlobalData district];
-        bm.street = [mGlobalData street];
-        bm.longitude = [mGlobalData longitude];
-        bm.latitude = [mGlobalData latitude];
+//        bm.deviceToken = [mGlobalData deviceToken];
+//        bm.netType = [mGlobalData netType];
+//        bm.provider = [mGlobalData carrier];
+//        bm.country = [mGlobalData country];
+//        bm.province = [mGlobalData province];
+//        bm.city = [mGlobalData city];
+//        bm.district = [mGlobalData district];
+//        bm.street = [mGlobalData street];
+//        bm.longitude = [mGlobalData longitude];
+//        bm.latitude = [mGlobalData latitude];
         bm.resolutionWidth = [NSString stringWithFormat:@"%f", [UIScreen DPISize].width];
         bm.resolutionHeight = [NSString stringWithFormat:@"%f", [UIScreen DPISize].height];
         [bm saveInBackground];
@@ -229,10 +241,10 @@
     
     // 清理所有缓存数据
     NSString *curVersionCode = [YICommonUtil appVersion];
-    if (![mGlobalData.savedVersionCode isEqualToString:curVersionCode]) {
-        [YIBaseModel clearAllCacheData];
-        [mGlobalData setSavedVersionCode:curVersionCode];
-    }
+//    if (![mGlobalData.savedVersionCode isEqualToString:curVersionCode]) {
+//        [LCClientEntity clearAllCacheData];
+//        [mGlobalData setSavedVersionCode:curVersionCode];
+//    }
 }
 
 #pragma mark init UMeng
@@ -362,41 +374,49 @@
     mGlobalData.isLaunched = YES;
 }
 
-// 加载登录页
-- (void)loadLoginViewController {
-//    UIViewController *loginViewController = [[YIPhoneLoginVc alloc] init];
-//    self.window = [[UIWindow alloc] initWithFrame:mScreenBounds];
-//    [self.window setRootViewController:loginViewController];
-//    //    [TSMessage setDefaultViewController:self.window.rootViewController];
-//    [self.window makeKeyAndVisible];
-}
-
 #pragma mark -
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     // 加载应用
-    [self loadMainViewController];
+    [self loadViewController];
     
     return YES;
 }
 
 // 加载应用主界面
+- (void)loadViewController {
+	
+//	[AVUser logOut]; // todo ..
+	
+	UIViewController *mainVc = nil;
+	AVUser *user = [AVUser currentUser];
+	if (user) {
+		[self loadMainViewController];
+	} else {
+		[self loadLoginViewController];
+	}
+}
+
+- (void)loadLoginViewController {
+	YILoginViewController *vc = [[YILoginViewController alloc] init];
+	YIBaseNavigationController *mainNc = [[YIBaseNavigationController alloc] initWithRootViewController:vc];
+	[self.window setRootViewController:mainNc];
+	[self.window makeKeyAndVisible];
+}
+
 - (void)loadMainViewController {
-    YIBbjVc *bbjVc = [[YIBbjVc alloc] init];
-    YIBaseViewController *svc = [[YIBaseViewController alloc] init];
-    YIMyVc *mvc = [[YIMyVc alloc] init];
-    UIViewController *fvc = [[UIViewController alloc] init];
-    
-    RDVTabBarController *tabBarController = [[RDVTabBarController alloc] init];
-    tabBarController.delegate = self;
-    [tabBarController setViewControllers:@[bbjVc, svc, mvc]];
-    [self customizeTabBarForController:tabBarController];
-
-    YIBaseNavigationController *mainNc = [[YIBaseNavigationController alloc] initWithRootViewController:tabBarController];
-
-    [self.window setRootViewController:mainNc];
-    [self.window makeKeyAndVisible];
+	YIBbjVc *bbjVc = [[YIBbjVc alloc] init];
+	YIBaseViewController *svc = [[YIBaseViewController alloc] init];
+	YIMyVc *mvc = [[YIMyVc alloc] init];
+	UIViewController *fvc = [[UIViewController alloc] init];
+	RDVTabBarController *tabBarController = [[RDVTabBarController alloc] init];
+	tabBarController.delegate = self;
+	[tabBarController setViewControllers:@[bbjVc, svc, mvc]];
+	[self customizeTabBarForController:tabBarController];
+	YIBaseNavigationController *mainNc = [[YIBaseNavigationController alloc] initWithRootViewController:tabBarController];
+	[self.window setRootViewController:mainNc];
+	[self.window makeKeyAndVisible];
 }
 
 - (void)customizeTabBarForController:(RDVTabBarController *)tabBarController {
@@ -419,6 +439,17 @@
         [item setTitle:[tabBarItemTitles objectAtIndex:index]];
         index++;
     }
+	
+	// Make the tab bar translucent
+	RDVTabBar *tabBar = tabBarController.tabBar;
+	// After the tabBarController initialization
+	tabBar.translucent = YES;
+	// Customize the tabBar background
+	tabBar.backgroundView.backgroundColor = [UIColor colorWithRed:245/255.0
+															green:245/255.0
+															 blue:245/255.0
+															alpha:0.9];
+	
 }
 
 #pragma mark 初始化工作完毕
@@ -437,7 +468,7 @@
     NSLog(@"推送注册成功: Device Token is %@", mGlobalData.deviceToken);
 
     mGlobalData.deviceToken = [deviceToken hexadecimalString];
-    
+	
     // 友盟
     [UMessage registerDeviceToken:deviceToken];
     [UMessage addAlias:[UMFeedback uuid] type:[UMFeedback messageType] response:^(id responseObject, NSError *error) {

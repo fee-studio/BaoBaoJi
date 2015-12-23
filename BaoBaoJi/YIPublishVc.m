@@ -7,25 +7,31 @@
 //
 
 #import "YIPublishVc.h"
-#import "LCTimelineModel.h"
+#import "LCTimelineEntity.h"
 #import "YIFirstDoItemView.h"
 #import "CTAssetsPickerController.h"
 #import "YIRecordTimeViewController.h"
 #import "YIFamilyListViewController.h"
+#import "YILocationViewController.h"
+
 
 @interface YIPublishVc () <UITextViewDelegate, SwipeViewDelegate,
 SwipeViewDataSource, YIFirstDoItemViewDelegate,
-CTAssetsPickerControllerDelegate, UIActionSheetDelegate> {
+CTAssetsPickerControllerDelegate, UIActionSheetDelegate, YILocationViewControllerDelegate> {
     UIView *lastView;
+	UIView *localView;
 
-    UITextView *textView;
+    UITextView *sharedTextTv;
 	UIButton *firstDoBtn;
 	UIView *photosView;
+	NSDictionary *curFirstDoItem;
 }
 
-@property(nonatomic, weak) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, weak) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) SwipeView *swipeView;
 @property (nonatomic, copy) NSArray *firstDoThings;
+@property (nonatomic, strong) LCLocationEntity *locationEntity;
+
 @end
 
 @implementation YIPublishVc
@@ -40,23 +46,27 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate> {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	[self setupUI];
+	
+}
 
+- (void)setupUI {
 	// 导航栏
-    [self setupNavigationBar];
-    
-    // 输入框...
-    textView = [[UITextView alloc] init];
-    textView.font = [UIFont systemFontOfSize:18];
-    textView.placeholder = @"此刻的想法...";
-    textView.delegate = self;
-    [self.scrollView addSubview:textView];
-    [textView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scrollView);
-        make.top.equalTo(self.scrollView);
-        make.width.equalTo(self.scrollView);
-        make.height.equalTo(@150);
-    }];
-    lastView = textView;
+	[self setupNavigationBar];
+	
+	// 输入框...
+	sharedTextTv = [[UITextView alloc] init];
+	sharedTextTv.font = [UIFont systemFontOfSize:18];
+	sharedTextTv.placeholder = @"此刻的想法...";
+	sharedTextTv.delegate = self;
+	[self.scrollView addSubview:sharedTextTv];
+	[sharedTextTv mas_makeConstraints:^(MASConstraintMaker *make) {
+		make.left.equalTo(self.scrollView);
+		make.top.equalTo(self.scrollView);
+		make.width.equalTo(self.scrollView);
+		make.height.equalTo(@150);
+	}];
+	lastView = sharedTextTv;
 	
 	// 工具栏
 	UIView *toolbarView = [self toolbarView];
@@ -69,7 +79,7 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate> {
 	}];
 	lastView = toolbarView;
 	
-    // 照片...
+	// 照片...
 	photosView = [self photosView];
 	[self.scrollView addSubview:photosView];
 	[photosView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -92,7 +102,7 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate> {
 		make.top.equalTo(lastView.mas_bottom).with.offset(20);
 	}];
 	lastView = timeView;
-
+	
 	UIView *roleView = [self otherParametersViewText:@"可见范围" value:@"所有亲"];
 	[self.scrollView addSubview:roleView];
 	UITapGestureRecognizer *roleTGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRoleViewAction:)];
@@ -104,8 +114,8 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate> {
 		make.top.equalTo(lastView.mas_bottom).with.offset(1);
 	}];
 	lastView = roleView;
-
-	UIView *localView = [self otherParametersViewText:@"所在位置" value:@"不显示位置"];
+	
+	localView = [self otherParametersViewText:@"所在位置" value:@"不显示位置"];
 	[self.scrollView addSubview:localView];
 	UITapGestureRecognizer *localTGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapLocalViewAction:)];
 	[localView addGestureRecognizer:localTGR];
@@ -122,8 +132,15 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate> {
 	}];
 	
 	// 点击键盘
-	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard:)];
+	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapScrollViewAction)];
 	[self.scrollView addGestureRecognizer:tap];
+}
+
+- (void)tapScrollViewAction {
+	[self hideKeyboard:nil];
+	if (_swipeView && _swipeView.hidden == NO) {
+		_swipeView.hidden = YES;
+	}
 }
 
 - (UIView *)otherParametersViewText:(NSString *)title value:(NSString *)value {
@@ -132,6 +149,7 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate> {
 	
 	UILabel *titleLbl = [UILabel new];
 	titleLbl.text = title;
+	titleLbl.tag = 1001;
 	[parametersView addSubview:titleLbl];
 	[titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
 		make.left.equalTo(parametersView).with.offset(20);
@@ -140,6 +158,7 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate> {
 	
 	UILabel *valueLbl = [UILabel new];
 	valueLbl.text = value;
+	valueLbl.tag = 1002;
 	[parametersView addSubview:valueLbl];
 	[valueLbl mas_makeConstraints:^(MASConstraintMaker *make) {
 		make.right.equalTo(parametersView).with.offset(-40);
@@ -266,22 +285,22 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate> {
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
                                                                    action:@selector(publishItemAction)];
-    NSDictionary *publishAttributes = @{
-            NSFontAttributeName : [UIFont systemFontOfSize:15.0],
-            NSForegroundColorAttributeName : kAppMainColor
-    };
-    [publishItem setTitleTextAttributes:publishAttributes forState:UIControlStateNormal];
+//    NSDictionary *publishAttributes = @{
+//            NSFontAttributeName : [UIFont systemFontOfSize:15.0],
+//            NSForegroundColorAttributeName : kAppMainColor
+//    };
+//    [publishItem setTitleTextAttributes:publishAttributes forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = publishItem;
 
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"返回"
                                                                  style:UIBarButtonItemStylePlain
                                                                 target:self
                                                                 action:@selector(backItemAction)];
-    NSDictionary *backAttributes = @{
-            NSFontAttributeName : [UIFont systemFontOfSize:15.0],
-            NSForegroundColorAttributeName : kAppMainColor
-    };
-    [backItem setTitleTextAttributes:backAttributes forState:UIControlStateNormal];
+//    NSDictionary *backAttributes = @{
+//            NSFontAttributeName : [UIFont systemFontOfSize:15.0],
+//            NSForegroundColorAttributeName : kAppMainColor
+//    };
+//    [backItem setTitleTextAttributes:backAttributes forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItem = backItem;
 }
 
@@ -298,7 +317,7 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate> {
 	}
 	
 	self.swipeView = [SwipeView new];
-	_swipeView.backgroundColor = kAppWhiteColor;
+	_swipeView.backgroundColor = [UIColor linenColor];
 	[self.view addSubview:_swipeView];
 	[_swipeView mas_makeConstraints:^(MASConstraintMaker *make) {
 		make.left.equalTo(self.view);
@@ -323,7 +342,46 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate> {
 - (void)publishItemAction {
     // todo upload server record data
 	
-    [self createTimelineWithText:textView.text images:_willPublishImages];
+//    [self createTimelineWithText:sharedTextTv.text images:_willPublishImages];
+	
+	NSDate *happenTime = [NSDate date];
+	BOOL isDeleted = NO;
+	NSString *sharedText = sharedTextTv.text;
+	LCUserEntity *author = mGlobalData.user;
+	LCBabyEntity *baby = author.curBaby;
+	NSDictionary *firstDo = curFirstDoItem;
+	LCLocationEntity *location = _locationEntity;
+	
+	NSMutableArray *imageFileMa = [NSMutableArray array];
+	for (int i = 0; i < _willPublishImages.count; i++) {
+		// 得到图片
+		ALAsset *asset = _willPublishImages[i];
+		ALAssetRepresentation *rep = [asset defaultRepresentation];
+		CGImageRef fullResImage = [rep fullResolutionImage];
+		UIImage *image = [UIImage imageWithCGImage:fullResImage
+											 scale:[rep scale]
+									   orientation:(UIImageOrientation) [rep orientation]];
+		// 保存图片
+		NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+		AVFile *imageFile = [AVFile fileWithName:@"share_image.jpeg" data:imageData];
+		[imageFile save];
+		[imageFileMa addObject:imageFile];
+	}
+	LCItemEntity *item = [LCItemEntity new];
+	item.type = 1;
+	item.data = imageFileMa;
+	
+	LCTimelineEntity *timeline = [LCTimelineEntity new];
+	timeline.happenTime = happenTime;
+	timeline.isDeleted = isDeleted;
+	timeline.sharedText = sharedText;
+	timeline.baby = baby;
+	timeline.firstDo = curFirstDoItem;
+	timeline.location = location;
+	timeline.sharedItem = item;
+	[timeline saveInBackground];
+
+	
 }
 
 - (void)createTimelineWithText:(NSString *)text images:(NSArray *)images {
@@ -348,13 +406,12 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate> {
     }
     
     // 保存一条记录
-    LCTimelineModel *timelineModel = [LCTimelineModel object];
-    timelineModel.shareMsg = text;
-    timelineModel.recordObj = 1;
+    LCTimelineEntity *timelineModel = [LCTimelineEntity object];
+    timelineModel.sharedText = text;
     timelineModel.happenTime = [NSDate date];
-    timelineModel.shareImages = imageFileMa;
+	//    timelineModel.sharedItems = imageFileMa; // todo ....
     timelineModel.isDeleted = NO;
-    timelineModel.author = [YIUserModel currentUser]; // todo ...
+    timelineModel.author = [LCUserEntity currentUser]; // todo ...
     [timelineModel saveInBackground];
 }
 
@@ -405,7 +462,10 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate> {
 }
 
 - (void)tapLocalViewAction:(UITapGestureRecognizer *)tap {
-	
+	YILocationViewController *vc = [[YILocationViewController alloc] init];
+	vc.selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+	vc.delegate = self;
+	[self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -460,11 +520,12 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate> {
 
 #pragma mark - YIFirstDoItemViewDelegate
 
-- (void)firstDoThingSelectedIndex:(NSUInteger)index text:(NSString *)text; {
+- (void)firstDoThingSelectedIndex:(NSUInteger)index text:(NSString *)text item:(NSDictionary *)item; {
 	NSString *title = [NSString stringWithFormat:@"第一次%@",text];
 	[firstDoBtn setTitle:title forState:UIControlStateNormal];
-	
 	[firstDoBtn setTitleColor:[UIColor oliveColor] forState:UIControlStateNormal];
+	
+	curFirstDoItem = item;
 }
 
 - (void)loadPickerVc {
@@ -511,6 +572,24 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate> {
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset {
 
 	return true;
+}
+
+#pragma mark -
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+	[super touchesBegan:touches withEvent:event];
+	if (_swipeView && _swipeView.hidden == NO) {
+		_swipeView.hidden = YES;
+	}
+}
+
+#pragma mark - YILocationViewControllerDelegate
+
+- (void)selectedLocation:(LCLocationEntity *)location indexPath:(NSIndexPath *)indexPath {
+	UILabel *locationValueLbl = (UILabel *)[localView viewWithTag:1002];
+	locationValueLbl.text = location.name;
+	
+	self.locationEntity = location;
 }
 
 #pragma mark -

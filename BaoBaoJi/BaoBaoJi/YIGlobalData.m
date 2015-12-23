@@ -25,18 +25,21 @@ static YIGlobalData *sharedGlobalData = nil;
 - (id)init {
     self = [super init];
     if (self) {
-        _flight = @"0";
+//        _flight = @"0";
     }
     return self;
 }
 
 - (void)loadDefaultValue {
+	_user = [LCUserEntity currentUser];
+	
+	
     _login = [mUserDefaults boolForKey:kLogin];
-    _deviceToken = [mUserDefaults stringForKey:kDeviceToken];
+//    _deviceToken = [mUserDefaults stringForKey:kDeviceToken];
     _isLaunched = [mUserDefaults boolForKey:kLaunched];
     _debugOn = [mUserDefaults boolForKey:kDebugOn];
     _isShowFeature = [mUserDefaults boolForKey:kShowFeature];
-    _savedVersionCode = [mUserDefaults stringForKey:kSavedVersionCode];
+//    _savedVersionCode = [mUserDefaults stringForKey:kSavedVersionCode];
 }
 
 - (void)setLogin:(BOOL)isLogin {
@@ -45,17 +48,17 @@ static YIGlobalData *sharedGlobalData = nil;
     [mUserDefaults synchronize];
 }
 
-- (void)setDeviceToken:(NSString *)aDeviceToken {
-    _deviceToken = aDeviceToken;
-    [mUserDefaults setValue:_deviceToken forKey:kDeviceToken];
-    [mUserDefaults synchronize];
-}
-
-- (void)setSavedVersionCode:(NSString *)savedVersionCode {
-    _savedVersionCode = savedVersionCode;
-    [mUserDefaults setValue:_savedVersionCode forKey:kSavedVersionCode];
-    [mUserDefaults synchronize];
-}
+//- (void)setDeviceToken:(NSString *)aDeviceToken {
+//    _deviceToken = aDeviceToken;
+//    [mUserDefaults setValue:_deviceToken forKey:kDeviceToken];
+//    [mUserDefaults synchronize];
+//}
+//
+//- (void)setSavedVersionCode:(NSString *)savedVersionCode {
+//    _savedVersionCode = savedVersionCode;
+//    [mUserDefaults setValue:_savedVersionCode forKey:kSavedVersionCode];
+//    [mUserDefaults synchronize];
+//}
 
 - (void)setIsLaunched:(BOOL)isLaunched {
     _isLaunched = isLaunched;

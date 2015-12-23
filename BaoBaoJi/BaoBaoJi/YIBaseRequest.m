@@ -60,23 +60,23 @@ NSString *const DEPLOYMENT_PUBLIC = @"public";
     _allParameters[@"osver"] = [UIDevice systemVersion];
     _allParameters[@"model"] = [UIDevice deviceModel];
     _allParameters[@"udid"] = [UIDevice vendorId];
-    _allParameters[@"devtoken"] = mGlobalData.deviceToken ?: @"";
+//    _allParameters[@"devtoken"] = mGlobalData.deviceToken ?: @"";
     _allParameters[@"time"] = [YICommonUtil unixTimestamp];
-    _allParameters[@"network_type"] = mGlobalData.netType ?: @"";
-    _allParameters[@"provider"] = mGlobalData.carrier ?: @""; // 运营商
-    
-    _allParameters[@"country"] = mGlobalData.country?: @"";
-    _allParameters[@"province"] = mGlobalData.province?: @"";
-    _allParameters[@"city"] = mGlobalData.city?: @"";
-    _allParameters[@"district"] = mGlobalData.district?: @"";
-    _allParameters[@"street"] = mGlobalData.street?: @"";
-    
-    _allParameters[@"longitude"] = mGlobalData.longitude?: @"";
-    _allParameters[@"latitude"] = mGlobalData.latitude?: @"";
+//    _allParameters[@"network_type"] = mGlobalData.netType ?: @"";
+//    _allParameters[@"provider"] = mGlobalData.carrier ?: @""; // 运营商
+//    
+//    _allParameters[@"country"] = mGlobalData.country?: @"";
+//    _allParameters[@"province"] = mGlobalData.province?: @"";
+//    _allParameters[@"city"] = mGlobalData.city?: @"";
+//    _allParameters[@"district"] = mGlobalData.district?: @"";
+//    _allParameters[@"street"] = mGlobalData.street?: @"";
+	
+//    _allParameters[@"longitude"] = mGlobalData.longitude?: @"";
+//    _allParameters[@"latitude"] = mGlobalData.latitude?: @"";
 
     _allParameters[@"resolutionWidth"] = [NSString stringWithFormat:@"%f", [UIScreen DPISize].width];
     _allParameters[@"resolutionHeight"] = [NSString stringWithFormat:@"%f", [UIScreen DPISize].height];
-    _allParameters[@"flight"] = mGlobalData.flight ?: @"0";
+//    _allParameters[@"flight"] = mGlobalData.flight ?: @"0";
 
     _allParameters[@"remote_notification_switch"] = [YICommonUtil isRegisteredRemoteNotification] ? @"1" : @"0";
 }

@@ -1,30 +1,99 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Xcode 7.0">
-    <entity name="LCClientEntity" syncable="YES"/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15C50" minimumToolsVersion="Xcode 7.0">
+    <entity name="LCBabyEntity" syncable="YES">
+        <attribute name="avatar" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="birthday" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="blood" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cover" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="height" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="nickName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objectId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="sex" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="weight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="creator" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LCUserEntity" syncable="YES"/>
+    </entity>
+    <entity name="LCClientEntity" syncable="YES">
+        <attribute name="channel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="devtoken" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="district" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="flight" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="model" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="networkType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="osname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="osver" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="provider" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="province" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="resolutionHeight" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="resolutionWidth" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="street" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="udid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="version" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LCUserEntity" syncable="YES"/>
+    </entity>
+    <entity name="LCFamilyEntity" syncable="YES">
+        <attribute name="objectId" optional="YES" attributeType="Decimal" defaultValueString="0" syncable="YES"/>
+        <attribute name="relationText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="relationType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="baby" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LCBabyEntity" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LCUserEntity" syncable="YES"/>
+    </entity>
+    <entity name="LCFirstDoEntity" syncable="YES">
+        <attribute name="itemCode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="itemText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objectId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="LCItemEntity" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="objectId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="LCLocationEntity" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+    </entity>
     <entity name="LCTimelineEntity" syncable="YES">
+        <attribute name="firstDo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="happenTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="isDelete" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="recordObj" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="shareImages" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="shareMsg" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sharedText" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="author" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LCUserEntity" syncable="YES"/>
+        <relationship name="baby" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LCBabyEntity" syncable="YES"/>
+        <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LCLocationEntity" syncable="YES"/>
+        <relationship name="shareItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LCItemEntity" syncable="YES"/>
     </entity>
     <entity name="LCUserEntity" syncable="YES">
+        <attribute name="area" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="babyRelation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="birthday" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="emailVerified" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isOnline" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="mobilePhoneNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mobilePhoneVerified" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nickName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sex" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="babies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LCBabyEntity" syncable="YES"/>
+        <relationship name="curBaby" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LCBabyEntity" syncable="YES"/>
     </entity>
     <elements>
-        <element name="LCTimelineEntity" positionX="-335" positionY="18" width="128" height="148"/>
-        <element name="LCClientEntity" positionX="-218" positionY="-117" width="128" height="45"/>
-        <element name="LCUserEntity" positionX="-137" positionY="-0" width="128" height="193"/>
+        <element name="LCBabyEntity" positionX="-396" positionY="-127" width="128" height="193"/>
+        <element name="LCClientEntity" positionX="126" positionY="117" width="128" height="358"/>
+        <element name="LCFamilyEntity" positionX="-171" positionY="321" width="128" height="120"/>
+        <element name="LCFirstDoEntity" positionX="205" positionY="-27" width="128" height="90"/>
+        <element name="LCItemEntity" positionX="270" positionY="-144" width="128" height="90"/>
+        <element name="LCLocationEntity" positionX="72" positionY="-216" width="128" height="105"/>
+        <element name="LCTimelineEntity" positionX="-180" positionY="-207" width="128" height="178"/>
+        <element name="LCUserEntity" positionX="-108" positionY="18" width="128" height="268"/>
     </elements>
 </model>

@@ -7,7 +7,17 @@
 //
 
 #import "YIBaseTableViewController.h"
+#import "LCLocationEntity.h"
+
+@protocol YILocationViewControllerDelegate <NSObject>
+
+- (void)selectedLocation:(LCLocationEntity *)location indexPath:(NSIndexPath *)indexPath;
+
+@end
 
 @interface YILocationViewController : YIBaseTableViewController
+
+@property (nonatomic, weak) id<YILocationViewControllerDelegate> delegate;
+@property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 
 @end

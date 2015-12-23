@@ -23,39 +23,29 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - AVOSCloud (3.1.6.7)
+  - AMapLocation (1.0.1)
+  - AMapSearch (3.1.0)
+  - AVOSCloud (3.1.6.8)
   - CTAssetsPickerController (2.9.5)
   - DZNEmptyDataSet (1.7.2)
   - FDFullscreenPopGesture (1.1)
-  - FLEX (2.1.1)
+  - FLEX (2.2.0)
   - HexColors (2.2.1)
   - iOS-Category (1.0.5)
   - JSQMessagesViewController (7.2.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
   - JTCalendar (2.1.4)
-  - LeanCloudSocial (0.0.7):
+  - LeanCloudSocial (0.0.8):
     - AFNetworking (~> 2.0)
     - AVOSCloud (~> 3.1)
   - LTNavigationBar (2.1.1)
-  - Mantle (2.0.5):
-    - Mantle/extobjc (= 2.0.5)
-  - Mantle/extobjc (2.0.5)
+  - Mantle (2.0.6):
+    - Mantle/extobjc (= 2.0.6)
+  - Mantle/extobjc (2.0.6)
   - Masonry (0.5.3)
   - MBProgressHUD (0.9.1)
-  - MJRefresh (3.0.6)
-  - MMDrawerController (0.5.7):
-    - MMDrawerController/Core (= 0.5.7)
-    - MMDrawerController/MMDrawerBarButtonItem (= 0.5.7)
-    - MMDrawerController/MMDrawerVisualStates (= 0.5.7)
-    - MMDrawerController/Subclass (= 0.5.7)
-  - MMDrawerController/Core (0.5.7)
-  - MMDrawerController/MMDrawerBarButtonItem (0.5.7):
-    - MMDrawerController/Core
-  - MMDrawerController/MMDrawerVisualStates (0.5.7):
-    - MMDrawerController/Core
-  - MMDrawerController/Subclass (0.5.7):
-    - MMDrawerController/Core
+  - MJRefresh (3.0.7)
   - MTLManagedObjectAdapter (1.0.0.1):
     - Mantle (~> 2.0)
     - MTLManagedObjectAdapter/extobjc (= 1.0.0.1)
@@ -72,7 +62,7 @@ PODS:
   - SKTagView (0.7):
     - Masonry
   - SwipeView (1.3.2)
-  - TOWebViewController (2.0.19)
+  - TOWebViewController (2.1.0)
   - TSMessages (0.9.12):
     - HexColors (~> 2.2.0)
   - UIAlertView-Blocks (1.0)
@@ -86,6 +76,8 @@ PODS:
 DEPENDENCIES:
   - AFNetworkActivityLogger
   - AFNetworking (~> 2.0)
+  - AMapLocation
+  - AMapSearch
   - AVOSCloud
   - CTAssetsPickerController (~> 2.9.5)
   - DZNEmptyDataSet
@@ -100,13 +92,12 @@ DEPENDENCIES:
   - Masonry (= 0.5.3)
   - MBProgressHUD (~> 0.9.1)
   - MJRefresh
-  - MMDrawerController (~> 0.5.3)
   - MTLManagedObjectAdapter
   - MZTimerLabel
   - NSDate+TimeAgo
   - pop (~> 1.0)
   - PulsingHalo
-  - RDVTabBarController (from `https://github.com/iosfeng/RDVTabBarController`)
+  - RDVTabBarController
   - SDWebImage
   - SKTagView
   - SwipeView
@@ -121,39 +112,35 @@ DEPENDENCIES:
   - UMengMessage (~> 1.1.0.1)
 
 EXTERNAL SOURCES:
-  RDVTabBarController:
-    :git: https://github.com/iosfeng/RDVTabBarController
   UICollectionView-ARDynamicHeightLayoutCell:
     :git: https://github.com/AugustRush/UICollectionView-ARDynamicHeightLayoutCell.git
 
 CHECKOUT OPTIONS:
-  RDVTabBarController:
-    :commit: fbe9741f1975cb333f4cf35961631ea12302cfa8
-    :git: https://github.com/iosfeng/RDVTabBarController
   UICollectionView-ARDynamicHeightLayoutCell:
-    :commit: cf6a0154f60fe20a641308665fbec6088f5c6297
+    :commit: 6b38647d2088fc58e3dc912a9e81e71b9aeb9803
     :git: https://github.com/AugustRush/UICollectionView-ARDynamicHeightLayoutCell.git
 
 SPEC CHECKSUMS:
   AFNetworkActivityLogger: 121486778117d53b3ab1c61d264b88081d0c3eee
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
-  AVOSCloud: 7af6267747894eadfd14560db08ea99a51b57fc0
+  AMapLocation: d33782bd102563aae1824cb4fae8b4495376f016
+  AMapSearch: aa7621ae8aec9cb8df116710b26e3fe3d09dc0ff
+  AVOSCloud: 4b06ec4444ca0ee0543e6cf729b11e5f3f956977
   CTAssetsPickerController: b413fece2194ae3dbf22fbc544cf6f2a6d516a4d
   DZNEmptyDataSet: 0ec00bfc230d7450997b60c127afdd0b9f24f3b6
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
-  FLEX: 27b768fcae23a313a1eb115076d429180ca9b472
+  FLEX: bc8a4fb887ed5d3cdf7c2f3bd665f7bb1647cc58
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
   iOS-Category: 295d0eb4cc2b937a0fa47effab4f30c48d121869
   JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   JTCalendar: 9b1352c7ec41cc26b19c189d6608ba48060a53d9
-  LeanCloudSocial: a20bb54efe77e66263d9943609a36896989af175
+  LeanCloudSocial: f7787dfc1559dc47263bbfd37a03c870352ad98a
   LTNavigationBar: b1c15fdcc32453d84f8b9fc774fff611c184dfbb
-  Mantle: 1912395033f601de5adc8ee91e48f46e4c7051ad
+  Mantle: 299966b00759634931699f69cb6a30b9239b944d
   Masonry: 9f515466afe48632562342a40a1c224071a1a022
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
-  MJRefresh: df419e2393f9020bcd340c552e8f0cf700073f32
-  MMDrawerController: 7a4cf8e25596bf2434e03ce50d22a8608ddee6a1
+  MJRefresh: f3e1228ec3d38c7ba5208d58032631a52f39f495
   MTLManagedObjectAdapter: 2da4b0244ee66f87b43e5fe9e7cd47838dea83ae
   MZTimerLabel: cd9bfb9304540ef2a9e163384fca9c978f0dbf83
   NSDate+TimeAgo: 416f55d2696d3744c313091c5a9280d47f8238fe
@@ -163,7 +150,7 @@ SPEC CHECKSUMS:
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SKTagView: 1e89c1ce2292cf890610901d3621c55d1ed82379
   SwipeView: bd67cfaf7760c036438446b3ccb28a3b84fce009
-  TOWebViewController: accd62ec0acc8d5c2e1e195c6f7ff7654c3c840c
+  TOWebViewController: bfc82c8703a2fb0bd11639ad40cc88da3728973b
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
   UIAlertView-Blocks: 7904744fca618afbd2ec646608924f5e69d5acd1
   UICollectionView-ARDynamicHeightLayoutCell: 560154abd491f89ad6381fa76bfb091cee2b3f37

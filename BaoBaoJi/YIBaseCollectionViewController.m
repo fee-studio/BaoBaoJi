@@ -12,9 +12,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	self.edgesForExtendedLayout = UIRectEdgeAll;
     // 初始化
     UICollectionViewFlowLayout *flowLayout=[[UICollectionViewFlowLayout alloc] init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+//	flowLayout.minimumLineSpacing = 1.f;
     self.baseCollectionView = [[UICollectionView alloc] initWithFrame:mScreenBounds collectionViewLayout:flowLayout];
     _baseCollectionView.delegate = self;
     _baseCollectionView.dataSource = self;
@@ -34,6 +36,15 @@
     
     _baseCollectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefreshing)];
     _baseCollectionView.mj_footer.hidden = YES;
+	
+	
+	if (self.rdv_tabBarController.tabBar.translucent) {
+		CGFloat tabBarHeight = CGRectGetHeight(self.rdv_tabBarController.tabBar.frame);
+		UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, tabBarHeight, 0);
+		
+		_baseCollectionView.contentInset = insets;
+		_baseCollectionView.scrollIndicatorInsets = insets;
+	}
 }
 
 - (void)viewDidAppear:(BOOL)animated {

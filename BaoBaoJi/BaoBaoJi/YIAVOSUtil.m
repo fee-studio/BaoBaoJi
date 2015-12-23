@@ -5,7 +5,7 @@
 
 #import "YIAVOSUtil.h"
 #import "AVOSCloudSNS.h"
-#import "YIUserModel.h"
+//#import "YIUserModel.h"
 
 @implementation YIAVOSUtil
 
@@ -26,20 +26,16 @@
             NSString *avatar = object[@"avatar"];
             NSDictionary *rawUser = object[@"raw-user"]; // 性别等第三方平台返回的用户信息
             
-            [YIUserModel loginWithAuthData:object
+            [LCUserEntity loginWithAuthData:object
                              platform:@"weixin"
                                 block:^(AVUser *user, NSError *error) {
-                                    YIUserModel *userModel = (YIUserModel *)user;
+                                    LCUserEntity *userModel = (LCUserEntity *)user;
                                     userModel.username = username;
                                     userModel.nickName = rawUser[@"nickname"];
-                                    userModel.avatarUrl = rawUser[@"headimgurl"];
+                                    userModel.avatar = rawUser[@"headimgurl"];
                                     userModel.sex = [rawUser[@"sex"] intValue];
                                     [userModel saveInBackground];
                                     
-                                    YIFamilyModel *family = [YIFamilyModel object];
-//                                    family.userId = userModel.objectId;
-                                    family.user = userModel;
-                                    [family saveInBackground];
             }];
         }
     } toPlatform:AVOSCloudSNSWeiXin];

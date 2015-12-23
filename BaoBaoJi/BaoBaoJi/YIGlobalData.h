@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "YIConfigUtil.h"
+#import "LCUserEntity.h"
 
 #define mGlobalData [YIGlobalData sharedInstance]
 
@@ -25,6 +26,10 @@
 
 @interface YIGlobalData : NSObject
 
+
+@property(nonatomic, strong) LCUserEntity *user;
+
+
 @property(nonatomic, assign) BOOL login;  // 是否已登录
 @property(nonatomic, assign) BOOL isLaunched; // 用在显示欢迎页上
 @property(nonatomic, assign) BOOL isShowFeature; // 用在显示新功能介绍上
@@ -32,17 +37,17 @@
 @property(nonatomic, assign) NSInteger serverTime;
 @property(nonatomic, assign) NSInteger localTimeOffset;  // 本地时间差 = 服务器时间戳 - 接收到服务器时间时的本机时间
 @property(nonatomic, strong) NSString *deviceToken;  // 设备Token（APNS推送)
-@property(nonatomic, strong) NSString *savedVersionCode; // 升级版本用来清理缓存数据
-@property(nonatomic, strong) NSString *latitude;
-@property(nonatomic, strong) NSString *longitude;
-@property(nonatomic, strong) NSString *country;
-@property(nonatomic, strong) NSString *province;
-@property(nonatomic, strong) NSString *city;
-@property(nonatomic, strong) NSString *district;
-@property(nonatomic, strong) NSString *street;
-@property(nonatomic, strong) NSString *carrier; // 运营商
+//@property(nonatomic, strong) NSString *savedVersionCode; // 升级版本用来清理缓存数据
+//@property(nonatomic, strong) NSString *latitude;
+//@property(nonatomic, strong) NSString *longitude;
+//@property(nonatomic, strong) NSString *country;
+//@property(nonatomic, strong) NSString *province;
+//@property(nonatomic, strong) NSString *city;
+//@property(nonatomic, strong) NSString *district;
+//@property(nonatomic, strong) NSString *street;
+//@property(nonatomic, strong) NSString *carrier; // 运营商
 @property(nonatomic, strong) NSString *netType; // 网络类型
-@property(nonatomic, strong) NSString *flight;
+//@property(nonatomic, strong) NSString *flight;
 
 
 + (YIGlobalData *)sharedInstance;

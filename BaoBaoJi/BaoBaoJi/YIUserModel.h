@@ -6,22 +6,17 @@
 #import <Foundation/Foundation.h>
 #import "AVUser.h"
 
-@interface YIUserModel : AVUser<AVSubclassing>
+@interface YIUserModel : NSObject
 
-@property (nonatomic, copy) NSString *nickName;
-@property (nonatomic, copy) NSString *userName;
-@property (nonatomic, copy) NSString *avatarUrl;
-@property (nonatomic, assign) int sex;
-@property (nonatomic, assign) int role; // 爸爸 妈妈 儿子 女儿
-
-@end
-
-
-@interface YIFamilyModel : AVObject<AVSubclassing>
-
-@property (nonatomic, strong) YIUserModel *user;
-
-//@property (nonatomic, copy) NSString *userId;
-
+//@property (nonatomic, copy) NSString *area;
+//@property (nonatomic, copy) NSString *babyRelation; // 与宝宝的关系 json 因为多个宝宝
+//@property (nonatomic, copy) NSDate *birthday;
+//@property (nonatomic, copy) NSString *nickName;
+//@property (nonatomic, copy) NSString *userName;
+//@property (nonatomic, copy) NSString *avatar;
+//@property (nonatomic, assign) BOOL isOnline;
+//@property (nonatomic, assign) int sex;
 
 @end
+
+

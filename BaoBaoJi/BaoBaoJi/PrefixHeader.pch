@@ -29,6 +29,8 @@
 #import "YIFileUtil.h"
 #import "YIAVOSUtil.h"
 
+#import "LCUserEntity.h"
+
 #import "UIDevice+DeviceInfo.h"
 #import "NSError+Adding.h"
 #import "NSString+YI.h"
@@ -39,7 +41,7 @@
 #import "YINetworkManager.h"
 
 #import "YIBaseDataSource.h"
-#import "YIBaseModel.h"
+#import "LCClientEntity.h"
 #import "YIBaseRequest.h"
 #import "YIBaseViewController.h"
 #import "YIBaseTableViewCell.h"

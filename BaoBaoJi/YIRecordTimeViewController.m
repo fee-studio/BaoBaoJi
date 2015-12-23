@@ -70,15 +70,16 @@
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	[_recordTimeList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+		NSMutableDictionary *recordTime = [NSMutableDictionary dictionaryWithDictionary:obj];
 		if (idx == indexPath.row) {
-			[_recordTimeList[idx] setObject:@(YES) forKey:@"checked"];
+			[recordTime setObject:@(YES) forKey:@"checked"];
 		} else {
-			[_recordTimeList[idx] setObject:@(NO) forKey:@"checked"];
+			[recordTime setObject:@(NO) forKey:@"checked"];
 		}
+		_recordTimeList[idx] = recordTime;
 	}];
+	[self.baseTableView reloadData];
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

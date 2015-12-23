@@ -53,12 +53,16 @@
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	[_familyList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+		NSMutableDictionary *family = [NSMutableDictionary dictionaryWithDictionary:obj];
 		if (idx == indexPath.row) {
-			[_familyList[idx] setObject:@(YES) forKey:@"checked"];
+			[family setObject:@(YES) forKey:@"checked"];
 		} else {
-			[_familyList[idx] setObject:@(NO) forKey:@"checked"];
+			[family setObject:@(NO) forKey:@"checked"];
 		}
+		_familyList[idx] = family;
 	}];
+	
+	[self.baseTableView reloadData];
 }
 
 #pragma mark -

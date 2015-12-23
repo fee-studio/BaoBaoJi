@@ -21,5 +21,9 @@
 - (NSURL *)applicationDocumentsDirectory;
 
 
+- (void)loadLoginViewController;
+- (void)loadMainViewController;
+
+
 @end
 

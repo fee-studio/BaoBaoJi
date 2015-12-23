@@ -8,28 +8,17 @@
 
 @implementation YIUserModel
 
-@dynamic nickName;
-@dynamic userName;
-@dynamic avatarUrl;
-@dynamic sex;
-@dynamic role;
-
-+ (NSString *)parseClassName {
-    return @"_User";
-}
-
-
-@end
+//@dynamic nickName;
+//@dynamic userName;
+//@dynamic avatarUrl;
+//@dynamic sex;
+//@dynamic role;
+//
+//+ (NSString *)parseClassName {
+//    return @"_User";
+//}
 
 
-@implementation YIFamilyModel
-
-@dynamic user;
-//@dynamic userId;
-
-+ (NSString *)parseClassName {
-    return NSStringFromClass([self class]);
-}
 
 
 @end

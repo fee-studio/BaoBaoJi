@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YIBabyIndexViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MXF-KJ-gjB">
+                    <rect key="frame" x="222" y="377" width="157" height="33"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="33" id="cyL-9o-m8x"/>
+                    </constraints>
+                    <state key="normal" title="输入邀请码关注宝宝"/>
+                    <connections>
+                        <action selector="inviteOtherFamilyBtnAction:" destination="-1" eventType="touchUpInside" id="Erm-aG-s3T"/>
+                    </connections>
+                </button>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="开启专属于宝宝的亲子空间  把家人手机中的照片放在一起  随时记录宝宝各种萌态 与远方亲人分享宝宝视频 手机丢了也不怕,珍贵照片一张不少" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Eg4-cI-5NI">
+                    <rect key="frame" x="0.0" y="62" width="600" height="203"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="203" id="V5X-Vf-t3h"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RM6-T7-QxS">
+                    <rect key="frame" x="222" y="313" width="157" height="33"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="157" id="PVE-hk-4JX"/>
+                        <constraint firstAttribute="height" constant="33" id="TSb-aa-OhF"/>
+                    </constraints>
+                    <state key="normal" title="创建宝宝空间"/>
+                    <connections>
+                        <action selector="createBabyZoneBtnAction:" destination="-1" eventType="touchUpInside" id="1rX-WK-0eA"/>
+                    </connections>
+                </button>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Eg4-cI-5NI" secondAttribute="trailing" id="6a4-bo-iMq"/>
+                <constraint firstItem="RM6-T7-QxS" firstAttribute="leading" secondItem="MXF-KJ-gjB" secondAttribute="leading" id="BqZ-3S-ghw"/>
+                <constraint firstItem="RM6-T7-QxS" firstAttribute="trailing" secondItem="MXF-KJ-gjB" secondAttribute="trailing" id="BvQ-Jj-vAj"/>
+                <constraint firstItem="Eg4-cI-5NI" firstAttribute="centerX" secondItem="RM6-T7-QxS" secondAttribute="centerX" id="JTJ-7v-htS"/>
+                <constraint firstItem="RM6-T7-QxS" firstAttribute="top" secondItem="Eg4-cI-5NI" secondAttribute="bottom" constant="48" id="YOS-a3-xbJ"/>
+                <constraint firstItem="Eg4-cI-5NI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="62" id="gje-h6-kEt"/>
+                <constraint firstItem="Eg4-cI-5NI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ibb-zG-fqw"/>
+                <constraint firstItem="MXF-KJ-gjB" firstAttribute="top" secondItem="RM6-T7-QxS" secondAttribute="bottom" constant="31" id="vJC-uq-MaJ"/>
+            </constraints>
+            <point key="canvasLocation" x="222" y="217"/>
+        </view>
+    </objects>
+</document>

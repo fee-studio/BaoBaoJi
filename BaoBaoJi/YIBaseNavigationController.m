@@ -28,27 +28,22 @@
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    if (self.mm_drawerController.showsStatusBarBackgroundView) {
-        return UIStatusBarStyleLightContent;
-    } else {
-        return UIStatusBarStyleDefault;
-    }
+	return UIStatusBarStyleLightContent;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationBar.tintColor = kAppMainColor;
-    self.navigationBar.translucent = YES;
-    self.navigationBar.alpha = 0.3f;
-    self.navigationBar.barTintColor = [UIColor colorWithHexString:@"f5f5f5"];
+	self.navigationBar.barStyle = UIBarStyleDefault;
+	self.navigationBar.tintColor = kAppWhiteColor;
+	self.navigationBar.barTintColor = kAppMainColor;
 
     NSDictionary *titleAttributes = @{
-            NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Bold" size:16.0],
-            NSForegroundColorAttributeName : kAppDeepColor
+            NSFontAttributeName : kAppBigFont,
+            NSForegroundColorAttributeName : kAppWhiteColor
     };
     self.navigationBar.titleTextAttributes = titleAttributes;
-    
+	self.navigationBar.translucent = YES;	
 }
 
 - (void)viewWillAppear:(BOOL)animated {

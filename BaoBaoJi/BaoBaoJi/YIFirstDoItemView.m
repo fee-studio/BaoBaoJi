@@ -8,27 +8,20 @@
 
 #import "YIFirstDoItemView.h"
 
+@interface YIFirstDoItemView()
+
+@property (nonatomic, copy) NSArray *firstDoItems;
+
+@end
+
 @implementation YIFirstDoItemView
 
 
 
 - (void)setupItemBtn:(NSArray *)items {
+	self.firstDoItems = items;
+	
 	__block UIView *lastView = nil;
-	/*
-	for (NSDictionary *item in items) {
-		UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-		[button setTitle:[item objectForKey:@"present"] forState:UIControlStateNormal];
-		[button setBackgroundColor:[UIColor redColor]];
-		[self addSubview:button];
-		[button mas_makeConstraints:^(MASConstraintMaker *make) {
-			make.top.equalTo(lastView ? lastView.mas_bottom : self);
-			make.left.equalTo(lastView ? lastView.mas_right : self);
-			make.width.equalTo(lastView ? lastView : @0);
-			make.height.equalTo(lastView ? lastView : @0);
-		}];
-		lastView= button;
-	}
-	 */
 	
 	for (UIView *view in self.subviews) {
 		[view removeFromSuperview];
@@ -91,8 +84,8 @@
 	
 	btn.selected = !btn.selected;
 	
-	if ([_delegate respondsToSelector:@selector(firstDoThingSelectedIndex:text:) ]) {
-		[_delegate firstDoThingSelectedIndex:btn.tag text:btn.titleLabel.text];
+	if ([_delegate respondsToSelector:@selector(firstDoThingSelectedIndex:text:item:) ]) {
+		[_delegate firstDoThingSelectedIndex:btn.tag text:btn.titleLabel.text item:_firstDoItems[btn.tag]];
 	}
 }
 

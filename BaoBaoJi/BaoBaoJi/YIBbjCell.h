@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "YIBaseCollectionViewCell.h"
 #import "YITimelineModel.h"
+#import "LCTimelineEntity.h"
 
 @interface YIBbjCell : YIBaseCollectionViewCell
 
@@ -19,8 +20,7 @@
 
 
 
-- (void)setupCell:(YITimelineModel *)timeline;
-
-- (CGFloat)heightOfCell;
+//- (void)setupCell:(YITimelineModel *)timeline;
+- (void)setupCell:(LCTimelineEntity *)timeline;
 
 @end

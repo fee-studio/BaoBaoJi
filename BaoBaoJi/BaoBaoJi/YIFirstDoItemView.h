@@ -10,7 +10,7 @@
 
 @protocol YIFirstDoItemViewDelegate <NSObject>
 
-- (void)firstDoThingSelectedIndex:(NSUInteger)index text:(NSString *)text;
+- (void)firstDoThingSelectedIndex:(NSUInteger)index text:(NSString *)text item:(NSDictionary *)item;
 
 @end
 

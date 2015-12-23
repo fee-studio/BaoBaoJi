@@ -19,24 +19,17 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"微播圈(激情内测版)";
+        self.title = @"宝宝记";
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.view.frame = mScreenBounds;
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
-
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
-        // skill 这句很关键.关于在UINavigationController下面布局UIViewController + UITableView
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-//        self.extendedLayoutIncludesOpaqueBars = YES;
-//        self.automaticallyAdjustsScrollViewInsets = YES;
-    }
-
+	
+	self.edgesForExtendedLayout = UIRectEdgeNone;
+	
     // register for keyboard notifications
     [mNotificationCenter addObserver:self
                             selector:@selector(keyboardWillShow:)
@@ -51,7 +44,8 @@
 #if DEBUG
     self.rdv_tabBarController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"FLEX" style:UIBarButtonItemStylePlain target:self action:@selector(flexButtonTapped:)];
 #endif
-
+	
+	
 }
 
 #if DEBUG
@@ -74,25 +68,11 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-//    UIViewController *curVc = [[mAppDelegate window] currentViewController];
-//    if ([curVc isKindOfClass:[MMDrawerController class]]) {
-//        MMDrawerController *dc = (MMDrawerController *) curVc;
-//        [TSMessage setDefaultViewController:[dc centerViewController]];
-//    } else {
-//        [TSMessage setDefaultViewController:curVc];
-//    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
-//    UIViewController *curVc = [[mAppDelegate window] currentViewController];
-//    if ([curVc isKindOfClass:[MMDrawerController class]]) {
-//        MMDrawerController *dc = (MMDrawerController *) curVc;
-//        [TSMessage setDefaultViewController:[dc centerViewController]];
-//    } else {
-//        [TSMessage setDefaultViewController:curVc];
-//    }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -116,32 +96,6 @@
 }
 
 #pragma mark -
-
-#pragma mark - MMDrawerController 相关方法
-#pragma mark 左右按钮
-
-- (void)setupLeftMenuButton {
-    MMDrawerBarButtonItem *leftDrawerButton = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(leftDrawerButtonPress:)];
-    [leftDrawerButton setImage:[UIImage imageNamed:@"more_btn"]];
-    [self.navigationItem setLeftBarButtonItem:leftDrawerButton animated:YES];
-}
-
-- (void)setupRightMenuButton {
-    MMDrawerBarButtonItem *rightDrawerButton = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(rightDrawerButtonPress:)];
-    [self.navigationItem setRightBarButtonItem:rightDrawerButton animated:YES];
-}
-
-#pragma mark Button Handlers
-
-- (void)leftDrawerButtonPress:(id)sender {
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
-    [self hideKeyboard:nil];
-}
-
-- (void)rightDrawerButtonPress:(id)sender {
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideRight animated:YES completion:nil];
-    [self hideKeyboard:nil];
-}
 
 #pragma mark - MBProgressHUD 相关方法
 
@@ -185,14 +139,6 @@
 - (void)feedbackAction:(id)sender {
 //    [MobClick event:CLICK_FEEDBACK_ENTER];
 
-    
-//    if ([YIConfigUtil onFeedback2]) {
-//        DemoMessagesViewController *vc = [DemoMessagesViewController messagesViewController];
-//        [self.navigationController pushViewController:vc animated:YES];
-//    } else {
-//        YIFeedbackVc *fvc = [[YIFeedbackVc alloc] init];
-//        [self.navigationController pushViewController:fvc animated:YES];
-//    }
 }
 
 #pragma mark -

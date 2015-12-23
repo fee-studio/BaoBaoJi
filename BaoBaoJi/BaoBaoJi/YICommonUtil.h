@@ -28,4 +28,6 @@
 + (void)toScorePageOfAppStore;
 + (void)toHomePageOfAppStore;
 
++ (NSInteger)daysBetweenDate:(NSDate*)fromDateTime andDate:(NSDate*)toDateTime;
+
 @end

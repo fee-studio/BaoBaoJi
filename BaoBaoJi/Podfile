@@ -1,18 +1,21 @@
 platform :ios, '8.0'
 
+# use_frameworks!
+
 ##################################################
 
 # 网络请求相关专用库
 # 地址: https://github.com/AFNetworking/AFNetworking
 
 pod 'AFNetworking', '~> 2.0'
+pod 'AFNetworkActivityLogger'
 
 ##################################################
 
 # 手指左右移动视图库
 # 地址: https://github.com/mutualmobile/MMDrawerController
 
-pod 'MMDrawerController', '~> 0.5.3'
+# pod 'MMDrawerController', '~> 0.5.3'
 
 ##################################################
 
@@ -205,8 +208,7 @@ pod 'PulsingHalo'
 pod 'UIAlertView-Blocks'
 
 ##################################################
-# pod 'iOS-Category'
-#
+
 # pod 'DDCategory'
 
 ##################################################
@@ -221,7 +223,8 @@ pod 'JSQMessagesViewController'
 # Highly customizable tabBar and tabBarController for iOS
 # https://github.com/robbdimitrov/RDVTabBarController
 
-pod 'RDVTabBarController', :git => 'https://github.com/iosfeng/RDVTabBarController'
+#pod 'RDVTabBarController', :git => 'https://github.com/iosfeng/RDVTabBarController'
+pod 'RDVTabBarController'
 
 ##################################################
 
@@ -231,30 +234,62 @@ pod 'RDVTabBarController', :git => 'https://github.com/iosfeng/RDVTabBarControll
 pod 'JTCalendar', '~> 2.0'
 
 ##################################################
+
 # https://github.com/dzenbot/DZNEmptyDataSet
+
 pod 'DZNEmptyDataSet'
+
 ##################################################
+
 # https://github.com/forkingdog/FDFullscreenPopGesture
+
 pod 'FDFullscreenPopGesture', '1.1'
+
 ##################################################
+
 # https://github.com/ltebean/LTNavigationBar
+
 pod 'LTNavigationBar'
+
 ##################################################
+
 # https://github.com/shaojiankui/iOS-Categories
+
 pod 'iOS-Category'
+
 ##################################################
-pod 'AFNetworkActivityLogger'
+
 ##################################################
+
 # https://leancloud.cn/docs/ios_os_x_guide.html#使用_CocoaPods_安装_SDK
 # LeanCloud iOS SDK
+
 pod 'AVOSCloud'
 pod 'LeanCloudSocial'
+
+#pod 'AVOSCloudDynamic'
+#
+## 如果使用实时通信功能，可以添加：
+#pod 'AVOSCloudIMDynamic'
+#
+## 如果使用崩溃收集功能，可以添加：
+#pod 'AVOSCloudCrashReportingDynamic'
+#
+## LeanCloud 社交登录组件
+#pod 'LeanCloudSocialDynamic'
+
 ##################################################
+
 # https://github.com/kevinlawler/NSDate-TimeAgo
+
 pod 'NSDate+TimeAgo'
+
 ##################################################
+
 pod 'iOS-Category'
+
 ##################################################
+
 # todo ....
 # https://github.com/AugustRush/UICollectionView-ARDynamicHeightLayoutCell
 
@@ -262,3 +297,19 @@ pod 'UICollectionView-ARDynamicHeightLayoutCell', :git => 'https://github.com/Au
 
 ##################################################
 
+# 高德地图
+
+pod 'AMapSearch'
+pod 'AMapLocation'
+
+##################################################
+
+# https://github.com/DavydLiu/DLRadioButton
+
+#pod 'DLRadioButton'
+
+##################################################
+#pod 'RadioButton'
+##################################################
+
+##################################################

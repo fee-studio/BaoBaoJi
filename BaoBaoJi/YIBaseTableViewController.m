@@ -51,7 +51,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+	self.edgesForExtendedLayout = UIRectEdgeAll;
     if (_isPlainTableViewStyle) {
         _baseTableView = [[UITableView alloc]
                 initWithFrame:self.view.bounds
@@ -88,6 +88,15 @@
     }];
 
     [_baseTableView reloadData];
+	
+	
+	if (self.rdv_tabBarController.tabBar.translucent) {
+		CGFloat tabBarHeight = CGRectGetHeight(self.rdv_tabBarController.tabBar.frame);
+		UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, tabBarHeight, 0);
+		
+		_baseTableView.contentInset = insets;
+		_baseTableView.scrollIndicatorInsets = insets;
+	}
 }
 
 // 2.集成刷新控件

@@ -7,16 +7,17 @@
 #import "YIPublishVc.h"
 #import "CTAssetsPickerController.h"
 #import "YIBbjCell.h"
-#import "YITimelineModel.h"
-#import "LCTimelineModel.h"
+//#import "YITimelineModel.h"
+#import "LCTimelineEntity.h"
 #import "UICollectionViewCell+AutoLayoutDynamicHeightCalculation.h"
 #import "UICollectionView+ARDynamicCacheHeightLayoutCell.h"
+#import "YIBbjHeaderView.h"
 
 @interface YIBbjVc () <UIActionSheetDelegate, CTAssetsPickerControllerDelegate> {
 
 }
 
-@property (nonatomic, strong) NSArray<YITimelineModel *> *timelines;
+@property (nonatomic, strong) NSArray<LCTimelineEntity *> *timelines;
 
 @end
 
@@ -36,16 +37,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
     // 装配NavigationBar
     [self setupNavigationBar];
 
-    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.baseCollectionView.collectionViewLayout;
-//    layout.estimatedItemSize = CGSizeMake(1, 1);
-
+	// 注册 UICollectionView
+    [self.baseCollectionView registerNib:[YIBbjCell cellNib]
+			  forCellWithReuseIdentifier:NSStringFromClass([YIBbjCell class])];
 	
-    [self.baseCollectionView registerNib:[YIBbjCell cellNib] forCellWithReuseIdentifier:NSStringFromClass([YIBbjCell class])];
+	[self.baseCollectionView registerNib:[YIBbjHeaderView viewNib]
+			  forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+					 withReuseIdentifier:NSStringFromClass([YIBbjHeaderView class])];
 	
-	// 这个用法牛比.
+	// 这个用法牛比. 自动高度 自动刷新
 	method_exchangeImplementations(class_getInstanceMethod(self.baseCollectionView.class, @selector(reloadData)), class_getInstanceMethod(self.baseCollectionView.class, @selector(ar_reloadData)));
 }
 
@@ -72,11 +76,11 @@
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
                                                                    action:@selector(publishItemAction)];
-    NSDictionary *titleAttributes = @{
-            NSFontAttributeName : [UIFont systemFontOfSize:15.0],
-            NSForegroundColorAttributeName : kAppMainColor
-    };
-    [publishItem setTitleTextAttributes:titleAttributes forState:UIControlStateNormal];
+//    NSDictionary *titleAttributes = @{
+//            NSFontAttributeName : [UIFont systemFontOfSize:15.0],
+//			NSForegroundColorAttributeName : [UIColor whiteColor]
+//    };
+//    [publishItem setTitleTextAttributes:titleAttributes forState:UIControlStateNormal];
 
     NSMutableArray *rightItemMa = [NSMutableArray arrayWithCapacity:2];
     NSArray *rightItems = self.rdv_tabBarController.navigationItem.rightBarButtonItems;
@@ -88,19 +92,21 @@
 }
 
 - (void)loadTimelineData {
-    AVQuery *query = [LCTimelineModel query];
+    AVQuery *query = [LCTimelineEntity query];
     [query orderByDescending:@"createdAt"];
     [query setLimit:10];
     [query whereKey:@"isDeleted" equalTo:@(NO)];
     /**
      *  如果对象的某一属性是一个文件数组，那么在获取该属性的查询中，必须加上 includeKey: 来指定该属性名，否则，查询结果中该属性对应的值将是 AVObject 数组，而不是 AVFile 数组。
      */
-    [query includeKey:@"shareImages"]; // VIP 这个是关键
+    [query includeKey:@"sharedItem"]; // VIP 这个是关键
+	[query includeKey:@"sharedItem.data"]; // VVIP 太酷了这样.这种写法都能被我猜到
+	[query includeKey:@"location"];
     [query setCachePolicy:kAVCachePolicyNetworkElseCache];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         [self.baseCollectionView.mj_header endRefreshing];
         if (!error) {
-            self.timelines = [self formatLCTimelinesToYITimelines:objects];
+			self.timelines = objects;
             [self.baseCollectionView reloadData];
         }
     }];
@@ -108,23 +114,23 @@
 
 - (NSArray *)formatLCTimelinesToYITimelines:(NSArray *)lcTimelines {
     NSMutableArray *yiTimelines = [NSMutableArray array];
-    for (LCTimelineModel *timeline in lcTimelines) {
-        [yiTimelines addObject:[self formatLCTimelineToYITimeline:timeline]];
+    for (LCTimelineEntity *timeline in lcTimelines) {
+//        [yiTimelines addObject:[self formatLCTimelineToYITimeline:timeline]];
     }
     return yiTimelines;
 }
 
-- (YITimelineModel *)formatLCTimelineToYITimeline:(LCTimelineModel *)lcTimeline {
-    YITimelineModel *yiTimeline = [[YITimelineModel alloc] init];
-    yiTimeline.shareImages = lcTimeline.shareImages;
-    yiTimeline.shareMsg = lcTimeline.shareMsg;
-    yiTimeline.recordObj = lcTimeline.author.role; // todo ...
-    yiTimeline.shareTime = lcTimeline.createdAt;
-    yiTimeline.happenTime = lcTimeline.happenTime;
-    yiTimeline.userName = lcTimeline.author.userName;
-    yiTimeline.avatarUrl = [NSURL URLWithString:lcTimeline.author.avatarUrl];
-    return yiTimeline;
-}
+//- (YITimelineModel *)formatLCTimelineToYITimeline:(LCTimelineEntity *)lcTimeline {
+//    YITimelineModel *yiTimeline = [[YITimelineModel alloc] init];
+//	//    yiTimeline.shareImages = lcTimeline.shareImages; // todo ...
+//    yiTimeline.shareMsg = lcTimeline.shareMsg;
+////    yiTimeline.recordObj = lcTimeline.author.role; // todo ...
+//    yiTimeline.shareTime = lcTimeline.createdAt;
+//    yiTimeline.happenTime = lcTimeline.happenTime;
+//	yiTimeline.userName = lcTimeline.author.username;
+//    yiTimeline.avatarUrl = [NSURL URLWithString:lcTimeline.author.avatar];
+//    return yiTimeline;
+//}
 
 #pragma mark - 发表记录
 
@@ -231,7 +237,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     YIBbjCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([YIBbjCell class]) forIndexPath:indexPath];
-    YITimelineModel *timeline = _timelines[indexPath.row];
+    LCTimelineEntity *timeline = _timelines[indexPath.row];
     [cell setupCell:timeline];
     return cell;
 }
@@ -239,6 +245,14 @@
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath; {
+	YIBbjHeaderView *view = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([YIBbjHeaderView class]) forIndexPath:indexPath];
+	[view setupView];
+//	view.backgroundColor = [UIColor redColor];
+	return view;
+}
+
 
 #pragma mark -  UICollectionViewDelegate
 
@@ -252,69 +266,15 @@
     return YES;
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section; {
+	return CGSizeMake(mScreenWidth, 200.f);
+}
+
 #pragma mark --UICollectionViewDelegateFlowLayout
 
 //定义每个UICollectionView 的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    YIBbjCell *cell = (YIBbjCell *)[collectionView cellForItemAtIndexPath:indexPath];
-//    NSLog(@"--------> %@",cell);
-//    return CGSizeMake(mScreenWidth, 200);
-    
-//    YIBbjCell * cell = (YIBbjCell *) [self.baseCollectionView cellForItemAtIndexPath:indexPath];
-//    
-//    if (cell == nil) {
-//        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"YIBbjCell" owner:self options:nil];
-//        cell = [topLevelObjects objectAtIndex:0];
-//        cell.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 20);
-//        // SET YOUR CONTENT
-//        [cell layoutIfNeeded];
-//    }
-//
-//    CGSize CellSize1 = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-//    CGSize CellSize = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize
-//                          withHorizontalFittingPriority:UILayoutPriorityDefaultHigh
-//                                verticalFittingPriority:UILayoutPriorityDefaultHigh];
-//    return CellSize1;
-    
-//    static YIBbjCell *sizingCell = nil;
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//    YIBbjCell *sizingCell = (YIBbjCell *) [self.baseCollectionView cellForItemAtIndexPath:indexPath];
-//        
-//        if (sizingCell == nil) {
-//            NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"YIBbjCell" owner:self options:nil];
-//            sizingCell = [topLevelObjects firstObject];
-////            sizingCell.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 20);
-////            // SET YOUR CONTENT
-////            [cell layoutIfNeeded];
-//        }
-//
-////    });
-//    
-//    [sizingCell setNeedsLayout];
-//    [sizingCell layoutIfNeeded];
-//    
-//    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-//    return size;
-    
-//    YIBbjCell *cell = [YIBbjCell heightCalculationCellFromNibWithName:NSStringFromClass([YIBbjCell class])];
-//    CGFloat height = [cell heightAfterAutoLayoutPassAndRenderingWithBlock:^{
-////        [(id<MYSweetCellRenderProtocol>)cell renderWithModel:someModel];
-//    }];
-//    return CGSizeMake(CGRectGetWidth(self.baseCollectionView.bounds), height);
-    
-//    return [collectionView ar_sizeForCellWithIdentifier:@"YIBbjCell" configuration:^(id cell) {
-//        //configuration your cell
-////        FeedModel *feed = self.feeds[indexPath.row];
-////        [cell filleCellWithFeed:feed];
-//    }];
-    
-//    return [collectionView ar_sizeForCellWithIdentifier:@"YIBbjCell" indexPath:indexPath configuration:^(__kindof UICollectionViewCell *cell) {
-//        
-//    }];
-    
-    
     YITimelineModel *timeline = _timelines[indexPath.row];
     CGSize size = [collectionView ar_sizeForCellWithIdentifier:NSStringFromClass([YIBbjCell class]) indexPath:indexPath fixedWidth:mScreenWidth configuration:^(__kindof UICollectionViewCell *cell) {
         [cell setupCell:timeline];

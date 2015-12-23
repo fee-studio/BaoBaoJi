@@ -12,37 +12,23 @@
 // 1,应用中固定的名字
 
 
-// 2,应用中的图片 前缀s (skin)
-
-
 // 2,应用中UI的配色
-#define kAppMainColor   ([UIColor  colorWithHexString:@"ff9900"])
-#define kAppDeepColor   ([UIColor  colorWithHexString:@"5f6877"])
-#define kAppLightColor   ([UIColor  colorWithHexString:@"999999"])
-#define kAppGreyColor   ([UIColor  colorWithHexString:@"cccccc"])
-#define kAppBlueColor   ([UIColor  colorWithHexString:@"4169E1"])
-#define kAppGreenColor   ([UIColor  colorWithHexString:@"7dc308"])
+#define kAppMainColor			([UIColor cantaloupeColor])
+#define kAppMainBlueColor		([UIColor grassColor])
 
-#define kAppMainColorH  ([UIColor  colorWithHexString:@"ff9911"])
-#define kAppBgColor     ([UIColor  colorWithHexString:@"e6e3e1"])
-#define kAppLineColor   ([UIColor  colorWithHexString:@"b7b7b7"])
-#define kListBlackColor ([UIColor  colorWithHexString:@"2e2e2e"])
-#define kListBlackColorH ([UIColor colorWithHexString:@"262626"])
 #define kAppWhiteColor  ([UIColor  whiteColor])
-#define kTvBgColor      ([UIColor gr])
+#define kAppBgColor		([UIColor  groupTableViewBackgroundColor])
+
+#define kAppTextDeepColor	([UIColor darkGrayColor])
+#define kAppTextMidColor	([UIColor  colorWithHexString:@"999999"])
+#define kAppTextLightColor	([UIColor  colorWithHexString:@"cccccc"])
 
 // 3,应用中常用的字体大小
-
+#define kAppHugeFont        ([UIFont systemFontOfSize:20])
 #define kAppBigFont         ([UIFont systemFontOfSize:17])
 #define kAppMidFont         ([UIFont systemFontOfSize:15])
 #define kAppSmlFont         ([UIFont systemFontOfSize:13])
-// 旧的
-#define kAppBig2Font        ([UIFont systemFontOfSize:15])
-#define kAppMid2Font        ([UIFont systemFontOfSize:13])
-#define kAppSml2Font        ([UIFont systemFontOfSize:11])
-#define kAppMacro2Font      ([UIFont systemFontOfSize:10])
-#define kAppBoldMid2Font    ([UIFont boldSystemFontOfSize:13])
-#define kAppBoldSml2Font    ([UIFont boldSystemFontOfSize:11])
+#define kAppMiniFont      ([UIFont systemFontOfSize:11])
 
 // 4,应用中常用的坐标
 #define kFreshOrderCellHeight 370.f

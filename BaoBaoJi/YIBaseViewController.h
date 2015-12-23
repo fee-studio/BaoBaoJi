@@ -16,8 +16,6 @@
 
 @property (nonatomic, assign) BOOL keyboardIsShown;
 
-- (void)setupLeftMenuButton;
-- (void)setupRightMenuButton;
 
 - (void)showLoadingView;
 - (void)showLoadingViewWithText:(NSString *)text;

@@ -7,7 +7,7 @@
 //
 
 #import "YIMyVc.h"
-#import "YIUserModel.h"
+//#import "YIUserModel.h"
 
 @interface YIMyVc ()
 
@@ -28,7 +28,7 @@
     [super viewWillAppear:animated];
     
 //    [YIUserModel logInWithUsernameInBackground:@"82kxrao8k2wtw30cw01rs6k2a" password:<#(NSString *)#> block:^(AVUser *user, NSError *error) {
-        AVUser *user = [AVUser currentUser];
+        LCUserEntity *user = [LCUserEntity currentUser];
         _testLbl.text = [user objectId];
 //    }];
 }
@@ -39,7 +39,10 @@
 }
 
 - (IBAction)testBtnAction:(id)sender {
-    [YIAVOSUtil toLogin];
+//    [YIAVOSUtil toLogin];
+	
+	[AVUser logOut];
+	[mAppDelegate loadLoginViewController];
 }
 
 
