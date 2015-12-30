@@ -18,7 +18,7 @@
 @dynamic weight;
 @dynamic nickName;
 //@dynamic creator;
-
+@dynamic birthTime;
 
 + (NSString *)parseClassName {
 	return NSStringFromClass([self class]);

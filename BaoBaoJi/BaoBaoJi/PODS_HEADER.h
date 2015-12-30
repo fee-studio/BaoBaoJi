@@ -37,5 +37,5 @@
 #import "MobClick.h"
 #import "RDVTabBarController.h"
 #import "RDVTabBarItem.h"
-#import <AVOSCloud/AVOSCloud.h>;
+#import <AVOSCloud/AVOSCloud.h>
 #import "AVOSCloudSNS.h"

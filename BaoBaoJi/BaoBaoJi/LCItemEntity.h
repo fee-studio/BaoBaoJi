@@ -17,7 +17,7 @@
  3 视频
  */
 @property (nonatomic, assign) int type;
-@property (nonatomic, strong) id data;
+@property (nonatomic, strong) NSArray *data;
 
 
 @end

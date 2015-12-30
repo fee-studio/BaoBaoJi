@@ -9,7 +9,9 @@
 #import "YIRecordTimeViewController.h"
 
 @interface YIRecordTimeViewController ()
-
+{
+	UIDatePicker *datePicker;
+}
 @property (nonatomic, strong) NSMutableArray *recordTimeList;
 
 @end
@@ -20,6 +22,7 @@
 	self = [super init];
 	if (self) {
 		self.title = @"选择记录时间";
+		self.curDate = [NSDate date];
 	}
 	return self;
 }
@@ -30,19 +33,23 @@
 
 	self.recordTimeList = [NSMutableArray arrayWithCapacity:2];
 	
-	if (_photoTime) {
+	if (_photoDate) {
 		[_recordTimeList addObject:@{@"title" : @"照片时间",
-									 @"time" : [_photoTime convertDateToStringWithFormat:@"yyyy-MM-dd"],
+									 @"time" : _photoDate,
 									 @"checked" : @(NO)}];
 	}
 	
 	[_recordTimeList addObject:@{@"title" : @"当前时间",
-								 @"time" : [[NSDate date] convertDateToStringWithFormat:@"yyyy-MM-dd"],
+								 @"time" : _curDate,
 								 @"checked" : @(YES)}];
 	
 	[_recordTimeList addObject:@{@"title" : @"自定义时间",
 								 @"time" : @"",
 								 @"checked" : @(NO)}];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+	
 }
 
 #pragma mark - table view delegate & datasource
@@ -52,7 +59,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
 	static NSString *CellIdentifier = @"Cell";
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (!cell) {
@@ -61,7 +67,7 @@
 	BOOL isChecked = [[_recordTimeList[indexPath.row] objectForKey:@"checked"] boolValue];
 	cell.accessoryType = isChecked ? UITableViewCellAccessoryCheckmark :UITableViewCellAccessoryNone;
 	cell.textLabel.text = [_recordTimeList[indexPath.row] objectForKey:@"title"];
-	cell.detailTextLabel.text = [_recordTimeList[indexPath.row] objectForKey:@"time"];
+	cell.detailTextLabel.text = [[_recordTimeList[indexPath.row] objectForKey:@"time"] convertDateToStringWithFormat:@"yyyy-MM-dd"];
 	
 	return cell;
 }
@@ -79,6 +85,47 @@
 		_recordTimeList[idx] = recordTime;
 	}];
 	[self.baseTableView reloadData];
+	
+	if (indexPath.row == 1) {
+		[self showDatePicker];
+	} else {
+		[self hideDatePicker];
+	}
+}
+
+#pragma mark -
+
+- (void)showDatePicker {
+	if (datePicker == nil) {
+		datePicker = [[UIDatePicker alloc] init];
+		[datePicker setDate:[NSDate date] animated:YES];
+		[datePicker setDatePickerMode:UIDatePickerModeDate];
+		[datePicker addTarget:self action:@selector(selectedDateChanged:) forControlEvents:UIControlEventValueChanged];
+		[self.view addSubview:datePicker];
+		[datePicker mas_makeConstraints:^(MASConstraintMaker *make) {
+			make.width.equalTo(self.view);
+			make.left.equalTo(self.view);
+			make.bottom.equalTo(self.view);
+			make.height.equalTo(@216);
+		}];
+	}
+	if (datePicker) {
+		datePicker.hidden = NO;
+	}
+}
+
+- (void)hideDatePicker {
+	if (datePicker) {
+		datePicker.hidden = YES;
+	}
+}
+
+- (void)selectedDateChanged:(id)sender {
+	NSArray *array = @[ [NSIndexPath indexPathForRow:1 inSection:0] ];
+	NSMutableDictionary *recordTime = [NSMutableDictionary dictionaryWithDictionary:_recordTimeList[1]];
+	[recordTime setObject:datePicker.date forKey:@"time"];
+	_recordTimeList[1] = recordTime;
+	[self.baseTableView reloadRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)didReceiveMemoryWarning {

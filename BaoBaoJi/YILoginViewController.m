@@ -8,6 +8,7 @@
 
 #import "YILoginViewController.h"
 #import "YISignUpViewController.h"
+#import "LCFamilyEntity.h"
 
 @interface YILoginViewController ()
 
@@ -41,16 +42,33 @@
     // Dispose of any resources that can be recreated.
 }
 
-
 - (IBAction)loginBtnAction:(id)sender {
-	[AVUser logInWithMobilePhoneNumberInBackground:_userNameTf.text
+	[LCUserEntity logInWithMobilePhoneNumberInBackground:_userNameTf.text
 										  password:_passwordTf.text
 											 block:^(AVUser *user, NSError *error) {
 												 if (user) {
-													 [mAppDelegate loadMainViewController];
+													 mGlobalData.user = (LCUserEntity *)user;
+													 
+													 AVQuery *query = [LCFamilyEntity query];
+													 [query whereKey:@"user" equalTo:user];
+													 [query includeKey:@"baby"]; // vip 想查出baby 必须includeKey baby
+													 [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+														 mGlobalData.user.babies = [NSMutableArray array];
+														 for(LCFamilyEntity *family in objects) {
+															 LCBabyEntity *baby = family.baby;
+															 [mGlobalData.user.babies addObject:baby];
+															 [mGlobalData.user saveInBackground];
+															 mGlobalData.curBaby = baby; // todo ...本地缓存.
+														 }
+														 
+														 if (mGlobalData.user.babies.count) {
+															 [mAppDelegate loadMainViewController];
+														 } else {
+															 [mAppDelegate loadAddBabyViewController];
+														 }
+													 }];
 												 }
 											 }];
-	
 }
 
 - (IBAction)signUpBtnAction:(id)sender {

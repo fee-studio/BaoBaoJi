@@ -101,6 +101,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "UMengFeedback/UMFeedback_iOS_2.3.4/UMengFeedback_SDK/Resources/umeng_fb_audio_play_03@2x.png"
   install_resource "UMengFeedback/UMFeedback_iOS_2.3.4/UMengFeedback_SDK/Resources/umeng_fb_audio_play_default@2x.png"
   install_resource "${BUILT_PRODUCTS_DIR}/CTAssetsPickerController.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/QBImagePicker.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/TOWebViewControllerLocalizable.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -147,6 +148,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "UMengFeedback/UMFeedback_iOS_2.3.4/UMengFeedback_SDK/Resources/umeng_fb_audio_play_03@2x.png"
   install_resource "UMengFeedback/UMFeedback_iOS_2.3.4/UMengFeedback_SDK/Resources/umeng_fb_audio_play_default@2x.png"
   install_resource "${BUILT_PRODUCTS_DIR}/CTAssetsPickerController.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/QBImagePicker.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/TOWebViewControllerLocalizable.bundle"
 fi
 

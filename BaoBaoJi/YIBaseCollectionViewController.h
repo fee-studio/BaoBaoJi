@@ -9,5 +9,8 @@
 @interface YIBaseCollectionViewController : YIBaseViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) UICollectionView *baseCollectionView;
+@property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
+
+@property (nonatomic, assign) BOOL refreshEnable;
 
 @end

@@ -19,7 +19,8 @@
 #import "LCLocationEntity.h"
 #import "LCItemEntity.h"
 #import "LCUserEntity.h"
-
+#import "YIBabyIndexViewController.h"
+#import "LCFamilyEntity.h"
 
 @interface YIAppDelegate () <CLLocationManagerDelegate, UIViewControllerTransitioningDelegate, RDVTabBarControllerDelegate>
 
@@ -86,6 +87,7 @@
 	[LCLocationEntity registerSubclass];
 	[LCItemEntity registerSubclass];
 	[LCUserEntity registerSubclass];
+	[LCFamilyEntity registerSubclass];
     
     [AVOSCloud setApplicationId:@"DKsBW5t5SO4AfRh1NUe1MNKz"
                       clientKey:@"nyQX4tuOA9D3SU0z4QRI76me"];
@@ -377,7 +379,9 @@
 #pragma mark -
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+	// todo ...
+	//	return [self loadTempViewController];
+
     // 加载应用
     [self loadViewController];
     
@@ -387,15 +391,23 @@
 // 加载应用主界面
 - (void)loadViewController {
 	
-//	[AVUser logOut]; // todo ..
+	[AVUser logOut]; // todo ..
 	
-	UIViewController *mainVc = nil;
-	AVUser *user = [AVUser currentUser];
-	if (user) {
+	mGlobalData.user = [AVUser currentUser];
+	
+	if (mGlobalData.user) {
 		[self loadMainViewController];
 	} else {
 		[self loadLoginViewController];
 	}
+}
+
+- (BOOL)loadTempViewController {
+	YIBabyIndexViewController *vc = [[YIBabyIndexViewController alloc] init];
+	YIBaseNavigationController *mainNc = [[YIBaseNavigationController alloc] initWithRootViewController:vc];
+	[self.window setRootViewController:mainNc];
+	[self.window makeKeyAndVisible];
+	return YES;
 }
 
 - (void)loadLoginViewController {
@@ -409,12 +421,34 @@
 	YIBbjVc *bbjVc = [[YIBbjVc alloc] init];
 	YIBaseViewController *svc = [[YIBaseViewController alloc] init];
 	YIMyVc *mvc = [[YIMyVc alloc] init];
-	UIViewController *fvc = [[UIViewController alloc] init];
+
 	RDVTabBarController *tabBarController = [[RDVTabBarController alloc] init];
 	tabBarController.delegate = self;
 	[tabBarController setViewControllers:@[bbjVc, svc, mvc]];
 	[self customizeTabBarForController:tabBarController];
 	YIBaseNavigationController *mainNc = [[YIBaseNavigationController alloc] initWithRootViewController:tabBarController];
+	[self.window setRootViewController:mainNc];
+	[self.window makeKeyAndVisible];
+}
+
+- (void)loadAddBabyViewController {
+	YIBabyIndexViewController *vc = [[YIBabyIndexViewController alloc] init];
+	YIBaseNavigationController *mainNc = [[YIBaseNavigationController alloc] initWithRootViewController:vc];
+	[self.window setRootViewController:mainNc];
+	[self.window makeKeyAndVisible];
+}
+
+- (void)loadMainViewController2 {
+	YIBbjVc *bbjVc = [[YIBbjVc alloc] init];
+	YIBaseViewController *svc = [[YIBaseViewController alloc] init];
+	YIMyVc *mvc = [[YIMyVc alloc] init];
+	
+//	RDVTabBarController *tabBarController = [[RDVTabBarController alloc] init];
+//	tabBarController.delegate = self;
+//	[tabBarController setViewControllers:@[bbjVc, svc, mvc]];
+//	[self customizeTabBarForController:tabBarController];
+	YIBaseNavigationController *mainNc = [[YIBaseNavigationController alloc] initWithRootViewController:bbjVc];
+//	[self.window.rootViewController presentViewController:mainNc animated:YES completion:nil];
 	[self.window setRootViewController:mainNc];
 	[self.window makeKeyAndVisible];
 }

@@ -30,6 +30,7 @@
 #import "YIAVOSUtil.h"
 
 #import "LCUserEntity.h"
+#import "LCClientEntity.h"
 
 #import "UIDevice+DeviceInfo.h"
 #import "NSError+Adding.h"
@@ -41,16 +42,18 @@
 #import "YINetworkManager.h"
 
 #import "YIBaseDataSource.h"
-#import "LCClientEntity.h"
 #import "YIBaseRequest.h"
 #import "YIBaseViewController.h"
 #import "YIBaseTableViewCell.h"
 #import "YIBaseNavigationController.h"
 #import "YIBaseScrollViewController.h"
+#import "YIBaseCollectionViewController.h"
+
 #import "YISegmentedControlViewController.h"
 
-#import "YILogUtil.h"
 
+#import "YILogUtil.h"
+#import "UIButton+UI.h"
 
 
 #endif

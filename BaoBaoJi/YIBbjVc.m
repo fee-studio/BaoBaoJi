@@ -12,8 +12,11 @@
 #import "UICollectionViewCell+AutoLayoutDynamicHeightCalculation.h"
 #import "UICollectionView+ARDynamicCacheHeightLayoutCell.h"
 #import "YIBbjHeaderView.h"
+#import "CSStickyHeaderFlowLayout.h"
+#import "YIBabyDetailVc.h"
+#import "CSGrowHeaderViewController.h"
 
-@interface YIBbjVc () <UIActionSheetDelegate, CTAssetsPickerControllerDelegate> {
+@interface YIBbjVc () <UIActionSheetDelegate, CTAssetsPickerControllerDelegate, YIBbjHeaderViewDelegate> {
 
 }
 
@@ -36,7 +39,10 @@
 }
 
 - (void)viewDidLoad {
+	
     [super viewDidLoad];
+	// todo
+	 self.refreshEnable = YES;
 	
     // 装配NavigationBar
     [self setupNavigationBar];
@@ -44,18 +50,47 @@
 	// 注册 UICollectionView
     [self.baseCollectionView registerNib:[YIBbjCell cellNib]
 			  forCellWithReuseIdentifier:NSStringFromClass([YIBbjCell class])];
-	
+
 	[self.baseCollectionView registerNib:[YIBbjHeaderView viewNib]
 			  forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
 					 withReuseIdentifier:NSStringFromClass([YIBbjHeaderView class])];
+
+	/*  头部的效果
+	[self reloadLayout];
+	 */
 	
+	// todo
 	// 这个用法牛比. 自动高度 自动刷新
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
 	method_exchangeImplementations(class_getInstanceMethod(self.baseCollectionView.class, @selector(reloadData)), class_getInstanceMethod(self.baseCollectionView.class, @selector(ar_reloadData)));
+#pragma clang diagnostic pop
+	
+	
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+//	[self.view addSubview:self.baseCollectionView];
 }
+
+- (void)reloadLayout {
+	UINib *headerNib = [UINib nibWithNibName:@"CSGrowHeader" bundle:nil];
+	[self.baseCollectionView registerNib:headerNib
+			  forSupplementaryViewOfKind:CSStickyHeaderParallaxHeader
+					 withReuseIdentifier:@"header"];
+	
+	CSStickyHeaderFlowLayout *layout = [CSStickyHeaderFlowLayout new];
+	layout.parallaxHeaderReferenceSize = CGSizeMake(self.view.frame.size.width, 200);
+	layout.itemSize = CGSizeMake(self.view.frame.size.width, layout.itemSize.height);
+	// If we want to disable the sticky header effect
+	layout.disableStickyHeaders = YES;
+	self.baseCollectionView.collectionViewLayout = layout;
+}
+
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//}
 
 #pragma mark -
 
@@ -97,7 +132,7 @@
     [query setLimit:10];
     [query whereKey:@"isDeleted" equalTo:@(NO)];
     /**
-     *  如果对象的某一属性是一个文件数组，那么在获取该属性的查询中，必须加上 includeKey: 来指定该属性名，否则，查询结果中该属性对应的值将是 AVObject 数组，而不是 AVFile 数组。
+		如果对象的某一属性是一个文件数组，那么在获取该属性的查询中，必须加上 includeKey: 来指定该属性名，否则，查询结果中该属性对应的值将是 AVObject 数组，而不是 AVFile 数组。
      */
     [query includeKey:@"sharedItem"]; // VIP 这个是关键
 	[query includeKey:@"sharedItem.data"]; // VVIP 太酷了这样.这种写法都能被我猜到
@@ -107,18 +142,22 @@
         [self.baseCollectionView.mj_header endRefreshing];
         if (!error) {
 			self.timelines = objects;
-            [self.baseCollectionView reloadData];
-        }
+			
+			self.baseCollectionView.delegate = self;
+			self.baseCollectionView.dataSource = self;
+			[self.baseCollectionView reloadData];
+
+		}
     }];
 }
 
-- (NSArray *)formatLCTimelinesToYITimelines:(NSArray *)lcTimelines {
-    NSMutableArray *yiTimelines = [NSMutableArray array];
-    for (LCTimelineEntity *timeline in lcTimelines) {
+//- (NSArray *)formatLCTimelinesToYITimelines:(NSArray *)lcTimelines {
+//    NSMutableArray *yiTimelines = [NSMutableArray array];
+//    for (LCTimelineEntity *timeline in lcTimelines) {
 //        [yiTimelines addObject:[self formatLCTimelineToYITimeline:timeline]];
-    }
-    return yiTimelines;
-}
+//    }
+//    return yiTimelines;
+//}
 
 //- (YITimelineModel *)formatLCTimelineToYITimeline:(LCTimelineEntity *)lcTimeline {
 //    YITimelineModel *yiTimeline = [[YITimelineModel alloc] init];
@@ -247,10 +286,24 @@
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath; {
-	YIBbjHeaderView *view = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([YIBbjHeaderView class]) forIndexPath:indexPath];
-	[view setupView];
-//	view.backgroundColor = [UIColor redColor];
-	return view;
+	
+	// Check the kind if it's CSStickyHeaderParallaxHeader
+	if ([kind isEqualToString:CSStickyHeaderParallaxHeader]) {
+		UICollectionReusableView *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind
+																					  withReuseIdentifier:@"header"
+																							 forIndexPath:indexPath];
+		return cell;
+	} else if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+		YIBbjHeaderView *view = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+																   withReuseIdentifier:NSStringFromClass([YIBbjHeaderView class])
+																		  forIndexPath:indexPath];
+		view.delegate = self;
+		[view setupView];
+		
+		return view;
+	} else {
+		return nil;
+	}
 }
 
 
@@ -261,8 +314,7 @@
 }
 
 //返回这个UICollectionView是否可以被选择
--(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
+-(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
 
@@ -275,12 +327,12 @@
 //定义每个UICollectionView 的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    YITimelineModel *timeline = _timelines[indexPath.row];
+    LCTimelineEntity *timeline = _timelines[indexPath.row];
     CGSize size = [collectionView ar_sizeForCellWithIdentifier:NSStringFromClass([YIBbjCell class]) indexPath:indexPath fixedWidth:mScreenWidth configuration:^(__kindof UICollectionViewCell *cell) {
         [cell setupCell:timeline];
     }];
 	
-	NSLog(@"collectionView-size = %@",NSStringFromCGSize(size));
+	NSLog(@"collectionView-size = %@", NSStringFromCGSize(size));
 	
 	return size;
 }
@@ -289,6 +341,14 @@
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     return UIEdgeInsetsZero;
+}
+
+#pragma mark - YIBbjHeaderViewDelegate
+
+- (void)babyInfoBtnDidSelected; {
+	YIBabyDetailVc *vc = [[YIBabyDetailVc alloc] init];
+//	CSGrowHeaderViewController *vc = [CSGrowHeaderViewController new];
+	[self.navigationController pushViewController:vc animated:YES];
 }
 
 

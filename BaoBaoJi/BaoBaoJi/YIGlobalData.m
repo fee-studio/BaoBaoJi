@@ -32,13 +32,14 @@ static YIGlobalData *sharedGlobalData = nil;
 
 - (void)loadDefaultValue {
 	_user = [LCUserEntity currentUser];
-	
-	
+
+
     _login = [mUserDefaults boolForKey:kLogin];
-//    _deviceToken = [mUserDefaults stringForKey:kDeviceToken];
     _isLaunched = [mUserDefaults boolForKey:kLaunched];
     _debugOn = [mUserDefaults boolForKey:kDebugOn];
     _isShowFeature = [mUserDefaults boolForKey:kShowFeature];
+
+//    _deviceToken = [mUserDefaults stringForKey:kDeviceToken];
 //    _savedVersionCode = [mUserDefaults stringForKey:kSavedVersionCode];
 }
 

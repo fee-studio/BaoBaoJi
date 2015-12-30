@@ -28,6 +28,8 @@
 
 
 @property(nonatomic, strong) LCUserEntity *user;
+@property(nonatomic, strong) LCBabyEntity *curBaby;
+
 
 
 @property(nonatomic, assign) BOOL login;  // 是否已登录

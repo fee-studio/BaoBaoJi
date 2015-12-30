@@ -23,7 +23,8 @@
 
 - (void)loadLoginViewController;
 - (void)loadMainViewController;
+- (void)loadAddBabyViewController;
 
-
+- (void)loadMainViewController2;
 @end
 

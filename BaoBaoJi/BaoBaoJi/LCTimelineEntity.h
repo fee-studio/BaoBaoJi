@@ -21,6 +21,19 @@
 
 @property(nonatomic, strong) LCUserEntity *author; // 作者
 @property(nonatomic, strong) LCBabyEntity *baby; // 宝宝
+
+/*
+ <dict>
+ <key>des</key>
+ <string>str_ft_cry</string>
+ <key>ftid</key>
+ <integer>4</integer>
+ <key>icon</key>
+ <string>ic_ft_cry</string>
+ <key>present</key>
+ <string>哭</string>
+ </dict>
+ */
 @property(nonatomic, strong) NSDictionary *firstDo; // 第一次
 @property(nonatomic, strong) LCLocationEntity *location; //地理位置
 @property(nonatomic, strong) LCItemEntity *sharedItem; // 发布的文件如: 照片/音频/视频

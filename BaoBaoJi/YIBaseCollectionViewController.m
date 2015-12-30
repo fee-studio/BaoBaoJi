@@ -12,12 +12,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
 	self.edgesForExtendedLayout = UIRectEdgeAll;
+	
     // 初始化
-    UICollectionViewFlowLayout *flowLayout=[[UICollectionViewFlowLayout alloc] init];
-    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+    self.flowLayout=[[UICollectionViewFlowLayout alloc] init];
+    [_flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
 //	flowLayout.minimumLineSpacing = 1.f;
-    self.baseCollectionView = [[UICollectionView alloc] initWithFrame:mScreenBounds collectionViewLayout:flowLayout];
+	
+    self.baseCollectionView = [[UICollectionView alloc] initWithFrame:mScreenBounds collectionViewLayout:_flowLayout];
     _baseCollectionView.delegate = self;
     _baseCollectionView.dataSource = self;
     _baseCollectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
@@ -25,18 +28,12 @@
     [_baseCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
+	
     //注册
     [_baseCollectionView registerClass:[YIBaseCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([YIBaseCollectionViewCell class])];
-    // 刷新数据
-    [_baseCollectionView reloadData];
-    
-    // 上下拉刷新
-    _baseCollectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
-    [_baseCollectionView.mj_header beginRefreshing];
-    
-    _baseCollectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefreshing)];
-    _baseCollectionView.mj_footer.hidden = YES;
 	
+	// 刷新数据 // todo
+    [_baseCollectionView reloadData];
 	
 	if (self.rdv_tabBarController.tabBar.translucent) {
 		CGFloat tabBarHeight = CGRectGetHeight(self.rdv_tabBarController.tabBar.frame);
@@ -47,10 +44,22 @@
 	}
 }
 
+- (void)setRefreshEnable:(BOOL)refreshEnable {
+	_refreshEnable = refreshEnable;
+	if (_refreshEnable) {
+		// 上下拉刷新
+		_baseCollectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
+		[_baseCollectionView.mj_header beginRefreshing];
+		
+		_baseCollectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefreshing)];
+		_baseCollectionView.mj_footer.hidden = YES;
+	}
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [YILogUtil logFrameOfView:_baseCollectionView andName:@"_baseCollectionView"];
+//    [YILogUtil logFrameOfView:_baseCollectionView andName:@"_baseCollectionView"];
 }
 
 #pragma mark - 上下拉刷新
@@ -76,6 +85,10 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 0;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath; {
+	return nil;
 }
 
 #pragma mark -  UICollectionViewDelegate

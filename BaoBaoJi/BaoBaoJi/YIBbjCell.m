@@ -31,10 +31,11 @@
     }
 	
 	NSString *firstDoText = [NSString stringWithFormat:@"第一次%@",timeline.firstDo[@"present"]];
-    miv = [YIModuleItemView viewWithTitle:timeline.sharedText
-                                 subTitle:firstDoText
-                                  content:timeline.location.name
-                                   images:timeline.sharedItem.data];
+//    miv = [YIModuleItemView viewWithTitle:timeline.sharedText
+//                                 subTitle:firstDoText
+//                                  content:timeline.location.name
+//                                   images:timeline.sharedItem.data];
+	miv = [YIModuleItemView viewWithTimeline:timeline];
     [self.contentView addSubview:miv];
 	
     UIEdgeInsets padding = UIEdgeInsetsMake(10, 10, 10, 10);

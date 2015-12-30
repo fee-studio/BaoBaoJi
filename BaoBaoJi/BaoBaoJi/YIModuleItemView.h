@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LCTimelineEntity.h"
+
 
 @interface YIModuleItemView : UIView
 
@@ -19,11 +21,13 @@
 + (instancetype)viewWithTitle:(NSString *)title content:(NSString *)content customView:(UIView *)customView;
 + (instancetype)viewWithTitle:(NSString *)title subTitle:(NSString *)subTitle content:(NSString *)content images:(NSArray *)images;
 
-
 - (instancetype)initWithTitle:(NSString *)title
                      subTitle:(NSString *)subTitle
                       content:(NSString *)content
                    customView:(UIView *)customView
                        images:(NSArray *)images;
+
+@property (nonatomic, strong) LCTimelineEntity *timeline;
++ (instancetype)viewWithTimeline:(LCTimelineEntity *)timeline;
 
 @end

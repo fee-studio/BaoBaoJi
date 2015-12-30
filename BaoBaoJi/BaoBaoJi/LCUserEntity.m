@@ -18,7 +18,7 @@
 @dynamic isOnline;
 @dynamic sex;
 @dynamic babies;
-@dynamic curBaby;
+//@dynamic curBaby;
 
 
 + (NSString *)parseClassName {

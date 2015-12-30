@@ -32,7 +32,17 @@
 	
 	LCUserEntity *user = [LCUserEntity currentUser];
 	_userName.text = user.username;
-		
+	
+	
+	UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"返回"
+																 style:UIBarButtonItemStylePlain
+																target:self
+																action:@selector(backItemAction)];
+	self.navigationItem.leftBarButtonItem = backItem;
+}
+
+- (void)backItemAction {
+	[self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)setupUI {

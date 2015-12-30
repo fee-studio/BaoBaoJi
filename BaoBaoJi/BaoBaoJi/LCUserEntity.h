@@ -16,10 +16,9 @@
 @property (nonatomic, copy) NSDate *birthday;
 @property (nonatomic, copy) NSString *nickName;
 @property (nonatomic, copy) NSString *avatar;
-@property (nonatomic, assign) BOOL isOnline;
+@property (nonatomic, assign) BOOL isOnline; // 是否在线
 @property (nonatomic, assign) int sex;
-
-@property (nonatomic, strong) NSArray *babies;
-@property (nonatomic, strong) LCBabyEntity *curBaby;
+@property (nonatomic, strong) NSMutableArray *babies;
+//@property (nonatomic, strong) LCBabyEntity *curBaby;
 
 @end

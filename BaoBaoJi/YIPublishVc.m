@@ -308,6 +308,11 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate, YILocationViewControlle
     [super viewWillAppear:animated];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+		
+}
+
 - (void)showFirstDoList {
 	[self hideKeyboard:nil];
 	
@@ -348,7 +353,7 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate, YILocationViewControlle
 	BOOL isDeleted = NO;
 	NSString *sharedText = sharedTextTv.text;
 	LCUserEntity *author = mGlobalData.user;
-	LCBabyEntity *baby = author.curBaby;
+	LCBabyEntity *baby = mGlobalData.curBaby;
 	NSDictionary *firstDo = curFirstDoItem;
 	LCLocationEntity *location = _locationEntity;
 	
@@ -521,7 +526,7 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate, YILocationViewControlle
 #pragma mark - YIFirstDoItemViewDelegate
 
 - (void)firstDoThingSelectedIndex:(NSUInteger)index text:(NSString *)text item:(NSDictionary *)item; {
-	NSString *title = [NSString stringWithFormat:@"第一次%@",text];
+	NSString *title = [NSString stringWithFormat:@"第一次%@",item[@"present"]];
 	[firstDoBtn setTitle:title forState:UIControlStateNormal];
 	[firstDoBtn setTitleColor:[UIColor oliveColor] forState:UIControlStateNormal];
 	

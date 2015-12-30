@@ -13,7 +13,7 @@
 
 @interface LCBabyEntity : AVObject <AVSubclassing>
 
-@property(nonatomic, strong) NSString *avatar;
+@property(nonatomic, strong) AVFile *avatar;
 @property(nonatomic, strong) NSDate *birthday;
 @property(nonatomic, assign) int blood;
 @property(nonatomic, assign) int sex;
@@ -21,5 +21,6 @@
 @property(nonatomic, assign) float weight;
 @property(nonatomic, strong) NSString *nickName;
 @property(nonatomic, strong) LCUserEntity *creator;
+@property(nonatomic, strong) NSString *birthTime; // 出时时刻
 
 @end

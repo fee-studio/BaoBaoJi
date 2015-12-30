@@ -91,6 +91,7 @@
 - (IBAction)verifyMobileBtnAction:(id)sender {
 	[LCUserEntity signUpOrLoginWithMobilePhoneNumberInBackground:_mobileNumber smsCode:_captchaTf.text block:^(AVUser *user, NSError *error) {
 		if (user) {
+			mGlobalData.user = user;
 			YICompleteInfoViewController *vc = [[YICompleteInfoViewController alloc] init];
 			[self.navigationController pushViewController:vc animated:YES];
 		}

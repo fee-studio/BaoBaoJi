@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YIBabyIndexViewController">
             <connections>
+                <outlet property="bgIv" destination="D2H-vd-m9j" id="Vuc-rd-jr5"/>
+                <outlet property="createBabyZoneBtn" destination="RM6-T7-QxS" id="Jwa-2B-KRS"/>
+                <outlet property="inviteOtherFamilyBtn" destination="MXF-KJ-gjB" id="28h-iw-XER"/>
+                <outlet property="summaryTv" destination="Eg4-cI-5NI" id="yDi-Hh-lgo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,54 +20,61 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MXF-KJ-gjB">
-                    <rect key="frame" x="222" y="377" width="157" height="33"/>
-                    <animations/>
+                    <rect key="frame" x="10" y="402" width="580" height="44"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="33" id="cyL-9o-m8x"/>
+                        <constraint firstAttribute="height" constant="44" id="xVE-Pm-FSF"/>
                     </constraints>
                     <state key="normal" title="输入邀请码关注宝宝"/>
                     <connections>
                         <action selector="inviteOtherFamilyBtnAction:" destination="-1" eventType="touchUpInside" id="Erm-aG-s3T"/>
                     </connections>
                 </button>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="开启专属于宝宝的亲子空间  把家人手机中的照片放在一起  随时记录宝宝各种萌态 与远方亲人分享宝宝视频 手机丢了也不怕,珍贵照片一张不少" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Eg4-cI-5NI">
-                    <rect key="frame" x="0.0" y="62" width="600" height="203"/>
-                    <animations/>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="开启专属于宝宝的亲子空间\r\n  把家人手机中的照片放在一起 \r\n 随时记录宝宝各种萌态\r\n 与远方亲人分享宝宝视频 手机丢了也不怕,珍贵照片一张不少" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Eg4-cI-5NI">
+                    <rect key="frame" x="0.0" y="87" width="600" height="191"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="203" id="V5X-Vf-t3h"/>
+                        <constraint firstAttribute="height" constant="191" id="qop-tw-Yqh"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="20"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RM6-T7-QxS">
-                    <rect key="frame" x="222" y="313" width="157" height="33"/>
-                    <animations/>
+                    <rect key="frame" x="10" y="338" width="580" height="44"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="157" id="PVE-hk-4JX"/>
-                        <constraint firstAttribute="height" constant="33" id="TSb-aa-OhF"/>
+                        <constraint firstAttribute="height" constant="44" id="haw-Nz-4LA"/>
                     </constraints>
                     <state key="normal" title="创建宝宝空间"/>
                     <connections>
                         <action selector="createBabyZoneBtnAction:" destination="-1" eventType="touchUpInside" id="1rX-WK-0eA"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_create_baby_bg.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="D2H-vd-m9j">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                </imageView>
             </subviews>
-            <animations/>
-            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="Eg4-cI-5NI" secondAttribute="trailing" id="6a4-bo-iMq"/>
-                <constraint firstItem="RM6-T7-QxS" firstAttribute="leading" secondItem="MXF-KJ-gjB" secondAttribute="leading" id="BqZ-3S-ghw"/>
-                <constraint firstItem="RM6-T7-QxS" firstAttribute="trailing" secondItem="MXF-KJ-gjB" secondAttribute="trailing" id="BvQ-Jj-vAj"/>
-                <constraint firstItem="Eg4-cI-5NI" firstAttribute="centerX" secondItem="RM6-T7-QxS" secondAttribute="centerX" id="JTJ-7v-htS"/>
-                <constraint firstItem="RM6-T7-QxS" firstAttribute="top" secondItem="Eg4-cI-5NI" secondAttribute="bottom" constant="48" id="YOS-a3-xbJ"/>
-                <constraint firstItem="Eg4-cI-5NI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="62" id="gje-h6-kEt"/>
-                <constraint firstItem="Eg4-cI-5NI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ibb-zG-fqw"/>
-                <constraint firstItem="MXF-KJ-gjB" firstAttribute="top" secondItem="RM6-T7-QxS" secondAttribute="bottom" constant="31" id="vJC-uq-MaJ"/>
+                <constraint firstItem="Eg4-cI-5NI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="87" id="3H3-hO-Pg4"/>
+                <constraint firstItem="RM6-T7-QxS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="50R-9z-3nl"/>
+                <constraint firstItem="MXF-KJ-gjB" firstAttribute="trailing" secondItem="RM6-T7-QxS" secondAttribute="trailing" id="7wY-rL-qv8"/>
+                <constraint firstItem="MXF-KJ-gjB" firstAttribute="top" secondItem="RM6-T7-QxS" secondAttribute="bottom" constant="20" id="EgG-Gf-zFn"/>
+                <constraint firstItem="RM6-T7-QxS" firstAttribute="top" secondItem="Eg4-cI-5NI" secondAttribute="bottom" constant="60" id="Ehy-hA-7xh"/>
+                <constraint firstItem="D2H-vd-m9j" firstAttribute="leading" secondItem="Eg4-cI-5NI" secondAttribute="leading" id="PfO-ab-Xlm"/>
+                <constraint firstAttribute="bottom" secondItem="D2H-vd-m9j" secondAttribute="bottom" id="Q3l-8n-y94"/>
+                <constraint firstItem="D2H-vd-m9j" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="TRR-Fr-ONg"/>
+                <constraint firstItem="D2H-vd-m9j" firstAttribute="trailing" secondItem="Eg4-cI-5NI" secondAttribute="trailing" id="Xc8-pa-zEq"/>
+                <constraint firstAttribute="trailing" secondItem="Eg4-cI-5NI" secondAttribute="trailing" id="c6v-9E-bxm"/>
+                <constraint firstItem="Eg4-cI-5NI" firstAttribute="centerX" secondItem="RM6-T7-QxS" secondAttribute="centerX" id="fQv-sf-ceN"/>
+                <constraint firstItem="RM6-T7-QxS" firstAttribute="leading" secondItem="MXF-KJ-gjB" secondAttribute="leading" id="lJ8-jU-T9L"/>
+                <constraint firstItem="Eg4-cI-5NI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="t1M-hQ-YcD"/>
             </constraints>
-            <point key="canvasLocation" x="222" y="217"/>
+            <point key="canvasLocation" x="328" y="176"/>
         </view>
     </objects>
+    <resources>
+        <image name="ic_create_baby_bg.jpg" width="640" height="910"/>
+    </resources>
 </document>

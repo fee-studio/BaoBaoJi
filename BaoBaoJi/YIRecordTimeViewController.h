@@ -8,8 +8,15 @@
 
 #import "YIBaseTableViewController.h"
 
+@protocol YIRecordTimeViewControllerDelegate <NSObject>
+
+- (void)selectedDate:(NSDate *)date;
+
+@end
+
 @interface YIRecordTimeViewController : YIBaseTableViewController
 
-@property (nonatomic, strong) NSDate *photoTime;
+@property (nonatomic, strong) NSDate *photoDate;
+@property (nonatomic, strong) NSDate *curDate;
 
 @end

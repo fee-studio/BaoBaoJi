@@ -29,7 +29,8 @@
 	
 	[items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {		
 		UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-		[button setTag:[[obj objectForKey:@"ftid"] integerValue]];
+//		[button setTag:[[obj objectForKey:@"ftid"] integerValue]];
+		[button setTag:idx];
 		[button setTitle:[obj objectForKey:@"present"] forState:UIControlStateNormal];
 		[button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
 		[button setImage:[UIImage imageNamed:[obj objectForKey:@"icon"]] forState:UIControlStateNormal];
