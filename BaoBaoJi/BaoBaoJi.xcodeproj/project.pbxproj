@@ -45,6 +45,8 @@
 		52A8FC5C1BF0D7FC00A95FC1 /* YIBbjCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52A8FC5A1BF0D7FC00A95FC1 /* YIBbjCell.xib */; };
 		52A8FC5E1BF0E94A00A95FC1 /* YIBbjVc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52A8FC5D1BF0E94A00A95FC1 /* YIBbjVc.xib */; };
 		52A8FC611BF0EA3800A95FC1 /* YILogUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8FC601BF0EA3800A95FC1 /* YILogUtil.m */; };
+		52A961B81C37FD7000D21D58 /* common_property.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52A961B71C37FD7000D21D58 /* common_property.plist */; };
+		52A961BA1C38D8EB00D21D58 /* tmp_bg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 52A961B91C38D8EB00D21D58 /* tmp_bg@2x.jpg */; };
 		52B25A7F1C20616A00ACDEA2 /* YIBbjHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B25A7E1C20616A00ACDEA2 /* YIBbjHeaderView.m */; };
 		52B25A811C20618000ACDEA2 /* YIBbjHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52B25A801C20618000ACDEA2 /* YIBbjHeaderView.xib */; };
 		52B25A831C206CC300ACDEA2 /* ic_create_baby_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 52B25A821C206CC300ACDEA2 /* ic_create_baby_bg.jpg */; };
@@ -280,6 +282,8 @@
 		52A8FC5D1BF0E94A00A95FC1 /* YIBbjVc.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YIBbjVc.xib; sourceTree = "<group>"; };
 		52A8FC5F1BF0EA3800A95FC1 /* YILogUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YILogUtil.h; sourceTree = "<group>"; };
 		52A8FC601BF0EA3800A95FC1 /* YILogUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YILogUtil.m; sourceTree = "<group>"; };
+		52A961B71C37FD7000D21D58 /* common_property.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = common_property.plist; sourceTree = "<group>"; };
+		52A961B91C38D8EB00D21D58 /* tmp_bg@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "tmp_bg@2x.jpg"; sourceTree = "<group>"; };
 		52B25A7D1C20616A00ACDEA2 /* YIBbjHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YIBbjHeaderView.h; path = BaoBaoJi/YIBbjHeaderView.h; sourceTree = "<group>"; };
 		52B25A7E1C20616A00ACDEA2 /* YIBbjHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YIBbjHeaderView.m; path = BaoBaoJi/YIBbjHeaderView.m; sourceTree = "<group>"; };
 		52B25A801C20618000ACDEA2 /* YIBbjHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = YIBbjHeaderView.xib; path = BaoBaoJi/YIBbjHeaderView.xib; sourceTree = "<group>"; };
@@ -762,6 +766,7 @@
 				52CD45671B9A9A190002B8D1 /* Supporting Files */,
 				527C88711C0B151D00AE9E08 /* Model.xcmappingmodel */,
 				527C88731C0B156E00AE9E08 /* BaoBaoJiServer.xcdatamodeld */,
+				52A961B71C37FD7000D21D58 /* common_property.plist */,
 			);
 			path = BaoBaoJi;
 			sourceTree = "<group>";
@@ -911,6 +916,7 @@
 		52CD45971B9AC9D90002B8D1 /* Pictures */ = {
 			isa = PBXGroup;
 			children = (
+				52A961B91C38D8EB00D21D58 /* tmp_bg@2x.jpg */,
 				528283791C2D4D57002E9147 /* ic_newactivity_local_tag_dis@2x.png */,
 				5282837A1C2D4D57002E9147 /* ic_newactivity_local_tag@2x.png */,
 				52B25AA21C214CC600ACDEA2 /* ic_tl_day_sepatate@2x.png */,
@@ -1211,6 +1217,7 @@
 				522BF63A1C2A492F00C22E03 /* CSGrowHeader.xib in Resources */,
 				52C5A02A1C15BD2C00CB399D /* ic_ft_photo@2x.png in Resources */,
 				52C5A02C1C15BD2C00CB399D /* ic_ft_piss@2x.png in Resources */,
+				52A961BA1C38D8EB00D21D58 /* tmp_bg@2x.jpg in Resources */,
 				52C5A03B1C15BD2C00CB399D /* ic_ft_tableview_header@2x.png in Resources */,
 				52291DE71C1D536700DA1B43 /* YIVerifyMobileViewController.xib in Resources */,
 				52A8FC5C1BF0D7FC00A95FC1 /* YIBbjCell.xib in Resources */,
@@ -1245,6 +1252,7 @@
 				52C5A03A1C15BD2C00CB399D /* ic_ft_swim@2x.png in Resources */,
 				52C5A02F1C15BD2C00CB399D /* ic_ft_selected_bg@2x.png in Resources */,
 				5282838B1C2D5C1C002E9147 /* YIBabyHeaderView.xib in Resources */,
+				52A961B81C37FD7000D21D58 /* common_property.plist in Resources */,
 				52A8FC5E1BF0E94A00A95FC1 /* YIBbjVc.xib in Resources */,
 				528283811C2D52F0002E9147 /* YIBabyDetailVc.xib in Resources */,
 				52C5A01D1C15BD2C00CB399D /* ic_ft_haircut@2x.png in Resources */,

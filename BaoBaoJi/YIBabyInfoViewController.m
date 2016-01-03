@@ -38,8 +38,8 @@
     _nickNameTf.delegate = self;
     _birthdayTf.delegate = self;
 
-    if (mGlobalData.curBaby == nil){
-        mGlobalData.curBaby = [LCBabyEntity object];
+    if (mGlobalData.user.curBaby == nil){
+        mGlobalData.user.curBaby = [LCBabyEntity object];
     }
 
     UIBarButtonItem *nextItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步"
@@ -141,7 +141,7 @@
 												AVFile *imageFile = [AVFile fileWithName:@"baby_avatar.png" data:imageData];
 												[imageFile saveInBackground];
 												
-												mGlobalData.curBaby.avatar = imageFile;
+												mGlobalData.user.curBaby.avatar = imageFile;
 
 											}];
 }
@@ -164,7 +164,7 @@
 	AVFile *imageFile = [AVFile fileWithName:@"baby_avatar.png" data:imageData];
 	[imageFile saveInBackground];
 	
-	mGlobalData.curBaby.avatar = imageFile;
+	mGlobalData.user.curBaby.avatar = imageFile;
 	
 	[self dismissViewControllerAnimated:YES completion:NULL];
 }
@@ -192,7 +192,7 @@
 	AVFile *imageFile = [AVFile fileWithName:@"baby_avatar.png" data:imageData];
 	[imageFile saveInBackground];
 	
-	mGlobalData.curBaby.avatar = imageFile;
+	mGlobalData.user.curBaby.avatar = imageFile;
 }
 
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAsset:(ALAsset *)asset {
@@ -219,7 +219,7 @@
     familyEntity.type = familyType;
     familyEntity.typeText = familyTypeText;
     familyEntity.user = mGlobalData.user;
-	familyEntity.baby = mGlobalData.curBaby; // 会自动保存?
+	familyEntity.baby = mGlobalData.user.curBaby; // 会自动保存?
     [familyEntity saveInBackground];
 
     // 进入主界面
@@ -244,8 +244,8 @@
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField; {
-    mGlobalData.curBaby.nickName = _nickNameTf.text;
-    mGlobalData.curBaby.birthday = datePicker.date;
+    mGlobalData.user.curBaby.nickName = _nickNameTf.text;
+    mGlobalData.user.curBaby.birthday = datePicker.date;
     return YES;
 }
 
@@ -295,7 +295,7 @@
         default:
             break;
     }
-    mGlobalData.curBaby.sex = sex;
+    mGlobalData.user.curBaby.sex = sex;
 }
 
 - (IBAction)selectedRelationBtnAction:(DLRadioButton *)radiobutton {

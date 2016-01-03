@@ -8,15 +8,7 @@
 
 @implementation YIUserModel
 
-//@dynamic nickName;
-//@dynamic userName;
-//@dynamic avatarUrl;
-//@dynamic sex;
-//@dynamic role;
-//
-//+ (NSString *)parseClassName {
-//    return @"_User";
-//}
+
 
 
 

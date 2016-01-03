@@ -20,4 +20,13 @@
 						  bundle:[NSBundle mainBundle]];
 }
 
+- (void)layoutSubviews {
+	[super layoutSubviews];
+	
+	self.avatarIv.layer.borderColor = [[UIColor whiteColor] CGColor];
+	self.avatarIv.layer.cornerRadius = self.avatarIv.width / 2.f;
+	self.avatarIv.layer.borderWidth = 3.f;
+	self.avatarIv.layer.masksToBounds = YES;
+}
+
 @end

@@ -28,8 +28,7 @@
     [super viewWillAppear:animated];
     
 //    [YIUserModel logInWithUsernameInBackground:@"82kxrao8k2wtw30cw01rs6k2a" password:<#(NSString *)#> block:^(AVUser *user, NSError *error) {
-        LCUserEntity *user = [LCUserEntity currentUser];
-        _testLbl.text = [user objectId];
+        _testLbl.text = [mGlobalData.user objectId];
 //    }];
 }
 

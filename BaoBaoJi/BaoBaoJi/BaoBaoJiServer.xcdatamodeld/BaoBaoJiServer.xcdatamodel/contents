@@ -87,13 +87,13 @@
         <relationship name="curBaby" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LCBabyEntity" syncable="YES"/>
     </entity>
     <elements>
-        <element name="LCBabyEntity" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="LCClientEntity" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="LCFamilyEntity" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="LCFirstDoEntity" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="LCItemEntity" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="LCLocationEntity" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="LCTimelineEntity" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="LCUserEntity" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="LCBabyEntity" positionX="-279" positionY="63" width="128" height="195"/>
+        <element name="LCClientEntity" positionX="151" positionY="252" width="128" height="360"/>
+        <element name="LCFamilyEntity" positionX="-468" positionY="321" width="128" height="120"/>
+        <element name="LCFirstDoEntity" positionX="133" positionY="0" width="128" height="90"/>
+        <element name="LCItemEntity" positionX="142" positionY="135" width="128" height="90"/>
+        <element name="LCLocationEntity" positionX="259" positionY="48" width="128" height="105"/>
+        <element name="LCTimelineEntity" positionX="-90" positionY="0" width="128" height="180"/>
+        <element name="LCUserEntity" positionX="-432" positionY="27" width="128" height="270"/>
     </elements>
 </model>

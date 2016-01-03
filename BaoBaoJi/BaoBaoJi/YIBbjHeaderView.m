@@ -27,7 +27,11 @@ int ITEM_SPACING = 10;
 
 
 - (void)setupView {
-	_headerIv.image = [UIImage imageNamed:@"ic_lib_tags_bg.jpg"];
+	_headerIv.image = [UIImage imageNamed:@"tmp_bg@2x.jpg"];
+	_headerIv.userInteractionEnabled = YES;
+	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_babyInfoBtnAction)];
+	[_headerIv addGestureRecognizer:tap];
+	
 	_scrollView.backgroundColor = [UIColor linenColor];
 	_scrollView.showsHorizontalScrollIndicator = NO;
 	_scrollView.showsVerticalScrollIndicator = NO;

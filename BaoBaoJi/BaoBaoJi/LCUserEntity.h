@@ -19,6 +19,6 @@
 @property (nonatomic, assign) BOOL isOnline; // 是否在线
 @property (nonatomic, assign) int sex;
 @property (nonatomic, strong) NSMutableArray *babies;
-//@property (nonatomic, strong) LCBabyEntity *curBaby;
+@property (nonatomic, strong) LCBabyEntity *curBaby;
 
 @end

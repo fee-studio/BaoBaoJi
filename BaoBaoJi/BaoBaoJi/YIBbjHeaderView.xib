@@ -8,29 +8,29 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="YIBbjHeaderView">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LgD-tg-peT">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LgD-tg-peT">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="150" id="8i2-GS-tV7"/>
+                        <constraint firstAttribute="height" constant="100" id="NEp-4B-Qi4"/>
                     </constraints>
                 </imageView>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oIm-Yx-slp">
-                    <rect key="frame" x="0.0" y="150" width="375" height="50"/>
+                    <rect key="frame" x="0.0" y="100" width="375" height="50"/>
                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="oIm-Yx-slp" secondAttribute="bottom" id="5ml-yb-Uw0"/>
-                <constraint firstItem="oIm-Yx-slp" firstAttribute="top" secondItem="LgD-tg-peT" secondAttribute="bottom" id="RgD-lZ-m6i"/>
-                <constraint firstItem="LgD-tg-peT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Yqw-zz-buS"/>
-                <constraint firstItem="oIm-Yx-slp" firstAttribute="trailing" secondItem="LgD-tg-peT" secondAttribute="trailing" id="aCj-3o-yac"/>
-                <constraint firstAttribute="trailing" secondItem="oIm-Yx-slp" secondAttribute="trailing" id="fHR-ic-m7q"/>
-                <constraint firstItem="oIm-Yx-slp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="x97-ft-gVb"/>
-                <constraint firstItem="oIm-Yx-slp" firstAttribute="leading" secondItem="LgD-tg-peT" secondAttribute="leading" id="ybA-tQ-vrz"/>
+                <constraint firstItem="LgD-tg-peT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="KWO-VD-SH0"/>
+                <constraint firstItem="LgD-tg-peT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="QmK-AN-4gn"/>
+                <constraint firstItem="LgD-tg-peT" firstAttribute="trailing" secondItem="oIm-Yx-slp" secondAttribute="trailing" id="ct6-TW-U40"/>
+                <constraint firstItem="oIm-Yx-slp" firstAttribute="top" secondItem="LgD-tg-peT" secondAttribute="bottom" id="gtm-IY-14l"/>
+                <constraint firstAttribute="bottom" secondItem="oIm-Yx-slp" secondAttribute="bottom" id="kl9-SM-Opq"/>
+                <constraint firstItem="LgD-tg-peT" firstAttribute="leading" secondItem="oIm-Yx-slp" secondAttribute="leading" id="xPL-MM-8DC"/>
+                <constraint firstAttribute="trailing" secondItem="LgD-tg-peT" secondAttribute="trailing" id="y4x-XE-P6t"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -38,7 +38,7 @@
                 <outlet property="headerIv" destination="LgD-tg-peT" id="cmi-pO-Yeg"/>
                 <outlet property="scrollView" destination="oIm-Yx-slp" id="ymt-pZ-HIz"/>
             </connections>
-            <point key="canvasLocation" x="250.5" y="199"/>
+            <point key="canvasLocation" x="201.5" y="232"/>
         </view>
     </objects>
 </document>

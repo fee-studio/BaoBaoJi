@@ -10,6 +10,11 @@
 
 @interface YIBabyHeaderView : UICollectionReusableView
 
+@property (weak, nonatomic) IBOutlet UIImageView *avatarIv;
+@property (weak, nonatomic) IBOutlet UIImageView *coverIv;
+@property (weak, nonatomic) IBOutlet UILabel *hintLbl;
+
+
 + (UINib *)viewNib;
 
 @end

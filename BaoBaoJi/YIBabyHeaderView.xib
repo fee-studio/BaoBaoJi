@@ -3,28 +3,68 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="a9F-Wh-fKL">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="a9F-Wh-fKL" customClass="YIBabyHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_lib_tags_bg2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="wSo-Ny-g3U">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                 </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LY8-jP-Kis">
+                    <rect key="frame" x="0.0" y="185" width="320" height="15"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="eed-A8-OI4"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="nmk-h5-vnZ">
+                    <rect key="frame" x="30" y="140" width="60" height="60"/>
+                    <color key="backgroundColor" red="1" green="0.68615608880000001" blue="0.082320873439999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="NeR-Dc-C8x"/>
+                        <constraint firstAttribute="height" constant="60" id="rdR-6L-xje"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="宝宝今天1岁啦~" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8Z-Bw-m5K">
+                    <rect key="frame" x="98" y="162" width="214" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="jrV-uS-kxK"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <constraints>
-                <constraint firstItem="wSo-Ny-g3U" firstAttribute="leading" secondItem="a9F-Wh-fKL" secondAttribute="leading" id="9OH-ma-KMd"/>
-                <constraint firstItem="wSo-Ny-g3U" firstAttribute="top" secondItem="a9F-Wh-fKL" secondAttribute="top" id="ZN5-eJ-LIV"/>
-                <constraint firstAttribute="trailing" secondItem="wSo-Ny-g3U" secondAttribute="trailing" id="mPW-SU-VNQ"/>
-                <constraint firstAttribute="bottom" secondItem="wSo-Ny-g3U" secondAttribute="bottom" id="wVy-Ce-MIw"/>
+                <constraint firstItem="wSo-Ny-g3U" firstAttribute="top" secondItem="a9F-Wh-fKL" secondAttribute="top" id="1zQ-og-OPv"/>
+                <constraint firstAttribute="trailing" secondItem="wSo-Ny-g3U" secondAttribute="trailing" id="4ff-zU-0rh"/>
+                <constraint firstItem="LY8-jP-Kis" firstAttribute="top" secondItem="s8Z-Bw-m5K" secondAttribute="bottom" constant="2" id="713-RQ-xHc"/>
+                <constraint firstItem="LY8-jP-Kis" firstAttribute="leading" secondItem="wSo-Ny-g3U" secondAttribute="leading" id="9bD-a3-llJ"/>
+                <constraint firstItem="LY8-jP-Kis" firstAttribute="bottom" secondItem="wSo-Ny-g3U" secondAttribute="bottom" id="DTN-Ic-Umd"/>
+                <constraint firstItem="s8Z-Bw-m5K" firstAttribute="leading" secondItem="nmk-h5-vnZ" secondAttribute="trailing" constant="8" symbolic="YES" id="KRo-dv-YKT"/>
+                <constraint firstItem="wSo-Ny-g3U" firstAttribute="leading" secondItem="a9F-Wh-fKL" secondAttribute="leading" id="Lht-Ch-SnR"/>
+                <constraint firstAttribute="bottom" secondItem="wSo-Ny-g3U" secondAttribute="bottom" id="WIb-cG-hHl"/>
+                <constraint firstItem="nmk-h5-vnZ" firstAttribute="bottom" secondItem="wSo-Ny-g3U" secondAttribute="bottom" id="eTz-GV-gD1"/>
+                <constraint firstItem="s8Z-Bw-m5K" firstAttribute="trailing" secondItem="a9F-Wh-fKL" secondAttribute="trailingMargin" id="fcM-1I-dCv"/>
+                <constraint firstItem="wSo-Ny-g3U" firstAttribute="trailing" secondItem="LY8-jP-Kis" secondAttribute="trailing" id="ky9-mB-alx"/>
+                <constraint firstAttribute="bottom" secondItem="LY8-jP-Kis" secondAttribute="bottom" id="mq7-sg-DPo"/>
+                <constraint firstItem="nmk-h5-vnZ" firstAttribute="leading" secondItem="a9F-Wh-fKL" secondAttribute="leading" constant="30" id="yof-DO-04R"/>
             </constraints>
-            <point key="canvasLocation" x="-331" y="-37"/>
+            <connections>
+                <outlet property="avatarIv" destination="nmk-h5-vnZ" id="7UF-wV-8E2"/>
+                <outlet property="coverIv" destination="wSo-Ny-g3U" id="5Ce-ds-c9A"/>
+                <outlet property="hintLbl" destination="s8Z-Bw-m5K" id="Lw0-li-5uS"/>
+            </connections>
+            <point key="canvasLocation" x="-400" y="-201"/>
         </collectionReusableView>
     </objects>
     <resources>
         <image name="ic_lib_tags_bg2.jpg" width="750" height="420"/>
+        <image name="placeholder.png" width="100" height="100"/>
     </resources>
 </document>

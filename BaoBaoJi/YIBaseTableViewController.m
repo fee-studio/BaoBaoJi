@@ -110,21 +110,21 @@
         case TableViewRefreshTypeHeader: {
             MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
 //            header.ignoredScrollViewContentInsetTop = 117+44;
-            self.baseTableView.header = header;
+            self.baseTableView.mj_header = header;
             // 马上进入刷新状态
-            [self.baseTableView.header beginRefreshing];
+            [self.baseTableView.mj_header beginRefreshing];
             break;
         }
         case TableViewRefreshTypeFooter:
-            self.baseTableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefreshing)];
-            self.baseTableView.footer.hidden = YES;
+            self.baseTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefreshing)];
+            self.baseTableView.mj_footer.hidden = YES;
             break;
         case TableViewRefreshTypeHeaderNoAutoRefresh:
-            self.baseTableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
+            self.baseTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
             break;
         case TableViewRefreshTypeHeaderNoAnimation:
         default:
-            self.baseTableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
+            self.baseTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
             break;
     }
 }
@@ -133,11 +133,11 @@
 *  集成刷新控件
 */
 - (void)setupRefresh {
-    self.baseTableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
-    [self.baseTableView.header beginRefreshing];
+    self.baseTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
+    [self.baseTableView.mj_header beginRefreshing];
 
-    self.baseTableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefreshing)];
-    self.baseTableView.footer.hidden = YES;
+    self.baseTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefreshing)];
+    self.baseTableView.mj_footer.hidden = YES;
 }
 
 #pragma mark 开始进入刷新状态

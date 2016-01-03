@@ -67,6 +67,40 @@
 #pragma clang diagnostic pop
 	
 	
+
+	// 这样感觉不太好
+	AVQuery *query = [LCUserEntity query];
+	query.cachePolicy = kAVCachePolicyCacheThenNetwork;
+	[query whereKey:@"objectId" equalTo:mGlobalData.user.objectId];
+	[query includeKey:@"curBaby"];
+	[query includeKey:@"babies"];
+	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+		if (objects) {
+			mGlobalData.user = [objects lastObject];
+		}
+	}];
+	
+//  AVObject *baby = [query getObjectWithId:mGlobalData.user.curBaby.objectId];
+//	NSLog(@"baby = %@",baby);
+//	
+//	AVObject *baby1 = [[LCBabyEntity query] getObjectWithId:mGlobalData.user.curBaby.objectId];
+//	NSLog(@"baby = %@",baby1);
+	
+//	LCUserEntity *user = [LCUserEntity currentUser];
+//	AVRelation *relation = [user relationforKey:@"curBaby"];
+//	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//		mGlobalData.user = [objects lastObject];
+//	}];
+	
+	
+	
+	
+//	LCUserEntity *userEntity = mGlobalData.user;
+//	LCBabyEntity *baby = (LCBabyEntity *)userEntity.curBaby;
+////	int sex = baby.sex;
+////	NSLog(@"baby == %d", sex);
+//	NSLog(@"user == %@", userEntity);
+//	NSLog(@"baby == %@", baby);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -81,7 +115,7 @@
 					 withReuseIdentifier:@"header"];
 	
 	CSStickyHeaderFlowLayout *layout = [CSStickyHeaderFlowLayout new];
-	layout.parallaxHeaderReferenceSize = CGSizeMake(self.view.frame.size.width, 200);
+	layout.parallaxHeaderReferenceSize = CGSizeMake(self.view.frame.size.width, 150);
 	layout.itemSize = CGSizeMake(self.view.frame.size.width, layout.itemSize.height);
 	// If we want to disable the sticky header effect
 	layout.disableStickyHeaders = YES;
@@ -319,7 +353,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section; {
-	return CGSizeMake(mScreenWidth, 200.f);
+	return CGSizeMake(mScreenWidth, 150.f);
 }
 
 #pragma mark --UICollectionViewDelegateFlowLayout

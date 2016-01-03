@@ -390,10 +390,8 @@
 
 // 加载应用主界面
 - (void)loadViewController {
-	
-	[AVUser logOut]; // todo ..
-	
-	mGlobalData.user = [AVUser currentUser];
+//	[AVUser logOut]; // todo ..
+//	mGlobalData.user = [LCUserEntity currentUser];
 	
 	if (mGlobalData.user) {
 		[self loadMainViewController];

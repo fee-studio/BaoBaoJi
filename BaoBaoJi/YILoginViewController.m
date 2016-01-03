@@ -53,13 +53,14 @@
 													 [query whereKey:@"user" equalTo:user];
 													 [query includeKey:@"baby"]; // vip 想查出baby 必须includeKey baby
 													 [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-														 mGlobalData.user.babies = [NSMutableArray array];
+														 NSMutableArray *babies = [NSMutableArray array];
 														 for(LCFamilyEntity *family in objects) {
 															 LCBabyEntity *baby = family.baby;
-															 [mGlobalData.user.babies addObject:baby];
-															 [mGlobalData.user saveInBackground];
-															 mGlobalData.curBaby = baby; // todo ...本地缓存.
+															 [babies addObject:baby];
 														 }
+														 mGlobalData.user.babies = babies;
+														 mGlobalData.user.curBaby = [babies lastObject];
+														 [mGlobalData.user saveInBackground];
 														 
 														 if (mGlobalData.user.babies.count) {
 															 [mAppDelegate loadMainViewController];

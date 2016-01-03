@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>blood</key>
+	<array>
+		<dict>
+			<key>text</key>
+			<string>O型</string>
+			<key>index</key>
+			<string>1</string>
+		</dict>
+		<dict>
+			<key>text</key>
+			<string>A型</string>
+			<key>index</key>
+			<string>2</string>
+		</dict>
+		<dict>
+			<key>text</key>
+			<string>B型</string>
+			<key>index</key>
+			<string>3</string>
+		</dict>
+		<dict>
+			<key>text</key>
+			<string>AB型</string>
+			<key>index</key>
+			<string>4</string>
+		</dict>
+		<dict>
+			<key>text</key>
+			<string>未知</string>
+			<key>index</key>
+			<string>0</string>
+		</dict>
+	</array>
+	<key>sex</key>
+	<array>
+		<dict>
+			<key>text</key>
+			<string>男</string>
+			<key>index</key>
+			<string>1</string>
+		</dict>
+		<dict>
+			<key>text</key>
+			<string>女</string>
+			<key>index</key>
+			<string>2</string>
+		</dict>
+		<dict>
+			<key>text</key>
+			<string>未知</string>
+			<key>index</key>
+			<string>0</string>
+		</dict>
+	</array>
+</dict>
+</plist>

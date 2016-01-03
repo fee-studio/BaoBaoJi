@@ -31,8 +31,8 @@ static YIGlobalData *sharedGlobalData = nil;
 }
 
 - (void)loadDefaultValue {
-	_user = [LCUserEntity currentUser];
-
+	// 加载用户相关
+	[self loadCurrentUser];
 
     _login = [mUserDefaults boolForKey:kLogin];
     _isLaunched = [mUserDefaults boolForKey:kLaunched];
@@ -41,6 +41,21 @@ static YIGlobalData *sharedGlobalData = nil;
 
 //    _deviceToken = [mUserDefaults stringForKey:kDeviceToken];
 //    _savedVersionCode = [mUserDefaults stringForKey:kSavedVersionCode];
+}
+
+- (void)loadCurrentUser {
+	_user = [LCUserEntity currentUser];
+	
+	AVQuery *query = [LCUserEntity query];
+	query.cachePolicy = kAVCachePolicyCacheThenNetwork;
+	[query whereKey:@"objectId" equalTo:_user.objectId];
+	[query includeKey:@"curBaby"];
+	[query includeKey:@"babies"];
+	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+		if (objects) {
+			_user = [objects lastObject];
+		}
+	}];
 }
 
 - (void)setLogin:(BOOL)isLogin {

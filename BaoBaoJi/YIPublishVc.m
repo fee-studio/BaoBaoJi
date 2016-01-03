@@ -353,7 +353,7 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate, YILocationViewControlle
 	BOOL isDeleted = NO;
 	NSString *sharedText = sharedTextTv.text;
 	LCUserEntity *author = mGlobalData.user;
-	LCBabyEntity *baby = mGlobalData.curBaby;
+	LCBabyEntity *baby = mGlobalData.user.curBaby;
 	NSDictionary *firstDo = curFirstDoItem;
 	LCLocationEntity *location = _locationEntity;
 	

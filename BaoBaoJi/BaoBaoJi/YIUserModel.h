@@ -18,5 +18,3 @@
 //@property (nonatomic, assign) int sex;
 
 @end
-
-
