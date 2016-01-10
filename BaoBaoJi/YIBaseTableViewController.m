@@ -102,7 +102,7 @@
 // 2.集成刷新控件
 - (void)setRefreshType:(TableViewRefreshType)refreshType {
     _refreshType = refreshType;
-
+/*
     switch (refreshType) {
         case TableViewRefreshTypeAll:
             [self setupRefresh];
@@ -127,17 +127,20 @@
             self.baseTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
             break;
     }
+ */
 }
 
 /**
 *  集成刷新控件
 */
 - (void)setupRefresh {
+	/*
     self.baseTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
     [self.baseTableView.mj_header beginRefreshing];
 
     self.baseTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefreshing)];
     self.baseTableView.mj_footer.hidden = YES;
+	 */
 }
 
 #pragma mark 开始进入刷新状态
@@ -153,11 +156,13 @@
 }
 
 - (void)endRefreshingView:(BOOL)isHeader {
+	/*
     if (isHeader) {
         [self.baseTableView.header endRefreshing];
     } else {
         [self.baseTableView.footer endRefreshing];
     }
+	 */
 }
 
 #pragma mark - Header & Footer

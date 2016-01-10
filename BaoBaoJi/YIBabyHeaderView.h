@@ -8,7 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol YIBabyHeaderViewDelegate <NSObject>
+
+- (void)resetBabyCoverImage;
+- (void)resetBabyAvatarImage;
+
+@end
+
+
 @interface YIBabyHeaderView : UICollectionReusableView
+
+@property (nonatomic, weak) id<YIBabyHeaderViewDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarIv;
 @property (weak, nonatomic) IBOutlet UIImageView *coverIv;
@@ -16,5 +26,7 @@
 
 
 + (UINib *)viewNib;
+
+- (void)setupView:(NSDictionary *)data;
 
 @end

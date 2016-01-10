@@ -17,7 +17,7 @@
 	UIActionSheet *actionSheet;
     int familyType;
     NSString *familyTypeText;
-	UIImagePickerController *picker;
+	UIImagePickerController *imagePicker;
 }
 
 @property(weak, nonatomic) IBOutlet UITextField *nickNameTf;
@@ -25,22 +25,25 @@
 @property(weak, nonatomic) IBOutlet UIView *babyAvatarView;
 @property(weak, nonatomic) IBOutlet UIImageView *avatarIv;
 
-
+@property(strong, nonatomic) LCBabyEntity *aBaby;
 
 @end
 
 @implementation YIBabyInfoViewController
 
+- (instancetype)init {
+	self = [super init];
+	if (self) {
+		self.aBaby = [LCBabyEntity object];
+	}
+	return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     _nickNameTf.delegate = self;
     _birthdayTf.delegate = self;
-
-    if (mGlobalData.user.curBaby == nil){
-        mGlobalData.user.curBaby = [LCBabyEntity object];
-    }
 
     UIBarButtonItem *nextItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步"
                                                                     style:UIBarButtonItemStylePlain
@@ -55,9 +58,6 @@
 }
 
 - (void)selectBabyAvatar:(UIGestureRecognizer *)gestureRecognizer {
-	
-	return [self loadPickerVc:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
-	
 	if (actionSheet == nil) {
 		actionSheet = [[UIActionSheet alloc] initWithTitle:NULL
 												  delegate:self
@@ -65,7 +65,6 @@
 									destructiveButtonTitle:NULL
 										 otherButtonTitles:@"拍照", @"从手机相册选择", nil];
 	}
-	
 	[actionSheet showInView:self.view];
 }
 
@@ -88,21 +87,20 @@
 //	return;
 	
     // 用系统的.
-//	picker = [[UIImagePickerController alloc] init];
-//	picker.sourceType = type;
-//	picker.delegate = self;
-//	//设置选择后的图片可被编辑
-//	picker.allowsEditing = YES;
-//	[self presentViewController:picker animated:YES completion:nil];
+	imagePicker = [[UIImagePickerController alloc] init];
+	imagePicker.sourceType = type;
+	imagePicker.delegate = self;
+	//设置选择后的图片可被编辑
+	imagePicker.allowsEditing = YES;
+	[self presentViewController:imagePicker animated:YES completion:nil];
 	
-	
-	QBImagePickerController *imagePickerController = [QBImagePickerController new];
-	imagePickerController.delegate = self;
-	imagePickerController.allowsMultipleSelection = NO;
-//	imagePickerController.maximumNumberOfSelection = 1;
-//	imagePickerController.showsNumberOfSelectedAssets = YES;
-	
-	[self presentViewController:imagePickerController animated:YES completion:NULL];
+//	QBImagePickerController *imagePickerController = [QBImagePickerController new];
+//	imagePickerController.delegate = self;
+//	imagePickerController.allowsMultipleSelection = NO;
+////	imagePickerController.maximumNumberOfSelection = 1;
+////	imagePickerController.showsNumberOfSelectedAssets = YES;
+//	
+//	[self presentViewController:imagePickerController animated:YES completion:NULL];
 	
 	
 	
@@ -141,7 +139,7 @@
 												AVFile *imageFile = [AVFile fileWithName:@"baby_avatar.png" data:imageData];
 												[imageFile saveInBackground];
 												
-												mGlobalData.user.curBaby.avatar = imageFile;
+												_aBaby.avatar = imageFile;
 
 											}];
 }
@@ -164,7 +162,7 @@
 	AVFile *imageFile = [AVFile fileWithName:@"baby_avatar.png" data:imageData];
 	[imageFile saveInBackground];
 	
-	mGlobalData.user.curBaby.avatar = imageFile;
+	_aBaby.avatar = imageFile;
 	
 	[self dismissViewControllerAnimated:YES completion:NULL];
 }
@@ -172,7 +170,7 @@
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
 //	[picker dismissViewControllerAnimated:YES completion:NULL];
 //	[picker.presentedViewController dismissViewControllerAnimated:YES completion:NULL];
-	[picker.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+	[picker dismissViewControllerAnimated:YES completion:NULL];
 }
 
 #pragma mark - CTAssetsPickerControllerDelegate
@@ -192,7 +190,7 @@
 	AVFile *imageFile = [AVFile fileWithName:@"baby_avatar.png" data:imageData];
 	[imageFile saveInBackground];
 	
-	mGlobalData.user.curBaby.avatar = imageFile;
+	_aBaby.avatar = imageFile;
 }
 
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAsset:(ALAsset *)asset {
@@ -219,8 +217,12 @@
     familyEntity.type = familyType;
     familyEntity.typeText = familyTypeText;
     familyEntity.user = mGlobalData.user;
-	familyEntity.baby = mGlobalData.user.curBaby; // 会自动保存?
-    [familyEntity saveInBackground];
+	familyEntity.baby = _aBaby; // 会自动保存?
+    [familyEntity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+		if (succeeded) {
+			[mNotificationCenter postNotificationName:RELOAD_USER_DATA_NOTIFICATION object:nil];
+		}
+	}];
 
     // 进入主界面
     [mAppDelegate loadMainViewController];
@@ -244,8 +246,8 @@
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField; {
-    mGlobalData.user.curBaby.nickName = _nickNameTf.text;
-    mGlobalData.user.curBaby.birthday = datePicker.date;
+    _aBaby.nickName = _nickNameTf.text;
+    _aBaby.birthday = datePicker.date;
     return YES;
 }
 
@@ -295,7 +297,7 @@
         default:
             break;
     }
-    mGlobalData.user.curBaby.sex = sex;
+    _aBaby.sex = sex;
 }
 
 - (IBAction)selectedRelationBtnAction:(DLRadioButton *)radiobutton {
@@ -325,8 +327,8 @@
 - (void)dealloc {
 	actionSheet.delegate = nil;
 	actionSheet = nil;
-	picker.delegate = nil;
-	picker = nil;
+	imagePicker.delegate = nil;
+	imagePicker = nil;
 }
 
 /*

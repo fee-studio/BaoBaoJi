@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_lib_tags_bg2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="wSo-Ny-g3U">
+                <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_lib_tags_bg2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="wSo-Ny-g3U">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LY8-jP-Kis">
@@ -22,7 +22,7 @@
                         <constraint firstAttribute="height" constant="15" id="eed-A8-OI4"/>
                     </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="nmk-h5-vnZ">
+                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="nmk-h5-vnZ">
                     <rect key="frame" x="30" y="140" width="60" height="60"/>
                     <color key="backgroundColor" red="1" green="0.68615608880000001" blue="0.082320873439999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>

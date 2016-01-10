@@ -14,7 +14,6 @@
 #import "YIBbjHeaderView.h"
 #import "CSStickyHeaderFlowLayout.h"
 #import "YIBabyDetailVc.h"
-#import "CSGrowHeaderViewController.h"
 
 @interface YIBbjVc () <UIActionSheetDelegate, CTAssetsPickerControllerDelegate, YIBbjHeaderViewDelegate> {
 
@@ -38,11 +37,10 @@
     return self;
 }
 
-- (void)viewDidLoad {
-	
+- (void)viewDidLoad {	
     [super viewDidLoad];
 	// todo
-	 self.refreshEnable = YES;
+//	 self.refreshEnable = YES;
 	
     // 装配NavigationBar
     [self setupNavigationBar];
@@ -61,46 +59,16 @@
 	
 	// todo
 	// 这个用法牛比. 自动高度 自动刷新
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-	method_exchangeImplementations(class_getInstanceMethod(self.baseCollectionView.class, @selector(reloadData)), class_getInstanceMethod(self.baseCollectionView.class, @selector(ar_reloadData)));
-#pragma clang diagnostic pop
+//#pragma clang diagnostic push
+//#pragma clang diagnostic ignored "-Wundeclared-selector"
+//	method_exchangeImplementations(class_getInstanceMethod(self.baseCollectionView.class, @selector(reloadData)), class_getInstanceMethod(self.baseCollectionView.class, @selector(ar_reloadData)));
+//#pragma clang diagnostic pop
 	
-	
+}
 
-	// 这样感觉不太好
-	AVQuery *query = [LCUserEntity query];
-	query.cachePolicy = kAVCachePolicyCacheThenNetwork;
-	[query whereKey:@"objectId" equalTo:mGlobalData.user.objectId];
-	[query includeKey:@"curBaby"];
-	[query includeKey:@"babies"];
-	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-		if (objects) {
-			mGlobalData.user = [objects lastObject];
-		}
-	}];
-	
-//  AVObject *baby = [query getObjectWithId:mGlobalData.user.curBaby.objectId];
-//	NSLog(@"baby = %@",baby);
-//	
-//	AVObject *baby1 = [[LCBabyEntity query] getObjectWithId:mGlobalData.user.curBaby.objectId];
-//	NSLog(@"baby = %@",baby1);
-	
-//	LCUserEntity *user = [LCUserEntity currentUser];
-//	AVRelation *relation = [user relationforKey:@"curBaby"];
-//	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//		mGlobalData.user = [objects lastObject];
-//	}];
-	
-	
-	
-	
-//	LCUserEntity *userEntity = mGlobalData.user;
-//	LCBabyEntity *baby = (LCBabyEntity *)userEntity.curBaby;
-////	int sex = baby.sex;
-////	NSLog(@"baby == %d", sex);
-//	NSLog(@"user == %@", userEntity);
-//	NSLog(@"baby == %@", baby);
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[self loadTimelineData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -115,8 +83,8 @@
 					 withReuseIdentifier:@"header"];
 	
 	CSStickyHeaderFlowLayout *layout = [CSStickyHeaderFlowLayout new];
-	layout.parallaxHeaderReferenceSize = CGSizeMake(self.view.frame.size.width, 150);
-	layout.itemSize = CGSizeMake(self.view.frame.size.width, layout.itemSize.height);
+//	layout.parallaxHeaderReferenceSize = CGSizeMake(self.view.frame.size.width, 200);
+//	layout.itemSize = CGSizeMake(self.view.frame.size.width, layout.itemSize.height);
 	// If we want to disable the sticky header effect
 	layout.disableStickyHeaders = YES;
 	self.baseCollectionView.collectionViewLayout = layout;
@@ -173,14 +141,13 @@
 	[query includeKey:@"location"];
     [query setCachePolicy:kAVCachePolicyNetworkElseCache];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        [self.baseCollectionView.mj_header endRefreshing];
+//        [self.baseCollectionView.mj_header endRefreshing];
         if (!error) {
 			self.timelines = objects;
 			
 			self.baseCollectionView.delegate = self;
 			self.baseCollectionView.dataSource = self;
 			[self.baseCollectionView reloadData];
-
 		}
     }];
 }
@@ -353,7 +320,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section; {
-	return CGSizeMake(mScreenWidth, 150.f);
+	return CGSizeMake(mScreenWidth, 200.f);
 }
 
 #pragma mark --UICollectionViewDelegateFlowLayout
@@ -381,7 +348,6 @@
 
 - (void)babyInfoBtnDidSelected; {
 	YIBabyDetailVc *vc = [[YIBabyDetailVc alloc] init];
-//	CSGrowHeaderViewController *vc = [CSGrowHeaderViewController new];
 	[self.navigationController pushViewController:vc animated:YES];
 }
 

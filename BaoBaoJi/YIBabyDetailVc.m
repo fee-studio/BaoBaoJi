@@ -13,8 +13,11 @@
 
 //static NSString *const SEX_Pi
 
+const int RESET_COVER_IMAGE = 4001;
+const int RESET_AVATAR_IMAGE = 4002;
 
-@interface YIBabyDetailVc () <UIPickerViewDelegate, UITextFieldDelegate>
+
+@interface YIBabyDetailVc () <UIPickerViewDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, YIBabyHeaderViewDelegate, UIActionSheetDelegate>
 {
 	UIPickerView *pickview;
 	UIToolbar *toolbar;
@@ -22,6 +25,12 @@
 	UIDatePicker *datePicker;
 	UIToolbar *dateToolbar;
 	UIAlertView *dialog;
+	
+	UIImagePickerController *imagePicker;
+	
+	UIActionSheet *actionSheet;
+	
+	int curResetImageType;
 }
 
 @property(nonatomic, strong) NSArray *babyDetails;
@@ -29,6 +38,8 @@
 
 @property (nonatomic, strong) NSArray *sexArray;
 @property (nonatomic, strong) NSArray *bloodArray;
+
+@property (nonatomic, strong) NSMutableDictionary *headerViewData;
 
 @end
 
@@ -53,6 +64,8 @@
 	// 初始化collection data
     [self loadCollectionData];
 	
+	[self loadHeaderViewData];
+	
     // 注册 UICollectionView
     [self.baseCollectionView registerNib:[YIBabyDetailCell cellNib]
               forCellWithReuseIdentifier:NSStringFromClass([YIBabyDetailCell class])];
@@ -64,6 +77,34 @@
 	NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:path];
 	self.sexArray = dictionary[@"sex"];
 	self.bloodArray = dictionary[@"blood"];
+	
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+//#pragma clang diagnostic push
+//#pragma clang diagnostic ignored "-Wundeclared-selector"
+//	method_exchangeImplementations(class_getInstanceMethod(self.baseCollectionView.class, @selector(ar_reloadData)), class_getInstanceMethod(self.baseCollectionView.class, @selector(reloadData)));
+//#pragma clang diagnostic pop
+}
+
+- (void)viewDidLayoutSubviews {
+	[super viewDidLayoutSubviews];
+	
+	NSLog(@"111 %@",NSStringFromCGRect(self.baseCollectionView.frame));
+	NSLog(@"222 %@",NSStringFromCGSize(self.baseCollectionView.contentSize));
+	
+//	self.baseCollectionView.frame = CGRectMake(0, 0, mScreenWidth, mScreenHeight-44);
+//	self.baseCollectionView.contentSize = CGSizeMake(mScreenWidth, mScreenHeight);
+}
+
+- (void)loadHeaderViewData {
+	self.headerViewData = [NSMutableDictionary dictionaryWithDictionary:@{
+																		  @"cover" : [UIImage imageNamed:@"tmp_bg@2x.jpg"],
+																		  @"avatar" : [UIImage imageNamed:@"placeholder"],
+																		  @"hint" : @"今天是宝宝一岁的生日"
+																		  }];
 }
 
 - (void)loadCollectionData {
@@ -147,18 +188,33 @@
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath; {
-
     // Check the kind if it's CSStickyHeaderParallaxHeader
     if ([kind isEqualToString:CSStickyHeaderParallaxHeader]) {
-        UICollectionReusableView *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind
-                                                                            withReuseIdentifier:@"header"
-                                                                                   forIndexPath:indexPath];
-        return cell;
+		YIBabyHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind
+																	withReuseIdentifier:@"header"
+																		   forIndexPath:indexPath];
+		[headerView setupView:_headerViewData];
+		headerView.delegate = self;
+        return headerView;
     } else if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+		/*
         YIBabyHeaderView *view = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
                                                                     withReuseIdentifier:NSStringFromClass([YIBabyHeaderView class])
                                                                            forIndexPath:indexPath];
+		view.delegate = self;
+		
+		
+		view.avatarIv.userInteractionEnabled = YES;
+		UITapGestureRecognizer *avatarTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resetBabyAvatarImage)];
+		[view.avatarIv addGestureRecognizer:avatarTap];
+		
+		view.coverIv.userInteractionEnabled = YES;
+		UITapGestureRecognizer *coverTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resetBabyCoverImage)];
+		[view.coverIv addGestureRecognizer:coverTap];
+		
         return view;
+		 */
+		return nil;
     } else {
         return nil;
     }
@@ -478,6 +534,83 @@
 	if (pickerView.tag == 1004) {
 		
 	}
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+//当选择一张图片后进入这里
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+	// 获取图片
+	UIImage *image = info[UIImagePickerControllerEditedImage];
+
+	if (curResetImageType == RESET_AVATAR_IMAGE) {
+		self.headerViewData[@"avatar"] = image;
+	} else if (curResetImageType == RESET_COVER_IMAGE) {
+		self.headerViewData[@"cover"] = image;
+	}
+//	[self.baseCollectionView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)]];
+//	[self.baseCollectionView reloadItemsAtIndexPaths:@[[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)]]];
+	[self.baseCollectionView reloadData];
+	
+	// 保存头像
+	NSData *imageData = UIImagePNGRepresentation(image);
+	AVFile *imageFile = [AVFile fileWithName:@"baby_avatar.png" data:imageData];
+	[imageFile saveInBackground];
+	
+	mGlobalData.user.curBaby.avatar = imageFile;
+	
+	[picker dismissViewControllerAnimated:YES completion:NULL];	
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+	//	[picker dismissViewControllerAnimated:YES completion:NULL];
+	//	[picker.presentedViewController dismissViewControllerAnimated:YES completion:NULL];
+	[picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+#pragma mark - YIBabyHeaderViewDelegate
+
+- (void)resetBabyAvatarImage {
+	curResetImageType = RESET_AVATAR_IMAGE;
+	[self showActionSheet];
+}
+
+- (void)resetBabyCoverImage {
+	curResetImageType = RESET_COVER_IMAGE;
+	[self showActionSheet];
+}
+
+- (void)showActionSheet {
+	if (actionSheet == nil) {
+		actionSheet = [[UIActionSheet alloc] initWithTitle:NULL
+												  delegate:self
+										 cancelButtonTitle:@"取消"
+									destructiveButtonTitle:NULL
+										 otherButtonTitles:@"拍照", @"从手机相册选择", nil];
+	}
+	
+	[actionSheet showInView:self.view];
+
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex; {
+	if (buttonIndex == 0) {			// 拍照
+		[self loadPickerVc:UIImagePickerControllerSourceTypeCamera];
+	} else if (buttonIndex == 1) {  // 从手机相册选择
+		[self loadPickerVc:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+	}
+}
+
+- (void)loadPickerVc:(UIImagePickerControllerSourceType)type{
+	// 用系统的.
+	imagePicker = [[UIImagePickerController alloc] init];
+	imagePicker.sourceType = type;
+	imagePicker.delegate = self;
+	// 设置选择后的图片可被编辑
+	imagePicker.allowsEditing = YES;
+	[self presentViewController:imagePicker animated:YES completion:nil];
 }
 
 #pragma mark -

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="eAq-7i-iU8" customClass="YIBabyListHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ORE-Gc-uOU">
+                    <rect key="frame" x="0.0" y="20" width="189" height="80"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="添加我的宝宝" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y5z-LH-0v9">
+                            <rect key="frame" x="43" y="51" width="102" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="Y5z-LH-0v9" firstAttribute="top" secondItem="ORE-Gc-uOU" secondAttribute="top" constant="51" id="Arr-Km-ubn"/>
+                        <constraint firstItem="Y5z-LH-0v9" firstAttribute="centerX" secondItem="ORE-Gc-uOU" secondAttribute="centerX" id="pnH-hk-jHT"/>
+                        <constraint firstItem="Y5z-LH-0v9" firstAttribute="bottom" secondItem="ORE-Gc-uOU" secondAttribute="bottomMargin" id="syt-V0-jGr"/>
+                        <constraint firstItem="Y5z-LH-0v9" firstAttribute="leading" secondItem="ORE-Gc-uOU" secondAttribute="leading" constant="43" id="uvM-YD-PdU"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JUE-10-OyP">
+                    <rect key="frame" x="186" y="20" width="189" height="80"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="输入邀请码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WZw-LN-I24">
+                            <rect key="frame" x="52" y="51" width="85" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="WZw-LN-I24" firstAttribute="leading" secondItem="JUE-10-OyP" secondAttribute="leading" constant="52" id="I6E-Zl-XUK"/>
+                        <constraint firstItem="WZw-LN-I24" firstAttribute="centerX" secondItem="JUE-10-OyP" secondAttribute="centerX" id="Jdn-AB-h9J"/>
+                        <constraint firstItem="WZw-LN-I24" firstAttribute="bottom" secondItem="JUE-10-OyP" secondAttribute="bottomMargin" id="mvL-7n-S67"/>
+                        <constraint firstItem="WZw-LN-I24" firstAttribute="top" secondItem="JUE-10-OyP" secondAttribute="top" constant="51" id="yuk-fb-MTg"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="JUE-10-OyP" firstAttribute="top" secondItem="ORE-Gc-uOU" secondAttribute="top" id="0e1-6b-lKO"/>
+                <constraint firstItem="ORE-Gc-uOU" firstAttribute="bottom" secondItem="JUE-10-OyP" secondAttribute="bottom" id="Vj2-oL-NGs"/>
+                <constraint firstAttribute="trailing" secondItem="JUE-10-OyP" secondAttribute="trailing" id="aNq-mV-vRf"/>
+                <constraint firstAttribute="bottom" secondItem="JUE-10-OyP" secondAttribute="bottom" id="tZl-Id-XbB"/>
+                <constraint firstItem="ORE-Gc-uOU" firstAttribute="top" secondItem="eAq-7i-iU8" secondAttribute="top" constant="20" id="txY-XN-qXC"/>
+                <constraint firstItem="ORE-Gc-uOU" firstAttribute="leading" secondItem="eAq-7i-iU8" secondAttribute="leading" id="vuX-lm-tQF"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="addBabyView" destination="ORE-Gc-uOU" id="0eL-0p-Jrx"/>
+                <outlet property="inputInviteCodeView" destination="JUE-10-OyP" id="uTr-gs-M3h"/>
+            </connections>
+            <point key="canvasLocation" x="524.5" y="640"/>
+        </view>
+    </objects>
+</document>

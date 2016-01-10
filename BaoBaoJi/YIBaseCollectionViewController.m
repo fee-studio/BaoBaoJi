@@ -23,6 +23,7 @@
     self.baseCollectionView = [[UICollectionView alloc] initWithFrame:mScreenBounds collectionViewLayout:_flowLayout];
     _baseCollectionView.delegate = self;
     _baseCollectionView.dataSource = self;
+	_baseCollectionView.alwaysBounceVertical = YES;
     _baseCollectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     [self.view addSubview:_baseCollectionView];
     [_baseCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -46,6 +47,7 @@
 
 - (void)setRefreshEnable:(BOOL)refreshEnable {
 	_refreshEnable = refreshEnable;
+	/*
 	if (_refreshEnable) {
 		// 上下拉刷新
 		_baseCollectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
@@ -54,6 +56,7 @@
 		_baseCollectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefreshing)];
 		_baseCollectionView.mj_footer.hidden = YES;
 	}
+	 */
 }
 
 - (void)viewDidAppear:(BOOL)animated {

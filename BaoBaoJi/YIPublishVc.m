@@ -381,9 +381,10 @@ CTAssetsPickerControllerDelegate, UIActionSheetDelegate, YILocationViewControlle
 	timeline.isDeleted = isDeleted;
 	timeline.sharedText = sharedText;
 	timeline.baby = baby;
-	timeline.firstDo = curFirstDoItem;
+	timeline.firstDo = firstDo;
 	timeline.location = location;
 	timeline.sharedItem = item;
+	timeline.author = author;
 	[timeline saveInBackground];
 
 	
