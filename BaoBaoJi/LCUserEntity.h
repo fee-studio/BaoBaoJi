@@ -9,6 +9,8 @@
 #import "AVObject.h"
 #import "LCBabyEntity.h"
 
+typedef void (^LoadUserDataCompleteBlock)(NSError *error);
+
 @interface LCUserEntity : AVUser <AVSubclassing>
 
 @property (nonatomic, copy) NSString *area;
@@ -22,6 +24,11 @@
 @property (nonatomic, strong) LCBabyEntity *curBaby;
 
 
-+ (void)reloadCurrentUserData;
+//+ (void)reloadCurrentUserData;
++ (void)reloadCurrentUserData:(LoadUserDataCompleteBlock)completeBlock;
+
+
++ (void)loadUserData;
+//+ (void)loadUserAndBabyData;
 
 @end

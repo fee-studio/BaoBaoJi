@@ -10,7 +10,7 @@
 #import "YIBabyListHeaderView.h"
 #import "YIBabyListCell.h"
 #import "YIBabyInfoViewController.h"
-
+#import "YIBbjVc.h"
 
 @interface YIBabyListViewController () <YIBabyListHeaderViewDelegate>
 
@@ -36,8 +36,13 @@
 	[self.baseTableView registerNib:nib forCellReuseIdentifier:NSStringFromClass([YIBabyListCell class])];
 	self.baseTableView.rowHeight = 80.f;
 	
-	self.baseTableView.contentInset = UIEdgeInsetsMake(44+20, 0, 0, 0);
-	self.baseTableView.scrollIndicatorInsets = UIEdgeInsetsMake(44+20, 0, 0, 0);
+//	self.baseTableView.contentInset = UIEdgeInsetsMake(44+20, 0, 0, 0);
+//	self.baseTableView.scrollIndicatorInsets = UIEdgeInsetsMake(44+20, 0, 0, 0);
+	
+	
+	YIBbjVc *vc = [[YIBbjVc alloc] init];
+	[self.navigationController pushViewController:vc animated:NO];
+	
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -64,6 +69,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	mGlobalData.user.curBaby = _babyData[indexPath.row];
+	[mGlobalData.user saveInBackground];
+	
+	YIBbjVc *vc = [[YIBbjVc alloc] init];
+	[self.navigationController pushViewController:vc animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section; {

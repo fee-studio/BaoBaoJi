@@ -37,6 +37,7 @@ PODS:
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
   - JTCalendar (2.1.4)
+  - LCTabBarController (1.2.5)
   - LeanCloudSocial (0.0.8):
     - AFNetworking (~> 2.0)
     - AVOSCloud (~> 3.1)
@@ -88,6 +89,7 @@ DEPENDENCIES:
   - iOS-Category
   - JSQMessagesViewController
   - JTCalendar (~> 2.0)
+  - LCTabBarController
   - LeanCloudSocial
   - LTNavigationBar
   - Mantle
@@ -138,6 +140,7 @@ SPEC CHECKSUMS:
   JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   JTCalendar: 9b1352c7ec41cc26b19c189d6608ba48060a53d9
+  LCTabBarController: c857c54abc8e505902e3c92de3b4c22292f7f0f1
   LeanCloudSocial: f7787dfc1559dc47263bbfd37a03c870352ad98a
   LTNavigationBar: b1c15fdcc32453d84f8b9fc774fff611c184dfbb
   Mantle: 299966b00759634931699f69cb6a30b9239b944d

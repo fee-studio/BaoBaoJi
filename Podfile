@@ -321,3 +321,7 @@ pod "CSStickyHeaderFlowLayout"
 
 pod "QBImagePickerController"
 ##################################################
+
+# https://github.com/LeoiOS/LCTabBarController/blob/master/README_zh-CN.md
+
+pod 'LCTabBarController'

@@ -22,6 +22,8 @@
 #import "YIBabyIndexViewController.h"
 #import "LCFamilyEntity.h"
 #import "YIBabyListViewController.h"
+#import "LCTabBarController.h"
+
 
 @interface YIAppDelegate () <CLLocationManagerDelegate, UIViewControllerTransitioningDelegate, RDVTabBarControllerDelegate>
 
@@ -395,7 +397,7 @@
 //	mGlobalData.user = [LCUserEntity currentUser];
 	
 	if (mGlobalData.user) {
-		[self loadMainViewController];
+		[self loadMainViewController2];
 	} else {
 		[self loadLoginViewController];
 	}
@@ -416,6 +418,28 @@
 	[self.window makeKeyAndVisible];
 }
 
+- (void)loadMainViewController2 {
+	YIBabyListViewController *vc2 = [[YIBabyListViewController alloc] init];
+	vc2.title = @"宝宝记";
+	vc2.tabBarItem.badgeValue = @"23";
+	vc2.tabBarItem.image = [UIImage imageNamed:@"ic_addaudio"];
+	vc2.tabBarItem.selectedImage = [UIImage imageNamed:@"ic_addaudio_push"];
+	
+	YIMyVc *vc3 = [[YIMyVc alloc] init];
+	vc3.title = @"我的";
+	vc3.tabBarItem.image = [UIImage imageNamed:@"ic_addlock"];
+	vc3.tabBarItem.selectedImage = [UIImage imageNamed:@"ic_addlock_push"];
+	
+//	UINavigationController *navC1 = [[YIBaseNavigationController alloc] initWithRootViewController:vc1];
+	UINavigationController *navC2 = [[YIBaseNavigationController alloc] initWithRootViewController:vc2];
+	UINavigationController *navC3 = [[YIBaseNavigationController alloc] initWithRootViewController:vc3];
+	
+	LCTabBarController *tabBarC = [[LCTabBarController alloc] init];
+	tabBarC.viewControllers = @[navC2, navC3];
+	self.window.rootViewController = tabBarC;
+	[self.window makeKeyAndVisible];
+}
+
 - (void)loadMainViewController {
 	YIBbjVc *bbjVc = [[YIBbjVc alloc] init];
 	YIBabyListViewController *svc = [[YIBabyListViewController alloc] init];
@@ -423,6 +447,7 @@
 
 	RDVTabBarController *tabBarController = [[RDVTabBarController alloc] init];
 	tabBarController.delegate = self;
+	tabBarController.tabBar.translucent = YES;
 	[tabBarController setViewControllers:@[bbjVc, svc, mvc]];
 	[self customizeTabBarForController:tabBarController];
 	YIBaseNavigationController *mainNc = [[YIBaseNavigationController alloc] initWithRootViewController:tabBarController];
@@ -458,6 +483,7 @@
         index++;
     }
 	
+	/*
 	// Make the tab bar translucent
 	RDVTabBar *tabBar = tabBarController.tabBar;
 	// After the tabBarController initialization
@@ -467,6 +493,7 @@
 															green:245/255.0
 															 blue:245/255.0
 															alpha:0.9];
+	 */
 	
 }
 

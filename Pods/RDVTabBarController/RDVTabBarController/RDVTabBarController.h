@@ -79,6 +79,13 @@
 
 @end
 
+@interface UIViewController (RDVTabBarControllerItemInternal)
+
+- (void)rdv_setTabBarController:(RDVTabBarController *)tabBarController;
+
+@end
+
+
 @interface UIViewController (RDVTabBarControllerItem)
 
 /**

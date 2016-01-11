@@ -31,7 +31,6 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-
     }
 
     return self;
@@ -39,6 +38,7 @@
 
 - (void)viewDidLoad {	
     [super viewDidLoad];
+	
 	// todo
 //	 self.refreshEnable = YES;
 	
@@ -52,7 +52,7 @@
 	[self.baseCollectionView registerNib:[YIBbjHeaderView viewNib]
 			  forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
 					 withReuseIdentifier:NSStringFromClass([YIBbjHeaderView class])];
-
+	
 	/*  头部的效果
 	[self reloadLayout];
 	 */
@@ -69,6 +69,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[self loadTimelineData];
+	
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -107,6 +108,7 @@
 #pragma mark -
 
 - (void)setupNavigationBar {
+	UIViewController *vc = self.rdv_tabBarController;
     self.rdv_tabBarController.navigationItem.title = @"宝宝记";
 
     UIBarButtonItem *publishItem = [[UIBarButtonItem alloc] initWithTitle:@"发表"
@@ -133,6 +135,7 @@
     [query orderByDescending:@"createdAt"];
     [query setLimit:10];
     [query whereKey:@"isDeleted" equalTo:@(NO)];
+	[query whereKey:@"baby" equalTo:mGlobalData.user.curBaby];
     /**
 		如果对象的某一属性是一个文件数组，那么在获取该属性的查询中，必须加上 includeKey: 来指定该属性名，否则，查询结果中该属性对应的值将是 AVObject 数组，而不是 AVFile 数组。
      */

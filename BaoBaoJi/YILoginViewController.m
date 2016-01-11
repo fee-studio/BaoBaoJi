@@ -47,25 +47,15 @@
 										  password:_passwordTf.text
 											 block:^(AVUser *user, NSError *error) {
 												 if (user) {
-													 mGlobalData.user = (LCUserEntity *)user;
-													 
-													 AVQuery *query = [LCFamilyEntity query];
-													 [query whereKey:@"user" equalTo:user];
-													 [query includeKey:@"baby"]; // vip 想查出baby 必须includeKey baby
-													 [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-														 NSMutableArray *babies = [NSMutableArray array];
-														 for(LCFamilyEntity *family in objects) {
-															 LCBabyEntity *baby = family.baby;
-															 [babies addObject:baby];
-														 }
-														 mGlobalData.user.babies = babies;
-														 mGlobalData.user.curBaby = [babies lastObject];
-														 [mGlobalData.user saveInBackground];
-														 
-														 if (mGlobalData.user.babies.count) {
-															 [mAppDelegate loadMainViewController];
+													 [LCUserEntity reloadCurrentUserData:^(NSError *error) {
+														 if (error == nil) {
+															 if (mGlobalData.user.babies.count) {
+																 [mAppDelegate loadMainViewController2];
+															 } else {
+																 [mAppDelegate loadAddBabyViewController];
+															 }
 														 } else {
-															 [mAppDelegate loadAddBabyViewController];
+															 
 														 }
 													 }];
 												 }

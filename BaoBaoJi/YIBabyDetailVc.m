@@ -49,7 +49,7 @@ const int RESET_AVATAR_IMAGE = 4002;
 - (instancetype)init {
     self = [super init];
     if (self) {
-
+		self.hidesBottomBarWhenPushed = YES;
     }
 
     return self;
@@ -57,9 +57,10 @@ const int RESET_AVATAR_IMAGE = 4002;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
-	self.curBaby = [mGlobalData.user.babies lastObject];
-//	self.curBaby = mGlobalData.user.curBaby;
+//	self.hidesBottomBarWhenPushed = YES;
+
+//	self.curBaby = [mGlobalData.user.babies lastObject];
+	self.curBaby = mGlobalData.user.curBaby;
 
 	// 初始化collection data
     [self loadCollectionData];
@@ -82,6 +83,7 @@ const int RESET_AVATAR_IMAGE = 4002;
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+
 	
 //#pragma clang diagnostic push
 //#pragma clang diagnostic ignored "-Wundeclared-selector"

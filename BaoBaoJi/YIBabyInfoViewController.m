@@ -220,12 +220,13 @@
 	familyEntity.baby = _aBaby; // 会自动保存?
     [familyEntity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
 		if (succeeded) {
-			[mNotificationCenter postNotificationName:RELOAD_USER_DATA_NOTIFICATION object:nil];
+//			[mNotificationCenter postNotificationName:RELOAD_USER_DATA_NOTIFICATION object:nil];
+			[LCUserEntity reloadCurrentUserData:nil];
 		}
 	}];
 
     // 进入主界面
-    [mAppDelegate loadMainViewController];
+    [mAppDelegate loadMainViewController2];
 	
 //	[mAppDelegate loadMainViewController2];
 }

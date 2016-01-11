@@ -20,50 +20,110 @@
 @dynamic isOnline;
 @dynamic sex;
 @dynamic babies;
-//@dynamic curBaby;
+@dynamic curBaby;
 
 
 + (NSString *)parseClassName {
 	return @"_User";
 }
 
-
 + (void)reloadCurrentUserData; {
-	__block LCUserEntity *user = [LCUserEntity currentUser];
+	[self reloadCurrentUserData:nil];
 	
-	AVQuery *query = [LCUserEntity query];
-	query.cachePolicy = kAVCachePolicyCacheThenNetwork;
-	[query whereKey:@"objectId" equalTo:user.objectId];
-	[query includeKey:@"curBaby"];
-	[query includeKey:@"babies"];
-	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-		if (objects) {
-			user = [objects lastObject];
-		}
-	}];
+//	mGlobalData.user = [LCUserEntity currentUser];
 	
+//	AVQuery *query = [LCUserEntity query];
+//	query.cachePolicy = kAVCachePolicyCacheThenNetwork;
+//	[query whereKey:@"objectId" equalTo:mGlobalData.user.objectId];
+//	[query includeKey:@"curBaby"];
+//	[query includeKey:@"babies"];
+//	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//		if (objects) {
+//			mGlobalData.user = [objects lastObject];
+//		}
+//	}];
+	
+	
+//	AVQuery *familyQuery = [LCFamilyEntity query];
+//	[familyQuery whereKey:@"user" equalTo:mGlobalData.user];
+//	[familyQuery includeKey:@"baby"]; // vip 想查出baby 必须includeKey baby
+//	[familyQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//		NSMutableArray *babies = [NSMutableArray array];
+//		for(LCFamilyEntity *family in objects) {
+//			LCBabyEntity *baby = family.baby;
+//			if (baby) {
+//				[babies addObject:baby];
+//			}
+//		}
+//		mGlobalData.user.babies = babies;
+//		mGlobalData.user.curBaby = [babies lastObject];
+//		[mGlobalData.user saveInBackground];
+//	}];
+}
+
++ (void)reloadCurrentUserData:(LoadUserDataCompleteBlock)completeBlock; {
+	mGlobalData.user = [LCUserEntity currentUser];
+	
+	if (mGlobalData.user) {
+		AVQuery *familyQuery = [LCFamilyEntity query];
+		[familyQuery whereKey:@"user" equalTo:mGlobalData.user];
+		[familyQuery includeKey:@"baby"]; // vip 想查出baby 必须includeKey baby
+		[familyQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+			NSMutableArray *babies = [NSMutableArray array];
+			for(LCFamilyEntity *family in objects) {
+				LCBabyEntity *baby = family.baby;
+				if (baby) {
+					[babies addObject:baby];
+				}
+			}
+			mGlobalData.user.babies = babies;
+			mGlobalData.user.curBaby = [babies lastObject];
+			[mGlobalData.user saveInBackground];
+			
+			// 回调
+			if (completeBlock) {
+				completeBlock(error);
+			}
+		}];
+	}
+}
+
+
++ (void)loadUserData {
+	mGlobalData.user = [LCUserEntity currentUser];
+	if (mGlobalData.user) {
+		AVQuery *query = [LCUserEntity query];
+		query.cachePolicy = kAVCachePolicyCacheThenNetwork;
+		[query whereKey:@"objectId" equalTo:mGlobalData.user.objectId];
+		[query includeKey:@"curBaby"];
+		[query includeKey:@"babies"];
+		[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+			if (objects) {
+				mGlobalData.user = [objects lastObject];
+			}
+		}];
+	}
+}
+
++ (void)loadUserAndBabyData {
+	mGlobalData.user = [LCUserEntity currentUser];
 	
 	AVQuery *familyQuery = [LCFamilyEntity query];
-	[familyQuery whereKey:@"user" equalTo:user];
+	[familyQuery whereKey:@"user" equalTo:mGlobalData.user];
 	[familyQuery includeKey:@"baby"]; // vip 想查出baby 必须includeKey baby
 	[familyQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
 		NSMutableArray *babies = [NSMutableArray array];
 		for(LCFamilyEntity *family in objects) {
 			LCBabyEntity *baby = family.baby;
-			[babies addObject:baby];
+			if (baby) {
+				[babies addObject:baby];
+			}
 		}
 		mGlobalData.user.babies = babies;
 		mGlobalData.user.curBaby = [babies lastObject];
 		[mGlobalData.user saveInBackground];
-		
-		if (mGlobalData.user.babies.count) {
-			[mAppDelegate loadMainViewController];
-		} else {
-			[mAppDelegate loadAddBabyViewController];
-		}
 	}];
-	
-	mGlobalData.user = user;
 }
+
 
 @end

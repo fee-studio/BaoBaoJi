@@ -49,18 +49,7 @@ static YIGlobalData *sharedGlobalData = nil;
 }
 
 - (void)loadCurrentUser {
-	_user = [LCUserEntity currentUser];
-	
-	AVQuery *query = [LCUserEntity query];
-	query.cachePolicy = kAVCachePolicyCacheThenNetwork;
-	[query whereKey:@"objectId" equalTo:_user.objectId];
-	[query includeKey:@"curBaby"];
-	[query includeKey:@"babies"];
-	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-		if (objects) {
-			_user = [objects lastObject];
-		}
-	}];
+	[LCUserEntity loadUserData];
 }
 
 - (void)setLogin:(BOOL)isLogin {
