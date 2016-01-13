@@ -28,10 +28,15 @@ PODS:
   - AVOSCloud (3.1.6.8)
   - CSStickyHeaderFlowLayout (0.2.10)
   - CTAssetsPickerController (2.9.5)
+  - DACircularProgress (2.3.1)
   - DZNEmptyDataSet (1.7.2)
   - FDFullscreenPopGesture (1.1)
   - FLEX (2.2.0)
   - HexColors (2.2.1)
+  - IDMPhotoBrowser (1.8.1):
+    - DACircularProgress
+    - pop
+    - SDWebImage
   - iOS-Category (1.0.5)
   - JSQMessagesViewController (7.2.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
@@ -86,6 +91,7 @@ DEPENDENCIES:
   - DZNEmptyDataSet
   - FDFullscreenPopGesture (= 1.1)
   - FLEX (~> 2.0)
+  - IDMPhotoBrowser
   - iOS-Category
   - JSQMessagesViewController
   - JTCalendar (~> 2.0)
@@ -132,10 +138,12 @@ SPEC CHECKSUMS:
   AVOSCloud: 4b06ec4444ca0ee0543e6cf729b11e5f3f956977
   CSStickyHeaderFlowLayout: 5366582779d8b7c9ba9b9cc729c218cc23888776
   CTAssetsPickerController: b413fece2194ae3dbf22fbc544cf6f2a6d516a4d
+  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   DZNEmptyDataSet: 0ec00bfc230d7450997b60c127afdd0b9f24f3b6
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FLEX: bc8a4fb887ed5d3cdf7c2f3bd665f7bb1647cc58
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
+  IDMPhotoBrowser: 99eccfe6431e182f64e2fe57ac654316fbf81576
   iOS-Category: 295d0eb4cc2b937a0fa47effab4f30c48d121869
   JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d

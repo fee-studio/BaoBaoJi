@@ -11,14 +11,20 @@
 #import "YITimelineModel.h"
 #import "LCTimelineEntity.h"
 
+@protocol YIBbjCellDelegate <NSObject>
+
+- (void)tapPhotoAtIndex:(NSUInteger)index allPhotos:(NSArray *)photos tappedView:(UIView *)view;
+
+@end
+
+
 @interface YIBbjCell : YIBaseCollectionViewCell
 
+@property (nonatomic, weak) id<YIBbjCellDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UILabel *timeLbl;
 @property (weak, nonatomic) IBOutlet UILabel *titleLbl;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-
-
 
 //- (void)setupCell:(YITimelineModel *)timeline;
 - (void)setupCell:(LCTimelineEntity *)timeline;

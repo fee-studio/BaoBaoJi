@@ -58,6 +58,8 @@ install_resource()
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "IDMPhotoBrowser/Classes/IDMPhotoBrowser.bundle"
+  install_resource "IDMPhotoBrowser/Classes/IDMPBLocalizations.bundle"
   install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/JSQMessagesAssets.bundle"
   install_resource "JSQMessagesViewController/JSQMessagesViewController/Controllers/JSQMessagesViewController.xib"
   install_resource "JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesCollectionViewCellIncoming.xib"
@@ -105,6 +107,8 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${BUILT_PRODUCTS_DIR}/TOWebViewControllerLocalizable.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "IDMPhotoBrowser/Classes/IDMPhotoBrowser.bundle"
+  install_resource "IDMPhotoBrowser/Classes/IDMPBLocalizations.bundle"
   install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/JSQMessagesAssets.bundle"
   install_resource "JSQMessagesViewController/JSQMessagesViewController/Controllers/JSQMessagesViewController.xib"
   install_resource "JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesCollectionViewCellIncoming.xib"

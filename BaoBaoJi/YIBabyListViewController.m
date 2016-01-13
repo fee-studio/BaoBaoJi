@@ -70,11 +70,24 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
-	mGlobalData.user.curBaby = _babyData[indexPath.row];
-	[mGlobalData.user saveInBackground];
+//	LCUserEntity *userEntity = [LCUserEntity objectWithoutDataWithObjectId:mGlobalData.user.objectId];
+//	userEntity.curBaby = _babyData[indexPath.row];
+//	[userEntity saveInBackground];
+//	
+//	mGlobalData.user = userEntity;
 	
-	YIBbjVc *vc = [[YIBbjVc alloc] init];
-	[self.navigationController pushViewController:vc animated:YES];
+	mGlobalData.user.curBaby = _babyData[indexPath.row];
+	mGlobalData.user.babyIndex = (int)indexPath.row;
+	[mGlobalData.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+		NSLog(@"fff");
+	}];
+//	[mGlobalData.user saveEventually];
+	
+//	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		YIBbjVc *vc = [[YIBbjVc alloc] init];
+		[self.navigationController pushViewController:vc animated:YES];
+//});
+	
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section; {

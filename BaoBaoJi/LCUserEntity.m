@@ -21,6 +21,7 @@
 @dynamic sex;
 @dynamic babies;
 @dynamic curBaby;
+@dynamic babyIndex;
 
 
 + (NSString *)parseClassName {
@@ -99,10 +100,18 @@
 		[query includeKey:@"babies"];
 		[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
 			if (objects) {
-				mGlobalData.user = [objects lastObject];
+				LCUserEntity *user = [objects lastObject];
+				mGlobalData.user.babies = user.babies;
+				mGlobalData.user.curBaby = user.curBaby;
 			}
 		}];
 	}
+	
+	NSLog(@"token = %@",mGlobalData.user.sessionToken);
+	
+	// todo ... https://forum.leancloud.cn/t/ios-avuser-206/5375/10
+	
+	NSLog(@"token1 = %@",mGlobalData.user.sessionToken);
 }
 
 + (void)loadUserAndBabyData {

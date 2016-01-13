@@ -325,3 +325,11 @@ pod "QBImagePickerController"
 # https://github.com/LeoiOS/LCTabBarController/blob/master/README_zh-CN.md
 
 pod 'LCTabBarController'
+
+##################################################
+
+# https://github.com/ideaismobile/IDMPhotoBrowser
+
+pod 'IDMPhotoBrowser'
+
+##################################################

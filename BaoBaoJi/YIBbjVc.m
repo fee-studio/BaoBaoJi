@@ -14,8 +14,10 @@
 #import "YIBbjHeaderView.h"
 #import "CSStickyHeaderFlowLayout.h"
 #import "YIBabyDetailVc.h"
+#import "IDMPhotoBrowser.h"
 
-@interface YIBbjVc () <UIActionSheetDelegate, CTAssetsPickerControllerDelegate, YIBbjHeaderViewDelegate> {
+@interface YIBbjVc () <UIActionSheetDelegate, CTAssetsPickerControllerDelegate,
+YIBbjHeaderViewDelegate, IDMPhotoBrowserDelegate, YIBbjCellDelegate> {
 
 }
 
@@ -36,7 +38,7 @@
     return self;
 }
 
-- (void)viewDidLoad {	
+- (void)viewDidLoad {
     [super viewDidLoad];
 	
 	// todo
@@ -52,7 +54,7 @@
 	[self.baseCollectionView registerNib:[YIBbjHeaderView viewNib]
 			  forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
 					 withReuseIdentifier:NSStringFromClass([YIBbjHeaderView class])];
-	
+		
 	/*  头部的效果
 	[self reloadLayout];
 	 */
@@ -280,6 +282,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     YIBbjCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([YIBbjCell class]) forIndexPath:indexPath];
+	cell.delegate = self;
     LCTimelineEntity *timeline = _timelines[indexPath.row];
     [cell setupCell:timeline];
     return cell;
@@ -352,6 +355,47 @@
 - (void)babyInfoBtnDidSelected; {
 	YIBabyDetailVc *vc = [[YIBabyDetailVc alloc] init];
 	[self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma YIBbjCellDelegate 
+
+- (void)tapPhotoAtIndex:(NSUInteger)index allPhotos:(NSArray *)photos tappedView:(UIView *)view {
+	IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotos:photos animatedFromView:view]; // using initWithPhotos:animatedFromView: method to use the zoom-in animation
+	browser.delegate = self;
+	browser.displayToolbar = YES;
+	browser.displayArrowButton = NO;
+	browser.displayCounterLabel = YES;
+	browser.usePopAnimation = YES;
+	browser.scaleImage = ((UIImageView *)view).image;
+	[browser setInitialPageIndex:index];
+	[self presentViewController:browser animated:YES completion:nil];
+}
+
+#pragma mark - IDMPhotoBrowser Delegate
+
+- (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didShowPhotoAtIndex:(NSUInteger)pageIndex
+{
+	id <IDMPhoto> photo = [photoBrowser photoAtIndex:pageIndex];
+	NSLog(@"Did show photoBrowser with photo index: %d, photo caption: %@", pageIndex, photo.caption);
+}
+
+- (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser willDismissAtPageIndex:(NSUInteger)pageIndex
+{
+	id <IDMPhoto> photo = [photoBrowser photoAtIndex:pageIndex];
+	NSLog(@"Will dismiss photoBrowser with photo index: %d, photo caption: %@", pageIndex, photo.caption);
+}
+
+- (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didDismissAtPageIndex:(NSUInteger)pageIndex
+{
+	id <IDMPhoto> photo = [photoBrowser photoAtIndex:pageIndex];
+	NSLog(@"Did dismiss photoBrowser with photo index: %d, photo caption: %@", pageIndex, photo.caption);
+}
+
+- (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didDismissActionSheetWithButtonIndex:(NSUInteger)buttonIndex photoIndex:(NSUInteger)photoIndex
+{
+	id <IDMPhoto> photo = [photoBrowser photoAtIndex:photoIndex];
+	NSLog(@"Did dismiss actionSheet with photo index: %d, photo caption: %@", photoIndex, photo.caption);
+	
 }
 
 

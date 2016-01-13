@@ -559,7 +559,7 @@
 			children = (
 				525A244A1C3FF27C000FA169 /* BaseVC */,
 				525A24491C3FF266000FA169 /* 发布日记 */,
-				525A24481C3FF255000FA169 /* 宝宝记录 */,
+				525A24481C3FF255000FA169 /* 宝宝记 */,
 				525A24471C3FF248000FA169 /* 用户登录注册 */,
 				525A24461C3FF239000FA169 /* 宝宝注册 */,
 				525A24451C3FF22F000FA169 /* 宝宝详情 */,
@@ -643,9 +643,10 @@
 			name = "用户登录注册";
 			sourceTree = "<group>";
 		};
-		525A24481C3FF255000FA169 /* 宝宝记录 */ = {
+		525A24481C3FF255000FA169 /* 宝宝记 */ = {
 			isa = PBXGroup;
 			children = (
+				52F033D01C453DA600BA6433 /* 照片预览 */,
 				525A23BE1C3FEF5D000FA169 /* YIBbjVc.h */,
 				525A23BF1C3FEF5D000FA169 /* YIBbjVc.m */,
 				525A23C01C3FEF5D000FA169 /* YIBbjVc.xib */,
@@ -658,7 +659,7 @@
 				52FDD53C1C04A6D20083F435 /* YIModuleItemView.h */,
 				52FDD53D1C04A6D20083F435 /* YIModuleItemView.m */,
 			);
-			name = "宝宝记录";
+			name = "宝宝记";
 			sourceTree = "<group>";
 		};
 		525A24491C3FF266000FA169 /* 发布日记 */ = {
@@ -1045,6 +1046,13 @@
 				52CD460B1B9B09CF0002B8D1 /* UIWindow+Hierarchy.m */,
 			);
 			name = Category;
+			sourceTree = "<group>";
+		};
+		52F033D01C453DA600BA6433 /* 照片预览 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "照片预览";
 			sourceTree = "<group>";
 		};
 		52FDD53A1C049B010083F435 /* LC_M */ = {

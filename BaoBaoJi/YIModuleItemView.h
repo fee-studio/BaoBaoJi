@@ -27,7 +27,11 @@
                    customView:(UIView *)customView
                        images:(NSArray *)images;
 
+
+
+
 @property (nonatomic, strong) LCTimelineEntity *timeline;
+
 + (instancetype)viewWithTimeline:(LCTimelineEntity *)timeline;
 
 @end

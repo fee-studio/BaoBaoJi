@@ -22,6 +22,7 @@ typedef void (^LoadUserDataCompleteBlock)(NSError *error);
 @property (nonatomic, assign) int sex;
 @property (nonatomic, strong) NSMutableArray *babies;
 @property (nonatomic, strong) LCBabyEntity *curBaby;
+@property (nonatomic, assign) int babyIndex;
 
 
 //+ (void)reloadCurrentUserData;
