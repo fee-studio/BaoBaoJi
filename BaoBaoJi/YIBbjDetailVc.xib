@@ -5,9 +5,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YIPublishVc">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YIBbjDetailVc">
             <connections>
-                <outlet property="scrollView" destination="HQH-rO-gel" id="kgi-cI-kMG"/>
+                <outlet property="scrollView" destination="aCT-mV-4IL" id="46f-aH-O0o"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,18 +16,18 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HQH-rO-gel">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aCT-mV-4IL">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="HQH-rO-gel" secondAttribute="bottom" id="J8K-kt-qA5"/>
-                <constraint firstItem="HQH-rO-gel" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ZnJ-bg-W3V"/>
-                <constraint firstAttribute="trailing" secondItem="HQH-rO-gel" secondAttribute="trailing" id="brb-RD-hj4"/>
-                <constraint firstItem="HQH-rO-gel" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="kEV-uG-ePr"/>
+                <constraint firstItem="aCT-mV-4IL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="10Y-SK-dGe"/>
+                <constraint firstAttribute="bottom" secondItem="aCT-mV-4IL" secondAttribute="bottom" id="Qow-Ys-L2G"/>
+                <constraint firstAttribute="trailing" secondItem="aCT-mV-4IL" secondAttribute="trailing" id="wAJ-vC-HVL"/>
+                <constraint firstItem="aCT-mV-4IL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="xxn-6P-Dep"/>
             </constraints>
-            <point key="canvasLocation" x="35" y="10"/>
+            <point key="canvasLocation" x="379" y="361"/>
         </view>
     </objects>
 </document>

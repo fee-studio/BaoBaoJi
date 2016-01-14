@@ -18,15 +18,17 @@
 @end
 
 
-@interface YIBbjCell : YIBaseCollectionViewCell
+@interface YIBbjCell : YIBaseCollectionViewCell {
+	int numbersOfLine;
+}
+
+@property (nonatomic, assign) int numbersOfLine; // 一行的图片的个数
 
 @property (nonatomic, weak) id<YIBbjCellDelegate> delegate;
-
 @property (weak, nonatomic) IBOutlet UILabel *timeLbl;
 @property (weak, nonatomic) IBOutlet UILabel *titleLbl;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
-//- (void)setupCell:(YITimelineModel *)timeline;
 - (void)setupCell:(LCTimelineEntity *)timeline;
 
 @end

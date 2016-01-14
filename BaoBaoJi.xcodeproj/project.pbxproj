@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4BDB334FF6471277C87ACE86 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6123EB142C6D14652B6C5FA8 /* libPods.a */; };
+		520F89D61C47D7E100D00729 /* YIBbjDetailVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 520F89D41C47D7E100D00729 /* YIBbjDetailVc.m */; };
+		520F89D71C47D7E100D00729 /* YIBbjDetailVc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 520F89D51C47D7E100D00729 /* YIBbjDetailVc.xib */; };
 		5241F9A71BEA608E00B1E5D2 /* YITimelineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5241F9A61BEA608E00B1E5D2 /* YITimelineModel.m */; };
 		525A23C11C3FEF5D000FA169 /* YIBbjVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 525A23BF1C3FEF5D000FA169 /* YIBbjVc.m */; };
 		525A23C21C3FEF5D000FA169 /* YIBbjVc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 525A23C01C3FEF5D000FA169 /* YIBbjVc.xib */; };
@@ -228,6 +230,9 @@
 /* Begin PBXFileReference section */
 		3825647AF25987DA7E284328 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		520AFDE91B9F248D0052E8DB /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		520F89D31C47D7E100D00729 /* YIBbjDetailVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YIBbjDetailVc.h; sourceTree = "<group>"; };
+		520F89D41C47D7E100D00729 /* YIBbjDetailVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YIBbjDetailVc.m; sourceTree = "<group>"; };
+		520F89D51C47D7E100D00729 /* YIBbjDetailVc.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YIBbjDetailVc.xib; sourceTree = "<group>"; };
 		5241F9A51BEA608E00B1E5D2 /* YITimelineModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YITimelineModel.h; sourceTree = "<group>"; };
 		5241F9A61BEA608E00B1E5D2 /* YITimelineModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YITimelineModel.m; sourceTree = "<group>"; };
 		525A23BE1C3FEF5D000FA169 /* YIBbjVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YIBbjVc.h; sourceTree = "<group>"; };
@@ -658,6 +663,9 @@
 				52A8FC5A1BF0D7FC00A95FC1 /* YIBbjCell.xib */,
 				52FDD53C1C04A6D20083F435 /* YIModuleItemView.h */,
 				52FDD53D1C04A6D20083F435 /* YIModuleItemView.m */,
+				520F89D31C47D7E100D00729 /* YIBbjDetailVc.h */,
+				520F89D41C47D7E100D00729 /* YIBbjDetailVc.m */,
+				520F89D51C47D7E100D00729 /* YIBbjDetailVc.xib */,
 			);
 			name = "宝宝记";
 			sourceTree = "<group>";
@@ -1214,6 +1222,7 @@
 				52B25A811C20618000ACDEA2 /* YIBbjHeaderView.xib in Resources */,
 				525A241E1C3FF041000FA169 /* YIBabyListCell.xib in Resources */,
 				52C5A0211C15BD2C00CB399D /* ic_ft_injection@2x.png in Resources */,
+				520F89D71C47D7E100D00729 /* YIBbjDetailVc.xib in Resources */,
 				52C5A0251C15BD2C00CB399D /* ic_ft_mama_frame@2x.png in Resources */,
 				52C5A0121C15BD2C00CB399D /* ic_ft_center_line_left@2x.png in Resources */,
 				525A23FE1C3FEFE4000FA169 /* YICompleteInfoViewController.xib in Resources */,
@@ -1421,6 +1430,7 @@
 				52CD45CC1B9ACB110002B8D1 /* YIConfigUtil+UI.m in Sources */,
 				525A23FF1C3FEFE4000FA169 /* YIVerifyMobileViewController.m in Sources */,
 				52CD456A1B9A9A190002B8D1 /* main.m in Sources */,
+				520F89D61C47D7E100D00729 /* YIBbjDetailVc.m in Sources */,
 				52FDD5391C04985B0083F435 /* LCTimelineEntity.m in Sources */,
 				52CD460C1B9B09CF0002B8D1 /* UIColor+Colours.m in Sources */,
 				52B25AA91C21524300ACDEA2 /* YIConfigAttributedString.m in Sources */,

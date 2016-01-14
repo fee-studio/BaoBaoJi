@@ -17,32 +17,57 @@
 #import "NSDate+Additional.h"
 #import "IDMPhoto.h"
 
-//static const float PADDING = 10.f;
 static const float MARGIN_LEFT = 55.f;
 
 
-
-
 @interface YIBbjCell () {
-//    YIModuleItemView *miv;
+	CGFloat separate;
+	CGFloat widthImage;
+	CGFloat heightImage;
 }
 
 @property (nonatomic, strong) LCTimelineEntity *timeline;
-
 @property (nonatomic, strong) NSMutableArray *photoMa;
+
 @end
 
 @implementation YIBbjCell
+
+@synthesize numbersOfLine;
 
 - (void)awakeFromNib {
     // Initialization code
     
 }
 
+- (instancetype)init {
+	self = [super init];
+	if (self) {
+		[self loadImagePosConfig];
+	}
+	return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+	self = [super initWithCoder:aDecoder];
+	if (self) {
+		[self loadImagePosConfig];
+	}
+	return self;
+}
+
+- (void)loadImagePosConfig {
+	numbersOfLine = 3;
+	separate = 1.f;
+}
+
 - (void)setupCell:(LCTimelineEntity *)timeline; {
     for (UIView *view in self.contentView.subviews) {
         [view removeFromSuperview];
     }
+	
+	widthImage = (mScreenWidth - MARGIN_LEFT - 20.f - (numbersOfLine - 1) * separate) / numbersOfLine;
+	heightImage = widthImage;
 	
 	self.timeline = timeline;
 	
@@ -161,11 +186,6 @@ static const float MARGIN_LEFT = 55.f;
 	if (_timeline.sharedItem && _timeline.sharedItem.type == 1 && _timeline.sharedItem.data.count) {
 		self.photoMa = [NSMutableArray arrayWithCapacity:_timeline.sharedItem.data.count];
 		
-		int numbers = 3;
-		int separate = 1.f;
-		CGFloat width = (mScreenWidth - MARGIN_LEFT - 20.f - (numbers-1)*separate) / numbers;
-		CGFloat height = width;
-		
 		int curLine = 0;
 		UIView *lastImageView;
 		UIView *mostRightView;
@@ -182,7 +202,7 @@ static const float MARGIN_LEFT = 55.f;
 			[imageView setClipsToBounds:YES];
 			[moduleItemView addSubview:imageView];
 			
-			NSString *thumbnail = [imageFile getThumbnailURLWithScaleToFit:YES width:200 height:200];
+			NSString *thumbnail = [imageFile getThumbnailURLWithScaleToFit:YES width:widthImage*2 height:heightImage*2];
 			NSURL *thumbnailUrl = [NSURL URLWithString:thumbnail];
 			[imageView sd_setImageWithURL:thumbnailUrl
 						 placeholderImage:kAppPlaceHolderImage];
@@ -195,7 +215,7 @@ static const float MARGIN_LEFT = 55.f;
 			[imageView addGestureRecognizer:tap];
 			imageView.userInteractionEnabled = YES;
 			
-			if (i / numbers == curLine) {
+			if (i / numbersOfLine == curLine) {
 				[imageView mas_makeConstraints:^(MASConstraintMaker *make) {
 					if (lastImageView) {
 						make.top.equalTo(lastImageView.mas_top);
@@ -204,19 +224,19 @@ static const float MARGIN_LEFT = 55.f;
 						make.top.equalTo(lastView.mas_bottom).with.offset(5);
 						make.left.equalTo(moduleItemView).with.offset(MARGIN_LEFT);
 					}
-					make.width.mas_equalTo(lastImageView ? lastImageView.mas_width : @(width));
-					make.height.mas_equalTo(lastImageView ? lastImageView.mas_width : @(height));
+					make.width.mas_equalTo(lastImageView ? lastImageView.mas_width : @(widthImage));
+					make.height.mas_equalTo(lastImageView ? lastImageView.mas_width : @(heightImage));
 				}];
-				if (i == (numbers - 1)) {
+				if (i == (numbersOfLine - 1)) {
 					mostRightView = imageView;
 				}
 			} else {
-				curLine = i / numbers;
+				curLine = i / numbersOfLine;
 				[imageView mas_makeConstraints:^(MASConstraintMaker *make) {
 					make.top.equalTo(lastImageView ? lastImageView.mas_bottom : lastView.mas_bottom).offset(separate);
 					make.left.equalTo(moduleItemView).with.offset(MARGIN_LEFT);
-					make.width.equalTo(lastImageView ? lastImageView.mas_width : @(width));
-					make.height.equalTo(lastImageView ? lastImageView.mas_width : @(height));
+					make.width.equalTo(lastImageView ? lastImageView.mas_width : @(widthImage));
+					make.height.equalTo(lastImageView ? lastImageView.mas_width : @(heightImage));
 				}];
 			}
 			lastImageView = imageView;

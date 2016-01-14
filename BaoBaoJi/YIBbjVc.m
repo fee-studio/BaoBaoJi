@@ -7,7 +7,6 @@
 #import "YIPublishVc.h"
 #import "CTAssetsPickerController.h"
 #import "YIBbjCell.h"
-//#import "YITimelineModel.h"
 #import "LCTimelineEntity.h"
 #import "UICollectionViewCell+AutoLayoutDynamicHeightCalculation.h"
 #import "UICollectionView+ARDynamicCacheHeightLayoutCell.h"
@@ -15,6 +14,7 @@
 #import "CSStickyHeaderFlowLayout.h"
 #import "YIBabyDetailVc.h"
 #import "IDMPhotoBrowser.h"
+#import "YIBbjDetailVc.h"
 
 @interface YIBbjVc () <UIActionSheetDelegate, CTAssetsPickerControllerDelegate,
 YIBbjHeaderViewDelegate, IDMPhotoBrowserDelegate, YIBbjCellDelegate> {
@@ -313,11 +313,12 @@ YIBbjHeaderViewDelegate, IDMPhotoBrowserDelegate, YIBbjCellDelegate> {
 	}
 }
 
-
 #pragma mark -  UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-
+	YIBbjDetailVc *vc = [[YIBbjDetailVc alloc] init];
+	vc.timeline = _timelines[indexPath.row];
+	[self.navigationController pushViewController:vc animated:YES];
 }
 
 //返回这个UICollectionView是否可以被选择
@@ -371,7 +372,7 @@ YIBbjHeaderViewDelegate, IDMPhotoBrowserDelegate, YIBbjCellDelegate> {
 	[self presentViewController:browser animated:YES completion:nil];
 }
 
-#pragma mark - IDMPhotoBrowser Delegate
+#pragma mark - IDMPhotoBrowserDelegate
 
 - (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didShowPhotoAtIndex:(NSUInteger)pageIndex
 {
